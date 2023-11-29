@@ -2,7 +2,7 @@ import React from "react";
 
 function Header() {
   return (
-    <div id="navbar" className="flex justify-between p-4">
+    <div id="navbar" className="w-full flex justify-between p-4 bg-transparent absolute top-0 left-0">
       <div id="navbar-logo"></div>
       <div>
         <ul id="navbar-items" className="flex gap-10 text-xl items-center justify-center">
