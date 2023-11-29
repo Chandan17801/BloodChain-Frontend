@@ -3,7 +3,7 @@ import React from "react";
 
 function Footer() {
   return (
-    <div className="bg-black text-white">
+    <div className="bg-black text-white p-4">
       <div className="flex justify-between p-4">
         <div className="f1">
           <h2 className="text-xl">Looking for Blood</h2>
@@ -47,7 +47,37 @@ function Footer() {
           </Link>
         </div>
       </div>
-      <div className="footer-2"></div>
+      <div className="py-4">
+        <p className="text-sm text-center my-2">
+          © 2016 -2023 by Ministry of Health and Family Welfare
+        </p>
+        <div className="text-center">
+          <Link href="#" className="text-sm">
+            {" "}
+            Terms & Conditions{" "}
+          </Link>
+          |
+          <Link href="#" className="text-sm">
+            {" "}
+            Privacy Policy{" "}
+          </Link>
+          |
+          <Link href="#" className="text-sm">
+            {" "}
+            Accessibility Statement{" "}
+          </Link>
+          |
+          <Link href="#" className="text-sm">
+            {" "}
+            Last Update:21-Nov-2023{" "}
+          </Link>
+          |
+          <Link href="#" className="text-sm">
+            {" "}
+            Site Map{" "}
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }
