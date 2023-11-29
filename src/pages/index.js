@@ -5,6 +5,7 @@ import Footer from "@/components/Footer/Footer";
 import Hero from "@/components/Homepage/Hero";
 import Mission from "@/components/Homepage/Mission";
 import Navigator from "@/components/Homepage/Navigator";
+import Testimonials from "@/components/Homepage/Testimonials";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,6 +16,7 @@ export default function Home() {
       <Hero />
       <Mission />
       <Navigator />
+      <Testimonials />
       <Footer />
     </ResponsiveLayout>
   );

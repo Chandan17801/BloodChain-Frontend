@@ -6,7 +6,7 @@ const navData = [
   },
   {
     id: 2,
-    label: "Find Blood",
+    label: "Find a Blood Drive",
     href: "/search",
   },
   {

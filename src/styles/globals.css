@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.theme-gradient {
+  background: linear-gradient(to right, #b42349, #6f0a33);
+}
+
 *::-webkit-scrollbar {
   width: 6px;
 }
