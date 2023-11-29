@@ -16,7 +16,7 @@ const Testimonials = () => {
   return (
     <div className="theme-gradient pt-10 pb-16">
       <div className="max-w-2xl mx-auto">
-        <h2 className="text-2xl font-semibold mb-4 text-white text-center">
+        <h2 className="text-3xl font-semibold mb-4 text-white text-center">
           Testimonials
         </h2>
         <Slider {...settings}>
