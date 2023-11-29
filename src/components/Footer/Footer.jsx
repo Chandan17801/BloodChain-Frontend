@@ -6,7 +6,7 @@ function Footer() {
     <div className="bg-black text-white p-4">
       <div className="flex justify-between p-4">
         <div className="f1">
-          <h2 className="text-xl">Looking for Blood</h2>
+          <h2 className="text-xl my-1">Looking for Blood</h2>
           <div className="flex flex-col">
             <Link href="#" className="text-sm">
               Blood Availability
@@ -17,7 +17,7 @@ function Footer() {
           </div>
         </div>
         <div className="flex flex-col">
-          <h2 className="text-xl">Want to donate blood</h2>
+          <h2 className="text-xl my-1">Want to donate blood</h2>
           <Link href="#" className="text-sm">
             Blood Donation Camps
           </Link>
@@ -29,7 +29,7 @@ function Footer() {
           </Link>
         </div>
         <div className="flex flex-col">
-          <h2 className="text-xl">Blood Bank Login</h2>
+          <h2 className="text-xl my-1">Blood Bank Login</h2>
           <Link href="#" className="text-sm">
             eRaktkosh Login
           </Link>
