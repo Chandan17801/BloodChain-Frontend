@@ -5,7 +5,7 @@ function AboutUs() {
     <div className="mx-auto py-12 theme-gradient">
       <div className="xl:max-w-screen-lg mx-auto">
         <h2 className="text-3xl font-semibold mb-6 text-white text-center">
-          Our Mission
+          About Us
         </h2>
         <p className="text-base text-justify text-white">
           At BloodChain - with BlockChain, we are a passionate team committed to
