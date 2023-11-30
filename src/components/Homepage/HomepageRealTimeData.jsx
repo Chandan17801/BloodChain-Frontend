@@ -3,7 +3,7 @@ import RealTimeDataCard from "./RealTimeDataCard";
 
 function HomepageRealTimeData() {
   return (
-    <div className="flex p-12 justify-center gap-4 bg-gray-100">
+    <div className="flex p-12 justify-center gap-4 bg-gray-100 mont">
       <RealTimeDataCard
         text="Approved Camps"
         value={100}

@@ -5,7 +5,7 @@ import Link from "next/link";
 function Header({ className }) {
   return (
     <div
-      className={`w-full flex h-16 justify-between p-4 bg-transparent ${className}`}
+      className={`w-full flex h-16 justify-between p-4 bg-transparent merri ${className}`}
     >
       <div>Logo</div>
       <div className="flex gap-10">
@@ -13,7 +13,7 @@ function Header({ className }) {
           <Link
             key={data.id}
             href={data.href}
-            className="flex gap-10 text-xl items-center justify-center hover:border-b-2 border-red-800"
+            className="flex gap-10 text-xl items-center font-medium justify-center hover:border-b-2 border-red-800"
           >
             {data.label}
           </Link>

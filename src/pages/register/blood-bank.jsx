@@ -19,10 +19,10 @@ function bloodbank() {
     apheresis_facility: "",
     helpline_no: "",
     pincode: "",
-    state : "",
+    state: "",
     latitude: "",
     longitude: "",
-    website: ""
+    website: "",
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,7 +41,7 @@ function bloodbank() {
       <div className="container mt-4 mx-auto w-[70%]">
         <HeaderStrip text="Register As Blood Bank" />
         <form
-          className="p-12 flex flex-col gap-7 mb-8  bg-gray-100"
+          className="p-12 flex flex-col gap-7 mb-8 bg-gray-100 mont"
           onSubmit={form_submit_handler}
         >
           <div className="flex">
@@ -150,7 +150,7 @@ function bloodbank() {
                 />
               </div>
               <div className="flex">
-              <div className="w-48">Apheresis Facility</div>
+                <div className="w-48">Apheresis Facility</div>
                 <input
                   onChange={handleChange}
                   className="p-1 border-2 rounded-md w-64"
@@ -227,8 +227,11 @@ function bloodbank() {
               type="text"
               placeholder="State"
             />
-            <input className="mr-2 ml-14"  type="checkbox" />
-            <div style={{ fontStyle: "italic" }}> Get Your current location</div>
+            <input className="mr-2 ml-14" type="checkbox" />
+            <div style={{ fontStyle: "italic" }}>
+              {" "}
+              Get Your current location
+            </div>
           </div>
 
           <div className="" style={{ fontStyle: "italic" }}>

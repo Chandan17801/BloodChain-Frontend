@@ -4,20 +4,20 @@ function AboutUs() {
   return (
     <div className="mx-auto py-12 theme-gradient">
       <div className="xl:max-w-screen-lg mx-auto">
-        <h2 className="text-3xl font-semibold mb-6 text-white text-center">
+        <h2 className="text-3xl font-normal mb-6 text-white text-center merri">
           About Us
         </h2>
-        <p className="text-base text-justify text-white">
-          At "BloodChain: Empowering Lifesavers with Blockchain", we are a passionate team committed to
-          revolutionizing the landscape of blood donation and healthcare
-          collaboration. Our journey began with a vision to create a platform
-          that seamlessly connects blood banks, hospitals, and donors, fostering
-          a sense of community and efficiency. What sets us apart is our
-          unwavering commitment to transparency, security, and innovation,
-          achieved through the integration of cutting-edge blockchain
-          technology. We believe in the transformative power of collaboration
-          and community-driven healthcare, where every donor, blood bank, and
-          hospital plays a crucial role in saving lives.
+        <p className="text-base text-justify text-white mont">
+          At "BloodChain: Empowering Lifesavers with Blockchain", we are a
+          passionate team committed to revolutionizing the landscape of blood
+          donation and healthcare collaboration. Our journey began with a vision
+          to create a platform that seamlessly connects blood banks, hospitals,
+          and donors, fostering a sense of community and efficiency. What sets
+          us apart is our unwavering commitment to transparency, security, and
+          innovation, achieved through the integration of cutting-edge
+          blockchain technology. We believe in the transformative power of
+          collaboration and community-driven healthcare, where every donor,
+          blood bank, and hospital plays a crucial role in saving lives.
           <br />
           <br />
           Our platform serves as a bridge, breaking down barriers and enabling

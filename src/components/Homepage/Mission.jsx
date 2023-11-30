@@ -4,10 +4,10 @@ function Mission() {
   return (
     <div className="mx-auto py-12 theme-gradient">
       <div className="xl:max-w-screen-lg mx-auto">
-        <h2 className="text-3xl font-semibold mb-6 text-white text-center">
+        <h2 className="text-3xl font-medium mb-6 text-white text-center merri">
           Our Mission
         </h2>
-        <p className="text-base text-justify text-white">
+        <p className="text-base text-justify text-white mont">
           At "BloodChain: Empowering Lifesavers with Blockchain", we're embarking on a groundbreaking
           journey to establish a comprehensive platform that connects blood
           banks, hospitals, and donors with unparalleled efficiency and

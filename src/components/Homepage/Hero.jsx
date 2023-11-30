@@ -17,8 +17,8 @@ function Hero() {
       />
       <div className="flex-1 flex justify-center items-center">
         <div className="max-w-md pt-20">
-          <h2 className="text-4xl">Save Life Donate Blood</h2>
-          <p className="text-base my-8 text-justify leading-5">
+          <h2 className="text-4xl merri">Save Life Donate Blood</h2>
+          <p className="text-base my-8 text-justify mont">
             In a world pulsating with the rhythm of compassion, our collective
             heartbeat resonates with a simple yet profound call to action: 'Save
             Life, Donate Blood.' Step into the realm of altruism, where each

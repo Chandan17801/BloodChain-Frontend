@@ -3,7 +3,7 @@ import Link from "next/link";
 
 function Navigator() {
   return (
-    <div className="bg-gray-100 text-white py-8 px-24">
+    <div className="bg-gray-100 text-white py-8 px-24 mont">
       <div className="flex justify-between px-20">
         <div className="flex items-center justify-center bg-red-800 rounded-xl shadow-md w-44 h-40 p-4 ">
           <Link
