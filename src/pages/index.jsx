@@ -10,6 +10,7 @@ import AboutUs from "@/components/Homepage/AboutUs";
 import Creative from "@/components/Homepage/Creative";
 import WhyDonation from "@/components/Homepage/WhyDonation";
 import HomepageRealTimeData from "@/components/Homepage/HomepageRealTimeData";
+import HowDonationWorks from "@/components/Homepage/HowDonationWorks";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,11 +20,12 @@ export default function Home() {
       <Header className="absolute top-0 left-0" />
       <Hero />
       <HomepageRealTimeData />
-      <Navigator />
       <Mission />
-      <Creative />
+      <Navigator />
       <AboutUs />
+      <Creative />
       <WhyDonation />
+      <HowDonationWorks />
       <Testimonials />
       <Footer />
     </ResponsiveLayout>

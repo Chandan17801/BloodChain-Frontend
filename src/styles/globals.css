@@ -7,7 +7,13 @@
 }
 
 .header-gradient {
-  background: linear-gradient(to right, #690b36, #ed2f61, rgb(244, 157, 180));
+  background: linear-gradient(
+    to right,
+    #6a0c3a,
+    #93183f,
+    #B42347,
+    rgb(244, 157, 180)
+  );
 }
 
 *::-webkit-scrollbar {
