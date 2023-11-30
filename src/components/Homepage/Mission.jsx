@@ -8,7 +8,7 @@ function Mission() {
           Our Mission
         </h2>
         <p className="text-base text-justify text-white">
-          At BloodChain - with BlockChain, we're embarking on a groundbreaking
+          At "BloodChain: Empowering Lifesavers with Blockchain", we're embarking on a groundbreaking
           journey to establish a comprehensive platform that connects blood
           banks, hospitals, and donors with unparalleled efficiency and
           security. Our vision is to foster a dynamic and interconnected

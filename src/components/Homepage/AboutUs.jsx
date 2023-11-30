@@ -8,7 +8,7 @@ function AboutUs() {
           About Us
         </h2>
         <p className="text-base text-justify text-white">
-          At BloodChain - with BlockChain, we are a passionate team committed to
+          At "BloodChain: Empowering Lifesavers with Blockchain", we are a passionate team committed to
           revolutionizing the landscape of blood donation and healthcare
           collaboration. Our journey began with a vision to create a platform
           that seamlessly connects blood banks, hospitals, and donors, fostering
