@@ -3,7 +3,11 @@
 @tailwind utilities;
 
 .theme-gradient {
-  background: linear-gradient(to right, #b42349, #690B36);
+  background: linear-gradient(to right, #b42349, #690b36);
+}
+
+.header-gradient {
+  background: linear-gradient(to right, #690b36, #ed2f61, rgb(244, 157, 180));
 }
 
 *::-webkit-scrollbar {
