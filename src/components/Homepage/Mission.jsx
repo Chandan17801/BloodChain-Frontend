@@ -2,17 +2,42 @@ import React from "react";
 
 function Mission() {
   return (
-    <div className="container mx-auto p-6 my-20">
+    <div className="mx-auto py-12 theme-gradient">
       <div className="xl:max-w-screen-lg mx-auto">
-        <p className="text-3xl text-center my-4 font-bold">Our Mission</p>
-        <p className="text-base text-justify">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
+        <h2 className="text-3xl font-semibold mb-6 text-white text-center">
+          Our Mission
+        </h2>
+        <p className="text-base text-justify text-white">
+          At BloodChain - with BlockChain, we're embarking on a groundbreaking
+          journey to establish a comprehensive platform that connects blood
+          banks, hospitals, and donors with unparalleled efficiency and
+          security. Our vision is to foster a dynamic and interconnected
+          community where the blood donation process is not only streamlined but
+          also transparently recorded using blockchain technology. Blood banks
+          and hospitals are invited to register on our platform, forming a
+          collaborative network that enables swift and effective communication.
+          The innovative use of blockchain serves as the cornerstone of our
+          system, meticulously documenting each interaction, ensuring an
+          unalterable record of the entire process.
+          <br />
+          <br />
+          Donors play a pivotal role in this ecosystem, contributing to a
+          lifesaving cause by registering through our platform. The integration
+          of blockchain guarantees the integrity and security of their personal
+          information, emphasizing privacy and instilling confidence in the
+          donation process. Our platform doesn't just facilitate transactions;
+          it orchestrates a symphony of collaboration where every participant is
+          a key player in the larger mission of saving lives.
+          <br />
+          <br />
+          Imagine a future where each blood donation becomes part of a traceable
+          chain, a testament to the power of community-driven healthcare. Join
+          us in building a resilient and interconnected blood donation community
+          where the impact of every donation is not only felt but verifiably
+          recorded through the innovative capabilities of blockchain technology.
+          Together, we're rewriting the narrative of blood donation, ensuring
+          that each life-saving contribution is acknowledged and celebrated
+          within our secure and transparent platform.
         </p>
       </div>
     </div>
