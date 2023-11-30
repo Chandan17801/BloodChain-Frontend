@@ -1,4 +1,3 @@
-import { Inter } from "next/font/google";
 import ResponsiveLayout from "@/components/layout/ResponsiveLayout";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
@@ -11,8 +10,6 @@ import Creative from "@/components/Homepage/Creative";
 import WhyDonation from "@/components/Homepage/WhyDonation";
 import HomepageRealTimeData from "@/components/Homepage/HomepageRealTimeData";
 import HowDonationWorks from "@/components/Homepage/HowDonationWorks";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (

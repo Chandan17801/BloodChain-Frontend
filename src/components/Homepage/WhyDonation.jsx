@@ -1,7 +1,6 @@
 import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-// import SliderBox from "./SliderBox";
 import reasonsToDonate from "@/data/reasonToDonate";
 
 const responsive = {
@@ -23,7 +22,7 @@ const responsive = {
   },
 };
 
-const SliderCon = () => {
+const WhyDonate = () => {
   return (
     <div className="w-full">
       <div className="max-w-screen-2xl theme-gradient py-8 mx-auto p-1">
@@ -34,7 +33,7 @@ const SliderCon = () => {
           {reasonsToDonate.map((reason, index) => (
             <div
               key={index}
-              className="mb-6 p-6 rounded-lg border border-solid mx-2 h-[14rem] bg-white"
+              className="mb-6 p-6 rounded-lg border border-solid mx-2 h-[13rem] bg-white"
             >
               <h3 className="text-xl font-semibold text-gray-800 mb-4">
                 {reason.title}
@@ -48,4 +47,4 @@ const SliderCon = () => {
   );
 };
 
-export default SliderCon;
+export default WhyDonate;
