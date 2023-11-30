@@ -2,9 +2,11 @@ import React from "react";
 import navData from "@/data/navbar";
 import Link from "next/link";
 
-function Header() {
+function Header({ className }) {
   return (
-    <div className="w-full flex justify-between p-4 bg-transparent absolute top-0 left-0">
+    <div
+      className={`w-full flex h-16 justify-between p-4 bg-transparent ${className}`}
+    >
       <div>Logo</div>
       <div className="flex gap-10">
         {navData.map((data) => (

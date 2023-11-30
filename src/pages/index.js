@@ -12,7 +12,7 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   return (
     <ResponsiveLayout>
-      <Header />
+      <Header className="absolute top-0 left-0"/>
       <Hero />
       <Mission />
       <Navigator />
