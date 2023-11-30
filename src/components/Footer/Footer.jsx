@@ -40,7 +40,7 @@ function Footer() {
         <div className="flex flex-col">
           <h2 className="text-xl my-1">Blood Bank Login</h2>
           <Link href="#" className="text-sm">
-            eRaktkosh Login
+            BloodChain Login
           </Link>
           <Link href="#" className="text-sm">
             Add your Blood Bank
@@ -49,7 +49,7 @@ function Footer() {
         <div className="flex flex-col">
           <h2 className="text-xl">About us</h2>
           <Link href="#" className="text-sm">
-            About eRaktkosh
+            About BloodChain
           </Link>
           <Link href="#" className="text-sm">
             Contact us
@@ -58,7 +58,7 @@ function Footer() {
       </div>
       <div className="py-4">
         <p className="text-sm text-center my-2">
-          © 2016 -2023 by Ministry of Health and Family Welfare
+          © 2023 by BU Community , jhansi
         </p>
         <div className="text-center">
           <Link href="#" className="text-sm">
