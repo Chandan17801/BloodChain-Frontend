@@ -1,44 +1,51 @@
 import React from "react";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+// import SliderBox from "./SliderBox";
+import reasonsToDonate from "@/data/reasonToDonate";
 
-function WhyDonation() {
+const responsive = {
+  superLargeDesktop: {
+    breakpoint: { max: 4000, min: 1424 },
+    items: 3,
+  },
+  desktop: {
+    breakpoint: { max: 1424, min: 1000 },
+    items: 3,
+  },
+  tablet: {
+    breakpoint: { max: 1000, min: 740 },
+    items: 2,
+  },
+  mobile: {
+    breakpoint: { max: 740, min: 0 },
+    items: 1,
+  },
+};
+
+const SliderCon = () => {
   return (
-    <div className="theme-gradient py-12">
-      <div className="container mx-auto px-4">
+    <div className="w-full">
+      <div className="max-w-screen-2xl theme-gradient py-8 mx-auto p-1">
         <h2 className="text-3xl font-semibold mb-6 text-white text-center">
-          Why Donate?
+          Why Donation?
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 my-12">
-          <div className="p-6 bg-white rounded-md shadow-md">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">
-              Save Lives
-            </h3>
-            <p className="text-gray-600">
-              Your blood donation can save lives by providing a critical
-              resource for medical treatments and emergencies.
-            </p>
-          </div>
-          <div className="p-6 bg-white rounded-md shadow-md">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">
-              Community Impact
-            </h3>
-            <p className="text-gray-600">
-              Make a positive impact on your community by contributing to a
-              collective effort towards better healthcare.
-            </p>
-          </div>
-          <div className="p-6 bg-white rounded-md shadow-md">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">
-              Health Benefits
-            </h3>
-            <p className="text-gray-600">
-              Regular blood donation has potential health benefits, including
-              reducing the risk of certain diseases and maintaining iron levels.
-            </p>
-          </div>
-        </div>
+        <Carousel responsive={responsive} infinite={true}>
+          {reasonsToDonate.map((reason, index) => (
+            <div
+              key={index}
+              className="mb-6 p-6 rounded-lg border border-solid mx-2 h-[14rem] bg-white"
+            >
+              <h3 className="text-xl font-semibold text-gray-800 mb-4">
+                {reason.title}
+              </h3>
+              <p className="text-gray-600">{reason.description}</p>
+            </div>
+          ))}
+        </Carousel>
       </div>
     </div>
   );
-}
+};
 
-export default WhyDonation;
+export default SliderCon;
