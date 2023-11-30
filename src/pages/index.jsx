@@ -10,21 +10,28 @@ import Creative from "@/components/Homepage/Creative";
 import WhyDonation from "@/components/Homepage/WhyDonation";
 import HomepageRealTimeData from "@/components/Homepage/HomepageRealTimeData";
 import HowDonationWorks from "@/components/Homepage/HowDonationWorks";
+import { Fragment } from "react";
+import Head from "next/head";
 
 export default function Home() {
   return (
-    <ResponsiveLayout>
-      <Header className="absolute top-0 left-0" />
-      <Hero />
-      <HomepageRealTimeData />
-      <Mission />
-      <Navigator />
-      <AboutUs />
-      <Creative />
-      <WhyDonation />
-      <HowDonationWorks />
-      <Testimonials />
-      <Footer />
-    </ResponsiveLayout>
+    <Fragment>
+      <Head>
+        <title>BloodChain: Empowering Lifesavers with BlockChain</title>
+      </Head>
+      <ResponsiveLayout>
+        <Header className="absolute top-0 left-0" />
+        <Hero />
+        <HomepageRealTimeData />
+        <Mission />
+        <Navigator />
+        <AboutUs />
+        <Creative />
+        <WhyDonation />
+        <HowDonationWorks />
+        <Testimonials />
+        <Footer />
+      </ResponsiveLayout>
+    </Fragment>
   );
 }
