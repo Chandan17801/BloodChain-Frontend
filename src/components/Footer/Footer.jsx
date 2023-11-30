@@ -3,8 +3,12 @@ import React from "react";
 
 function Footer() {
   return (
-    <div className="bg-black text-white p-4">
-      <div className="flex justify-between p-4">
+    <div className="bg-black text-white p-4 pt-0">
+      <div className="flex justify-end gap-12 p-3 pr-16 mx-8 border-b-[1px] border-gray-500 items-center">
+        <div>Ready to get started?</div>
+       <Link href="register/donor"> <button className="text-black bg-white py-2 px-8 rounded-lg font-semibold">Donate</button></Link>
+      </div>
+      <div className="flex justify-between p-4 mx-8 border-b-[1px] border-gray-500">
         <div className="f1">
           <h2 className="text-xl my-1">Looking for Blood</h2>
           <div className="flex flex-col">
