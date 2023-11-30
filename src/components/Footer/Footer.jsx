@@ -6,7 +6,12 @@ function Footer() {
     <div className="bg-black text-white p-4 pt-0">
       <div className="flex justify-end gap-12 p-3 pr-16 mx-8 border-b-[1px] border-gray-500 items-center">
         <div>Ready to get started?</div>
-       <Link href="register/donor"> <button className="text-black bg-white py-2 px-8 rounded-lg font-semibold">Donate</button></Link>
+        <Link href="/register/donor">
+          {" "}
+          <button className="mx-auto justify-center w-40 bg-white flex text-black pl-6 pr-6 pt-2 pb-2 rounded-xl font-semibold shadow-md shadow-gray-600 active:shadow-none active:translate-y-1">
+            Donate
+          </button>
+        </Link>
       </div>
       <div className="flex justify-between p-4 mx-8 border-b-[1px] border-gray-500">
         <div className="f1">
