@@ -2,7 +2,7 @@ const navData = [
   {
     id: 1,
     label: "About Us",
-    href: "/about",
+    href: "/",
   },
   {
     id: 2,

@@ -57,7 +57,7 @@ function Footer() {
       </div>
       <div className="pt-4">
         <p className="text-sm text-center my-2">
-          Copyright © 2023 by BU Community , Jhansi
+          Copyright © 2023 by BU Community, Jhansi
         </p>
         <div className="text-center">
           <Link href="#" className="text-sm hover:underline">

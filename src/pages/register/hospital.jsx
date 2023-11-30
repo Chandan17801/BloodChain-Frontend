@@ -38,7 +38,7 @@ function hospital() {
       <div className="container mt-4 mx-auto w-[70%]">
         <HeaderStrip text="Register As Hospital" />
         <form
-          className="p-12 flex flex-col gap-7 mb-8  bg-gray-100"
+          className="p-12 flex flex-col gap-7 mb-8  bg-gray-100 mont"
           onSubmit={form_submit_handler}
         >
           <div className="flex">
@@ -117,7 +117,7 @@ function hospital() {
                 <div className="w-32"> Address</div>
                 <textarea
                   id=""
-                  cols="30"
+                  cols="26"
                   onChange={handleChange}
                   rows="06"
                   placeholder="Address"

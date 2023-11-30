@@ -1,5 +1,7 @@
 import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
+import CheckedCheckBox from "@/components/SVGComponents/CheckedCheckBox";
+import UnCheckedCheckBox from "@/components/SVGComponents/UnCheckedCheckBox";
 import HeaderStrip from "@/components/UIElements/HeaderStrip";
 import ResponsiveLayout from "@/components/layout/ResponsiveLayout";
 import { React, useState } from "react";
@@ -24,6 +26,19 @@ function bloodbank() {
     longitude: "",
     website: "",
   });
+   
+  const component_facility_click_handler = () => {
+    setFormData((prevData) => ( {
+      ...prevData,
+      component_facility: !prevData.component_facility,
+    }))
+  }
+  const apheresis_facility_click_handler = () => {
+    setFormData((prevData) => ( {
+      ...prevData,
+      apheresis_facility: !prevData.apheresis_facility,
+    }))
+  }
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -120,9 +135,9 @@ function bloodbank() {
                 <div className="w-32"> Address</div>
                 <textarea
                   id=""
-                  cols="30"
+                  cols="26"
                   onChange={handleChange}
-                  rows="06"
+                  rows="05"
                   placeholder="Address"
                   name="address"
                   className="p-1 border-2 rounded-md"
@@ -140,23 +155,15 @@ function bloodbank() {
               </div>
             </div>
             <div className="flex flex-col gap-7">
-              <div className="flex">
+              <div className="flex gap-32">
                 <div className="w-48"> Component Facility</div>
-                <input
-                  onChange={handleChange}
-                  className="p-1 border-2 rounded-md w-64"
-                  type="checkbox"
-                  name="component_facility"
-                />
+                {formData.component_facility && <CheckedCheckBox onClick = {component_facility_click_handler }/>}
+                {!formData.component_facility && <UnCheckedCheckBox onClick = {component_facility_click_handler} />}
               </div>
-              <div className="flex">
+              <div className="flex gap-32">
                 <div className="w-48">Apheresis Facility</div>
-                <input
-                  onChange={handleChange}
-                  className="p-1 border-2 rounded-md w-64"
-                  type="checkbox"
-                  name="apheresis_facility"
-                />
+                {formData.apheresis_facility && <CheckedCheckBox onClick = {apheresis_facility_click_handler} />}
+                {!formData.apheresis_facility && <UnCheckedCheckBox onClick = {apheresis_facility_click_handler} />}
               </div>
               <div className="flex">
                 <div className="w-32"> Helpline No.</div>
