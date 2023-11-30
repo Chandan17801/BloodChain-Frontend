@@ -5,7 +5,7 @@ function Navigator() {
   return (
     <div className="bg-gray-100 text-white py-4 px-20">
       <div className="flex justify-between px-20">
-        <div className="flex items-center justify-center bg-red-800 rounded-xl shadow-md w-40 h-40 p-4 ">
+        <div className="flex items-center justify-center bg-red-800 rounded-xl shadow-md w-44 h-40 p-4 ">
           <Link
             href="#"
             className="flex font-bold text-xl mx-3 text-center hover:underline"
