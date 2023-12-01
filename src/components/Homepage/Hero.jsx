@@ -20,11 +20,11 @@ function Hero() {
           <h2 className="text-4xl merri">Save Life Donate Blood</h2>
           <p className="text-base my-8 text-justify mont">
             In a world pulsating with the rhythm of compassion, our collective
-            heartbeat resonates with a simple yet profound call to action: 'Save
-            Life, Donate Blood.' Step into the realm of altruism, where each
-            drop given becomes a lifeline, weaving a tapestry of hope and
-            resilience. Join us as we embark on a journey to make a difference,
-            one donation at a time.
+            heartbeat resonates with a simple yet profound call to action:
+            &apos;Save Life, Donate Blood.&apos; Step into the realm of
+            altruism, where each drop given becomes a lifeline, weaving a
+            tapestry of hope and resilience. Join us as we embark on a journey
+            to make a difference, one donation at a time.
           </p>
           <BlackButton text="Donate Blood" onClick={openDonatePage} />
         </div>
