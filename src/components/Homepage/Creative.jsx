@@ -6,7 +6,13 @@ import creative from "@/assests/creative.jpg";
 function Creative() {
   return (
     <ResponsiveLayout>
-      <Image src={creative} className="mx-auto" width={700} height={700} />
+      <Image
+        src={creative}
+        className="mx-auto"
+        width={700}
+        height={700}
+        alt="Create"
+      />
     </ResponsiveLayout>
   );
 }
