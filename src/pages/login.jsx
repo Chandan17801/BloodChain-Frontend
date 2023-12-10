@@ -14,7 +14,7 @@ const login = () => {
         <div className="w-[50%]">
           <img className="w-[100%] h-[100%]" src={loginImg.src}></img>
         </div>
-        <div className="w-[50%] bg-gray-200 rounded-2xl p-4 mx-[10%]">
+        <div className="w-[50%] bg-red-100 border-red-800 border-[1px] rounded-2xl p-4 mx-[10%]">
           <div className="w-[70%] h-[90%] m-auto my-[5%] flex flex-col gap-4 items-center justify-center rounded-2xl">
             <div className="font-semibold text-2xl">LOGIN</div>
             <input
@@ -27,7 +27,7 @@ const login = () => {
               type="password"
               placeholder="Password"
             />
-            <button className="mx-auto justify-center bg-white flex text-black px-8 py-1 rounded-md font-semibold shadow-md shadow-gray-600 active:shadow-none active:translate-y-1">
+            <button className="mx-auto justify-center bg-red-600 flex text-black px-8 py-1 rounded-md font-semibold shadow-md shadow-gray-600 active:shadow-none active:translate-y-1">
               Donate
             </button>
             <Link className="underline font-thin" href="/register/donor">
