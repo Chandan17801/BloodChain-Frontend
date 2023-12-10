@@ -5,6 +5,7 @@ import ResponsiveLayout from "@/components/layout/ResponsiveLayout";
 import Link from "next/link";
 import React from "react";
 import loginImg from "@/assests/login_image.png";
+import Image from "next/image";
 
 const login = () => {
   return (
@@ -12,7 +13,13 @@ const login = () => {
       <Header />
       <div className="flex h-[70vh] mx-[10%] mt-10 mb-20">
         <div className="w-[50%]">
-          <img className="w-[100%] h-[100%]" src={loginImg.src}></img>
+          <Image
+            className="w-[100%] h-[100%]"
+            src={loginImg.src}
+            height={500}
+            width={500}
+            alt="Login Page"
+          ></Image>
         </div>
         <div className="w-[50%] bg-red-100 border-red-800 border-[1px] rounded-2xl p-4 mx-[10%]">
           <div className="w-[70%] h-[90%] m-auto my-[5%] flex flex-col gap-4 items-center justify-center rounded-2xl">
