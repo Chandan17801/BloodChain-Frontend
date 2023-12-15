@@ -4,14 +4,7 @@ import React, { useRef, useState, useEffect } from "react";
 function OtpBox({ email, password, onLogin }) {
   const [otpValues, setOtpValues] = useState(Array(6).fill(""));
   const [timeRemaining, setTimeRemaining] = useState(600);
-  const boxes = [
-    useRef(null),
-    useRef(null),
-    useRef(null),
-    useRef(null),
-    useRef(null),
-    useRef(null),
-  ];
+  const boxes = Array.from({ length: 6 }, () => useRef(null));
 
   const handleInput = (index, event) => {
     const value = event.target.value;
@@ -61,9 +54,7 @@ function OtpBox({ email, password, onLogin }) {
   return (
     <div className="absolute h-full w-[100%] bg-[#a7a4a480] z-50 top-0 right-0 flex justify-center items-center">
       <div className="bg-white shadow-lg rounded-md p-[6rem] px-[8rem]">
-        <div className="text-center text-3xl font-semibold mb-6">
-          OTP Verification
-        </div>
+        <div className="text-center text-3xl font-semibold mb-6">OTP Verification</div>
         <div className="text-center text-gray-500">An OTP has been sent to</div>
         <div className="text-center text-gray-500">*******@gmail.com</div>
         <div className="flex justify-between mx-[1rem] my-[1rem] text-xl">
@@ -81,6 +72,7 @@ function OtpBox({ email, password, onLogin }) {
           ))}
         </div>
         <div className="mx-[1rem] flex gap-3">
+          
           <span className="text-gray-700">Enter the OTP in</span>
           <span className="text-red-600 ">{formatTime(timeRemaining)}</span>
           <p className="text-green-500 ml-4"> Resend Otp</p>
