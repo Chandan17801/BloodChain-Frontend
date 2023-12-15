@@ -2,6 +2,7 @@ import ResponsiveLayout from "@/components/layout/ResponsiveLayout";
 import Image from "next/image";
 import React, { useState } from "react";
 import last_donations from "@/styles/donations";
+import calculateAge from "@/utils/calculateAge";
 
 function Dashboard() {
   const [profile, setProfile] = useState({
@@ -24,35 +25,13 @@ function Dashboard() {
     longitude: -74.006, // Dummy longitude (New York City)
     created_at: "2023-01-01T00:00:00Z", // Use a valid timestamp
   });
-  function calculateAge(dob) {
-    const today = new Date();
-    const dobArray = dob.split("-");
 
-    const dobYear = parseInt(dobArray[0]);
-    const dobMonth = parseInt(dobArray[1]) - 1; // Months are zero-indexed
-    const dobDay = parseInt(dobArray[2]);
-
-    const birthDate = new Date(dobYear, dobMonth, dobDay);
-
-    let age = today.getFullYear() - birthDate.getFullYear();
-
-    if (
-      today.getMonth() < birthDate.getMonth() ||
-      (today.getMonth() === birthDate.getMonth() &&
-        today.getDate() < birthDate.getDate())
-    ) {
-      age--;
-    }
-    const arrow_bracket = ">"
-
-    return age;
-  }
-
+ 
   const age = calculateAge(profile.date_of_birth);
   return (
     <ResponsiveLayout>
       <div className="flex gap-4 min-h-screen py-8 px-20 bg-gray-100">
-        <div className="flex flex-col flex-1 gap-4">
+        <div className="flex flex-col flex-[3] gap-4">
           <div className="p-4 bg-white rounded-lg flex shadow-md shadow-gray-300 mont">
             <div className="flex-[4] flex items-center">
               <div className="w-20 h-24 rounded-xl">
@@ -144,7 +123,7 @@ function Dashboard() {
             </div>
           </div>
         </div>
-        <div className="flex-1">
+        <div className="flex-[2]">
           <div className="bg-white rounded-lg p-4 shadow-gray-300 shadow-md mont">
             <div className="flex justify-between mb-4">
               <div className="pl-2 font-semibold self-center">Donation History</div>

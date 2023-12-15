@@ -3,9 +3,11 @@ import Header from "@/components/Header/Header";
 import HeaderStrip from "@/components/UIElements/HeaderStrip";
 import ResponsiveLayout from "@/components/layout/ResponsiveLayout";
 import { React, useState } from "react";
+import axios from "axios";
+import OtpBox from "./otp";
 
 function Donor() {
-  const [formData, setFormData] = useState({
+  const initialState = {
     email: "",
     password: "",
     phone: "",
@@ -17,7 +19,10 @@ function Donor() {
     state: "",
     pincode: "",
     aadhaar_no: "",
-  });
+  };
+  const [isOtpBoxVisible, setIsOtpBoxVisible] = useState(true);
+  const [formData, setFormData] = useState(initialState);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -25,12 +30,26 @@ function Donor() {
       [name]: value,
     }));
   };
-  const form_submit_handler = (event) => {
+  const form_submit_handler = async (event) => {
     event.preventDefault();
-    console.log(formData);
+    try {
+      // let data = JSON.stringify(formData)
+      let response = await axios.post(
+        process.env.NEXT_PUBLIC_SERVER_URL + "/users/signup",
+        formData
+      );
+      console.log("Response:", response);
+      setIsOtpBoxVisible(true);
+      console.log(isOtpBoxVisible);
+      setFormData(initialState);
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
   return (
     <ResponsiveLayout>
+      {isOtpBoxVisible && <OtpBox />}
+
       <Header />
       <div className="container mt-4 mx-auto w-[70%]">
         <HeaderStrip text="Register As Donor" />
