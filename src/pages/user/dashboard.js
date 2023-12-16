@@ -1,8 +1,9 @@
 import ResponsiveLayout from "@/components/layout/ResponsiveLayout";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import last_donations from "@/styles/donations";
 import calculateAge from "@/utils/calculateAge";
+import axios from "axios";
 
 function Dashboard() {
   const [profile, setProfile] = useState({
@@ -25,9 +26,24 @@ function Dashboard() {
     longitude: -74.006, // Dummy longitude (New York City)
     created_at: "2023-01-01T00:00:00Z", // Use a valid timestamp
   });
+  useEffect(() => {
+    // Function to fetch data from the API
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          process.env.NEXT_PUBLIC_SERVER_URL + "/users/users/1"
+        );
+        setProfile(response.data);
+        console.log(profile);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
- 
-  const age = calculateAge(profile.date_of_birth);
+    fetchData();
+  }, []);
+
+  // const age = calculateAge(profile.date_of_birth);
   return (
     <ResponsiveLayout>
       <div className="flex gap-4 min-h-screen py-8 px-20 bg-gray-100">
@@ -40,6 +56,7 @@ function Dashboard() {
                   src={require("../../assests/profile_dummy_image.jpeg")}
                   height={300}
                   width={300}
+                  alt={profile.name}
                 ></Image>
               </div>
               <div className="text-2xl pl-4 font-semibold">{profile.name}</div>
@@ -49,7 +66,7 @@ function Dashboard() {
                 {profile.blood_group}
               </div>
               <div className="font-light bg-gray-100 px-4 py-1 rounded-md text-sm">
-                {age} years
+                {profile.date_of_birth} years
               </div>
             </div>
           </div>
@@ -126,8 +143,12 @@ function Dashboard() {
         <div className="flex-[2]">
           <div className="bg-white rounded-lg p-4 shadow-gray-300 shadow-md mont">
             <div className="flex justify-between mb-4">
-              <div className="pl-2 font-semibold self-center">Donation History</div>
-              <div className="text-sm text-red-500 bg-red-100 rounded-md px-4 py-1 cursor-pointer">View All &raquo;</div>
+              <div className="pl-2 font-semibold self-center">
+                Donation History
+              </div>
+              <div className="text-sm text-red-500 bg-red-100 rounded-md px-4 py-1 cursor-pointer">
+                View All &raquo;
+              </div>
             </div>
             <div className="flex flex-col text-xs">
               <div className="flex justify-between p-4 py-[12px] rounded-md bg-gray-100">
