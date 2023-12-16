@@ -2,7 +2,6 @@ import React from "react";
 import BlackButton from "@/components/UIElements/BlackButton";
 import ResponsiveLayout from "@/components/layout/ResponsiveLayout";
 import Link from "next/link";
-import React, { useState } from "react";
 import loginImg from "@/assests/login_image_creative.jpg";
 import Image from "next/image";
 import axios from "axios";
