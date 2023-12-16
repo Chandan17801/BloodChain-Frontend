@@ -4,7 +4,7 @@ import Header from "@/components/Header/Header";
 
 
 const login = () => {
-  <Login />
+   return <Login />
 };
 
 export default login;
