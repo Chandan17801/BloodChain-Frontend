@@ -4,6 +4,7 @@ import UnCheckedCheckBox from "@/components/SVGComponents/UnCheckedCheckBox";
 import HeaderStrip from "@/components/UIElements/HeaderStrip";
 import ResponsiveLayout from "@/components/layout/ResponsiveLayout";
 import axios from "axios";
+import getCurrentLocation from "@/utils/getCurrentLocation";
 
 function BloodBank() {
   const [formData, setFormData] = useState({
@@ -46,7 +47,9 @@ function BloodBank() {
       [name]: value,
     }));
   };
-
+ const getLocation = () => {
+    const location = getCurrentLocation();
+ }
   const imageHandler = (e) => {
     setFormData((prevData) => ({
       ...prevData,
@@ -262,7 +265,7 @@ function BloodBank() {
             </div>
           </div>
           <div className="flex">
-            <input className="mr-2" type="checkbox" />
+            <input className="mr-2" type="checkbox" onClick={getLocation} />
             <div style={{ fontStyle: "italic" }}>
               {" "}
               Get Your current location

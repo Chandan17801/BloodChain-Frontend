@@ -20,7 +20,7 @@ function Donor() {
     pincode: "",
     aadhaar_no: "",
   };
-  const [isOtpBoxVisible, setIsOtpBoxVisible] = useState(true);
+  const [isOtpBoxVisible, setIsOtpBoxVisible] = useState(false);
   const [formData, setFormData] = useState(initialState);
 
   const handleChange = (e) => {
