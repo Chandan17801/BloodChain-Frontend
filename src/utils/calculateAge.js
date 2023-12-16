@@ -1,4 +1,4 @@
-function calculateAge(dob) {
+function calculateAge(dob='1990-01-01') {
     const today = new Date();
     const dobArray = dob.split("-");
 
