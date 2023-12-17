@@ -43,7 +43,7 @@ function Dashboard() {
     fetchData();
   }, []);
 
-  // const age = calculateAge(profile.date_of_birth);
+  let age = calculateAge(profile.date_of_birth);
   return (
     <ResponsiveLayout>
       <div className="flex gap-4 min-h-screen py-8 px-20 bg-gray-100">
@@ -66,7 +66,7 @@ function Dashboard() {
                 {profile.blood_group}
               </div>
               <div className="font-light bg-gray-100 px-4 py-1 rounded-md text-sm">
-                {profile.date_of_birth} years
+                {age} years
               </div>
             </div>
           </div>
