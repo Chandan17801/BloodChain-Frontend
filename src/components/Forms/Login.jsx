@@ -60,12 +60,21 @@ export default function Login() {
           backgroundSize: "100% 100%",
         }}
       >
-        <div className="flex w-[45rem] h-[60%]">
-          <div className="w-[55%] bg-red-100 rounded-l-md flex flex-col gap-6 justify-center items-center shadow-md shadow-red-100">
+        <div className="flex w-[45rem] h-[25rem]">
+          <div className="w-[55%] bg-[#ffc3c360] rounded-l-md flex flex-col gap-4 justify-center items-center shadow-md shadow-red-100">
+            <div className="w-32">
+            <Image
+                  className="w-full"
+                  src={require("../../assests/logo1.png")}
+                  height={300}
+                  width={300}
+                  alt="logo"
+                ></Image>
+            </div>
             <div className="text-3xl merri font-semibold text-center text-[#ac2828]">
               Login to Your Account
             </div>
-            <div className="w-[70%] flex justify-around text-[#ac28284a] text-xs">
+            <div className="w-[70%] flex justify-around text-[#cc191996] text-xs">
               <div
                 className={`cursor-pointer ${
                   loginUser == "donor"
@@ -103,7 +112,7 @@ export default function Login() {
             <div className="flex flex-col gap-4 justify-center items-center">
               <input
                 onChange={changeHandler}
-                className="w-[150%] p-2 rounded-md  border-[#ac282877] border-[1px] text-xs merri"
+                className="w-[150%] p-[6px] rounded-md  border-[#ac282877] border-[1px] text-xs merri"
                 type="email"
                 name="email"
                 id="email"
@@ -111,7 +120,7 @@ export default function Login() {
               />
               <input
                 onChange={changeHandler}
-                className="w-[150%] p-2 rounded-md border-[#ac282877] border-[1px] text-xs merri"
+                className="w-[150%] p-[6px] rounded-md border-[#ac282877] border-[1px] text-xs merri"
                 type="password"
                 name="password"
                 id="password"
@@ -120,7 +129,7 @@ export default function Login() {
             </div>
             <div
               onClick={formSubmitHandler}
-              className="text-white w-32 text-xs bg-[#ac2828] merri text-center py-2 rounded-3xl cursor-pointer"
+              className="text-white w-32 text-xs bg-[#ac2828] merri text-center py-2 rounded-3xl cursor-pointer shadow-md shadow-red-800  hover:shadow-red-950 active:shadow-none active:translate-y-1"
             >
               Sign In
             </div>
@@ -133,13 +142,13 @@ export default function Login() {
               Signup and contribute for humanity
             </div>
             <div className="flex flex-col gap-2">
-              <div className="bg-white w-40 text-xs text-[#ac2828] merri text-center py-2 rounded-3xl cursor-pointer">
+              <div className="bg-white w-40 text-xs text-[#ac2828] merri text-center py-2 rounded-3xl cursor-pointer hover:bg-red-100">
                 Register as Donor
               </div>
-              <div className="bg-white w-40 text-xs text-[#ac2828] merri text-center py-2 rounded-3xl cursor-pointer">
+              <div className="bg-white w-40 text-xs text-[#ac2828] merri text-center py-2 rounded-3xl cursor-pointer hover:bg-red-100">
                 BloodBank Registration
               </div>
-              <div className="bg-white w-40 text-xs text-[#ac2828] merri text-center py-2 rounded-3xl cursor-pointer">
+              <div className="bg-white w-40 text-xs text-[#ac2828] merri text-center py-2 rounded-3xl cursor-pointer hover:bg-red-100">
                 Hospital Registration
               </div>
             </div>

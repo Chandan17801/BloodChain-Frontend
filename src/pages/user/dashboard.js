@@ -5,7 +5,7 @@ import last_donations from "@/styles/donations";
 import calculateAge from "@/utils/calculateAge";
 import axios from "axios";
 
-function Dashboard() {
+function board() {
   const [profile, setProfile] = useState({
     email: "dummy@example.com",
     password: "dummyPassword123",
@@ -172,4 +172,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default board;
