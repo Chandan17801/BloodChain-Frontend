@@ -1,5 +1,4 @@
 import React from "react";
-import CustomizedTables from "../Table/Table";
 
 export default function Search() {
   let blood_banks_list = [];
@@ -14,7 +13,6 @@ export default function Search() {
               </li>
           ))}
         </ul> */}
-        <CustomizedTables />
       </div>
     </>
   );
