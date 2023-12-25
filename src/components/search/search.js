@@ -1,7 +1,21 @@
-import React from 'react'
+import React from "react";
+import CustomizedTables from "../Table/Table";
 
 export default function Search() {
+  let blood_banks_list = [];
+
   return (
-    <div>search</div>
-  )
+    <>
+      <div className="search-container">
+        {/* <ul>
+          {items.map((item, index) => (
+            <li key={index}>
+              sa
+              </li>
+          ))}
+        </ul> */}
+        <CustomizedTables />
+      </div>
+    </>
+  );
 }

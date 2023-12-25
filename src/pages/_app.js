@@ -1,11 +1,11 @@
 import {
-  Poppins,
-  League_Spartan,
   Montserrat,
   Merriweather_Sans,
 } from "next/font/google";
 import "@/styles/globals.css";
 import { Fragment } from "react";
+import { Provider } from "react-redux";
+import store from "@/store/store";
 
 const merri = Merriweather_Sans({
   weight: "500",
@@ -30,7 +30,9 @@ export default function App({ Component, pageProps }) {
           }
         `}
       </style>
-      <Component {...pageProps} />
+      <Provider store={store}>
+        <Component {...pageProps} />
+      </Provider>
     </Fragment>
   );
 }
