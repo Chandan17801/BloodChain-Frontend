@@ -3,8 +3,11 @@ import React from "react";
 function BloodBank({ banks }) {
   return (
     <div>
-      {banks.map((bank) => (
-        <div className="header-gradient merri text-white p-4 text-center my-2 flex justify-around">
+      {banks.map((bank, index) => (
+        <div
+          key={index}
+          className="header-gradient merri text-white p-4 text-center my-2 flex justify-around"
+        >
           <div>{bank.name}</div>
           <div>{bank.address}</div>
           <div>{bank.email}</div>
