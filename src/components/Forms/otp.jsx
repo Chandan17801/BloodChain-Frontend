@@ -16,7 +16,7 @@ function OtpBox({ email, userType }) {
   boxes[4] = useRef();
   boxes[5] = useRef();
 
-  console.log(boxes);
+  // console.log(boxes);
 
   const handleInput = (index, event) => {
     const value = event.target.value;
