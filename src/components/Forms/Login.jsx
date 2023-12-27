@@ -6,8 +6,13 @@ import Link from "next/link";
 import loginImg from "@/assests/login_image_creative.jpg";
 import Image from "next/image";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { logout, login } from "@/store/auth";
+import Router from "next/router";
 
 export default function Login() {
+  const { userType, userId, token, email } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const [loginUser, setLoginUser] = useState("donor");
   const [formData, setFormData] = useState({
     email: "",
@@ -24,27 +29,41 @@ export default function Login() {
     console.log(e.target.id);
   };
 
+  const handleLogin = (payload) => {
+    dispatch(login(payload));
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   const formSubmitHandler = async (event) => {
     event.preventDefault();
     let response = null;
-    if (loginUser == "donor") {
-      response = await axios.post(
-        process.env.NEXT_PUBLIC_SERVER_URL + "/users/login",
-        formData
-      );
-    } else if (loginUser == "blood_bank") {
-      response = await axios.post(
-        process.env.NEXT_PUBLIC_SERVER_URL + "/bloodbank/login",
-        formData
-      );
-    } else {
-      response = await axios.post(
-        process.env.NEXT_PUBLIC_SERVER_URL + "/hospital/login",
-        formData
-      );
-    }
     try {
-      console.log("Response:", response);
+      if (loginUser == "donor") {
+        response = await axios.post(
+          process.env.NEXT_PUBLIC_SERVER_URL + "/users/login",
+          formData
+        );
+      } else if (loginUser == "blood_bank") {
+        response = await axios.post(
+          process.env.NEXT_PUBLIC_SERVER_URL + "/bloodbank/login",
+          formData
+        );
+      } else {
+        response = await axios.post(
+          process.env.NEXT_PUBLIC_SERVER_URL + "/hospital/login",
+          formData
+        );
+      }
+      handleLogin({
+        userType: loginUser,
+        userId: response.data.userId,
+        token: response.data.token,
+        email: response.data.email,
+      });
+      Router.replace({ pathname: "/" });
     } catch (error) {
       console.error("Error:", error);
     }
@@ -63,13 +82,13 @@ export default function Login() {
         <div className="flex w-[45rem] h-[25rem]">
           <div className="w-[55%] bg-[#ffc3c360] rounded-l-md flex flex-col gap-4 justify-center items-center shadow-md shadow-red-100">
             <div className="w-32">
-            <Image
-                  className="w-full"
-                  src={require("../../assests/logo1.png")}
-                  height={300}
-                  width={300}
-                  alt="logo"
-                ></Image>
+              <Image
+                className="w-full"
+                src={require("../../assests/logo1.png")}
+                height={300}
+                width={300}
+                alt="logo"
+              ></Image>
             </div>
             <div className="text-3xl merri font-semibold text-center text-[#ac2828]">
               Login to Your Account
