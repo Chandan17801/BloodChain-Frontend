@@ -40,15 +40,15 @@ function Donor() {
       );
       console.log("Response:", response);
       setIsOtpBoxVisible(true);
-      console.log(isOtpBoxVisible);
-      setFormData(initialState);
+      // console.log(isOtpBoxVisible);
+      // setFormData(initialState);
     } catch (error) {
       console.error("Error:", error);
     }
   };
   return (
     <ResponsiveLayout>
-      {isOtpBoxVisible && <OtpBox />}
+      {isOtpBoxVisible && <OtpBox email={formData.email} userType='users' />}
 
       <Header />
       <div className="container mt-4 mx-auto w-[70%]">

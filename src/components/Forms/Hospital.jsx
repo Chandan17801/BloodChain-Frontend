@@ -2,9 +2,10 @@ import HeaderStrip from "@/components/UIElements/HeaderStrip";
 import ResponsiveLayout from "@/components/layout/ResponsiveLayout";
 import { React, useState } from "react";
 import axios from "axios";
+import OtpBox from "./otp";
 
 function Hospital() {
-  const [formData, setFormData] = useState({
+  const initialState = {
     email: "",
     name: "",
     address: "",
@@ -20,7 +21,10 @@ function Hospital() {
     latitude: "",
     longitude: "",
     type: "",
-  });
+  };
+  const [formData, setFormData] = useState(initialState);
+  const [isOtpBoxVisible, setIsOtpBoxVisible] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -49,7 +53,7 @@ function Hospital() {
         process.env.NEXT_PUBLIC_SERVER_URL + "/hospital/signup",
         data
       );
-
+      setIsOtpBoxVisible(true);
       console.log("Response:", response);
     } catch (error) {
       console.error("Error:", error);
@@ -57,6 +61,7 @@ function Hospital() {
   };
   return (
     <ResponsiveLayout>
+      {isOtpBoxVisible && <OtpBox email={formData.email} userType="hospital" />}
       <div className="container mt-4 mx-auto w-[70%]">
         <HeaderStrip text="Register As Hospital" />
         <form

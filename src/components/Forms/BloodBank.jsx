@@ -5,9 +5,10 @@ import HeaderStrip from "@/components/UIElements/HeaderStrip";
 import ResponsiveLayout from "@/components/layout/ResponsiveLayout";
 import axios from "axios";
 import getCurrentLocation from "@/utils/getCurrentLocation";
+import OtpBox from "./otp";
 
 function BloodBank() {
-  const [formData, setFormData] = useState({
+  const initialState = {
     email: "",
     name: "",
     address: "",
@@ -26,7 +27,9 @@ function BloodBank() {
     latitude: "",
     longitude: "",
     website: "",
-  });
+  };
+  const [isOtpBoxVisible, setIsOtpBoxVisible] = useState(false);
+  const [formData, setFormData] = useState(initialState);
 
   const component_facility_click_handler = () => {
     setFormData((prevData) => ({
@@ -47,9 +50,9 @@ function BloodBank() {
       [name]: value,
     }));
   };
- const getLocation = () => {
+  const getLocation = () => {
     const location = getCurrentLocation();
- }
+  };
   const imageHandler = (e) => {
     setFormData((prevData) => ({
       ...prevData,
@@ -71,7 +74,7 @@ function BloodBank() {
         process.env.NEXT_PUBLIC_SERVER_URL + "/bloodbank/signup",
         data
       );
-
+      setIsOtpBoxVisible(true);
       console.log("Response:", response);
     } catch (error) {
       console.error("Error:", error);
@@ -79,10 +82,11 @@ function BloodBank() {
   };
   return (
     <ResponsiveLayout>
+      {isOtpBoxVisible && <OtpBox email={formData.email} userType="bloodbank" />}
       <div className="container mt-4 mx-auto w-[70%]">
         <HeaderStrip text="Register As Blood Bank" />
         <form
-          className="p-12 flex flex-col gap-4 mb-8 bg-gray-100 mont"
+          className="p-12 px-20 flex flex-col gap-4 mb-8 bg-gray-100 mont"
           onSubmit={form_submit_handler}
         >
           <div className="flex justify-between">
@@ -90,7 +94,7 @@ function BloodBank() {
               <div className="w-32"> Org. Name</div>
               <input
                 onChange={handleChange}
-                className="p-1 border-2 rounded-md w-48"
+                className="p-1 border-2 rounded-md"
                 type="text"
                 name="name"
                 placeholder="Organization Name"

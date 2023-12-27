@@ -1,10 +1,14 @@
 import axios from "axios";
 import React, { useRef, useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import Router from "next/router";
+import { login } from "@/store/auth";
 
-function OtpBox({ email, password, onLogin }) {
+function OtpBox({ email, userType }) {
   const [otpValues, setOtpValues] = useState(Array(6).fill(""));
   const [timeRemaining, setTimeRemaining] = useState(600);
   const boxes = new Array(6).fill(null);
+  const dispatch = useDispatch();
   boxes[0] = useRef();
   boxes[1] = useRef();
   boxes[2] = useRef();
@@ -12,7 +16,7 @@ function OtpBox({ email, password, onLogin }) {
   boxes[4] = useRef();
   boxes[5] = useRef();
 
-  console.log(boxes);
+  // console.log(boxes);
 
   const handleInput = (index, event) => {
     const value = event.target.value;
@@ -40,6 +44,26 @@ function OtpBox({ email, password, onLogin }) {
   const onClickSubmitHandler = async (event) => {
     event.preventDefault();
     const otp = otpValues.join("");
+    try {
+      let response = await axios.post(
+        process.env.NEXT_PUBLIC_SERVER_URL + `/${userType}/verify`,
+        {
+          email: email,
+          otp: otp,
+        }
+      );
+      dispatch(
+        login({
+          userType,
+          userId: response.data.id,
+          token: response.data.token,
+          email,
+        })
+      );
+      Router.replace({ pathname: "/" });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -66,7 +90,7 @@ function OtpBox({ email, password, onLogin }) {
           OTP Verification
         </div>
         <div className="text-center text-gray-500">An OTP has been sent to</div>
-        <div className="text-center text-gray-500">*******@gmail.com</div>
+        <div className="text-center text-gray-500">{email}</div>
         <div className="flex justify-between mx-[1rem] my-[1rem] text-xl">
           {boxes.map((box, index) => (
             <input

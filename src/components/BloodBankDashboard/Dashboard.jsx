@@ -1,8 +1,27 @@
 import React from "react";
 import BloodChart from "@/components/UIElements/BloodChart";
 import last_donations from "@/styles/donations";
+import { useEffect } from "react";
+import axios from "axios";
 
 export default function Dashboard() {
+  useEffect(() => {
+    // Function to fetch data from the API
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          process.env.NEXT_PUBLIC_SERVER_URL + "/bloodbank/bloodbank/2"
+        );
+        // setProfile(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="flex gap-4 min-h-screen py-8 px-8 bg-[#F7F8FA]">
       <div className="flex flex-col flex-[5] gap-4">
@@ -96,7 +115,7 @@ export default function Dashboard() {
         <div className="bg-white rounded-lg p-4 shadow-md shadow-gray-300">
           <div className="flex justify-between mb-4">
             <div className="pl-2 font-semibold self-start">
-              Donation History
+              Hospital Request
             </div>
           </div>
           <div className="flex flex-col text-xs">
@@ -131,9 +150,7 @@ export default function Dashboard() {
         </div>
         <div className="bg-white rounded-lg p-4 shadow-md shadow-gray-300">
           <div className="flex justify-between mb-4">
-            <div className="pl-2 font-semibold self-start">
-              Donation History
-            </div>
+            <div className="pl-2 font-semibold self-start">Donor Request</div>
           </div>
           <div className="flex flex-col text-xs">
             <div className="flex justify-between p-4 py-[12px] rounded-md bg-gray-100">
