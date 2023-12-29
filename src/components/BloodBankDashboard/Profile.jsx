@@ -1,4 +1,6 @@
 import React, { useState,useEffect } from 'react'
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 function Profile() {
   const [profile,setProfile] = useState({
@@ -20,14 +22,14 @@ function Profile() {
     latitude: "24.7128",
     longitude: "72.45",
     website: "",
-
   });
+  const { userType, userId, token, email } = useSelector((state) => state.auth);
   useEffect(() => {
     // Function to fetch data from the API
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          process.env.NEXT_PUBLIC_SERVER_URL + "/bloodbank/bloodbank/2"
+          process.env.NEXT_PUBLIC_SERVER_URL + `/bloodbank/bloodbank/${userType}`
         );
         // setProfile(response.data);
         console.log(response.data);

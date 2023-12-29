@@ -27,6 +27,7 @@ function BloodBank() {
     latitude: "",
     longitude: "",
     website: "",
+    district: "",
   };
   const [isOtpBoxVisible, setIsOtpBoxVisible] = useState(false);
   const [formData, setFormData] = useState(initialState);
@@ -88,6 +89,7 @@ function BloodBank() {
     } catch (error) {
       console.error("Error:", error);
     }
+    setIsLoading(false);
   };
   return (
     <ResponsiveLayout>
@@ -301,7 +303,18 @@ function BloodBank() {
               Get Your current location
             </div>
           </div>
-
+          <div className="flex justify-between">
+            <div className="flex items-center">
+              <div className="w-32">District</div>
+              <input
+                onChange={handleChange}
+                className="p-1 border-2 rounded-md"
+                type="text"
+                name="district"
+                placeholder="District"
+              />
+            </div>
+          </div>
           <div className="flex justify-between">
             <div className="flex items-center">
               <div className="w-32"> Pincode</div>
