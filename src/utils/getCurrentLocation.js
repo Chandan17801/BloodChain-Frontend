@@ -1,19 +1,31 @@
 import axios from "axios";
 
-const getCurrentLocation = async () => {
+export default async function getCurrentLocation() {
+  let response = null;
   try {
-    // Replace 'YOUR_ACCESS_KEY' with your actual access key
-    const accessKey = "8d659473067d70a2e0e508ca3680a6cb";
-    // Replace 'YOUR_API_URL' with the actual API endpoint URL
-    const apiUrl = `http://api.ipstack.com/check?access_key=${accessKey}`;
-
-    const response = await axios.get(apiUrl);
-
-    console.log(response.data);
-    return response.data;
+    response = await axios.get("http://ip-api.com/json/");
   } catch (error) {
-    console.log(error);
+    console.error("Error fetching data:", error);
   }
-};
+  return response.data;
+}
 
-export default getCurrentLocation;
+export async function getLatitude() {
+  try {
+    const locationData = await getCurrentLocation();
+    return locationData.lat;
+  } catch (error) {
+    console.error("Error getting latitude:", error);
+    throw error; // Rethrow the error to handle it outside if needed
+  }
+}
+
+export async function getLongitude() {
+  try {
+    const locationData = await getCurrentLocation();
+    return locationData.lon;
+  } catch (error) {
+    console.error("Error getting longitude:", error);
+    throw error; // Rethrow the error to handle it outside if needed
+  }
+}

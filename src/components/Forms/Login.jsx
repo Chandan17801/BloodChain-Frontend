@@ -9,10 +9,12 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { logout, login } from "@/store/auth";
 import Router from "next/router";
+import OtpBox from "./otp";
 
 export default function Login() {
   const { userType, userId, token, email } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const [isOtpVisible, setIsOtpVisible] = useState(false);
   const [loginUser, setLoginUser] = useState("donor");
   const [formData, setFormData] = useState({
     email: "",
@@ -41,7 +43,7 @@ export default function Login() {
     event.preventDefault();
     let response = null;
     try {
-      if (loginUser == "donor") {
+      if (loginUser == "users") {
         response = await axios.post(
           process.env.NEXT_PUBLIC_SERVER_URL + "/users/login",
           formData
@@ -57,13 +59,15 @@ export default function Login() {
           formData
         );
       }
-      handleLogin({
-        userType: loginUser,
-        userId: response.data.userId,
-        token: response.data.token,
-        email: response.data.email,
-      });
-      Router.replace({ pathname: "/" });
+      if (response.data.success) {
+        handleLogin({
+          userType: loginUser,
+          userId: response.data.userId,
+          token: response.data.token,
+          email: response.data.email,
+        });
+        Router.replace({ pathname: `/${loginUser}/dashboard` });
+      } else setIsOtpVisible(true);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -71,6 +75,7 @@ export default function Login() {
 
   return (
     <ResponsiveLayout>
+      {isOtpVisible ?? <OtpBox email={formData.email} userType={loginUser} />}
       <div
         className="flex justify-center items-center h-[100vh]"
         style={{
@@ -96,11 +101,11 @@ export default function Login() {
             <div className="w-[70%] flex justify-around text-[#cc191996] text-xs">
               <div
                 className={`cursor-pointer ${
-                  loginUser == "donor"
+                  loginUser == "users"
                     ? "text-[#b43232] border-b-2 border-b-red-700"
                     : ""
                 }`}
-                id="donor"
+                id="users"
                 onClick={loginUserHandler}
               >
                 As Donor
@@ -161,13 +166,24 @@ export default function Login() {
               Signup and contribute for humanity
             </div>
             <div className="flex flex-col gap-2">
-              <div className="bg-white w-40 text-xs text-[#ac2828] merri text-center py-2 rounded-3xl cursor-pointer hover:bg-red-100">
+              <div
+                onClick={() => Router.push({ pathname: "/register/donor" })}
+                className="bg-white w-40 text-xs text-[#ac2828] merri text-center py-2 rounded-3xl cursor-pointer hover:bg-red-100"
+              >
                 Register as Donor
               </div>
-              <div className="bg-white w-40 text-xs text-[#ac2828] merri text-center py-2 rounded-3xl cursor-pointer hover:bg-red-100">
+              <div
+                onClick={() =>
+                  Router.push({ pathname: "/register/blood-bank" })
+                }
+                className="bg-white w-40 text-xs text-[#ac2828] merri text-center py-2 rounded-3xl cursor-pointer hover:bg-red-100"
+              >
                 BloodBank Registration
               </div>
-              <div className="bg-white w-40 text-xs text-[#ac2828] merri text-center py-2 rounded-3xl cursor-pointer hover:bg-red-100">
+              <div
+                onClick={() => Router.push({ pathname: "/register/hospital" })}
+                className="bg-white w-40 text-xs text-[#ac2828] merri text-center py-2 rounded-3xl cursor-pointer hover:bg-red-100"
+              >
                 Hospital Registration
               </div>
             </div>

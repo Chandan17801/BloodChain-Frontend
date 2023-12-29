@@ -14,7 +14,7 @@ function Donor() {
     name: "",
     address: "",
     date_of_birth: "",
-    blood_group: "",
+    blood_group: "O+",
     district: "",
     state: "",
     pincode: "",
@@ -70,7 +70,7 @@ function Donor() {
             <input
               onChange={handleChange}
               className="p-1 border-2 rounded-md w-64"
-              type="number"
+              type="text"
               name="phone"
               placeholder="Number"
             />
@@ -136,10 +136,14 @@ function Donor() {
                   onChange={handleChange}
                   className="p-1 border-2 rounded-md w-64"
                 >
-                  <option value="">B+</option>
-                  <option value="">O+</option>
-                  <option value="">A-</option>
-                  <option value="">B-</option>
+                  <option selected value="O+">O+</option>
+                  <option value="O-">O-</option>
+                  <option value="B-">B-</option>
+                  <option value="B+">B+</option>
+                  <option value="AB+">AB+</option>
+                  <option value="AB-">AB-</option>
+                  <option value="A+">A+</option>
+                  <option value="A-">A-</option>
                 </select>
               </div>
               <div className="flex">
@@ -148,7 +152,7 @@ function Donor() {
                   className="p-1 border-2 rounded-md w-64"
                   name="aadhaar_no"
                   onChange={handleChange}
-                  type="Number"
+                  type="text"
                   placeholder="Aadhaar No."
                 />
               </div>
@@ -159,7 +163,7 @@ function Donor() {
             <input
               className="p-1 border-2 rounded-md w-64"
               onChange={handleChange}
-              type="Number"
+              type="text"
               name="pincode"
               placeholder="pincode"
             />
@@ -169,7 +173,7 @@ function Donor() {
                 <input
                   className="p-1 border-2 rounded-md w-64"
                   onChange={handleChange}
-                  type="Number"
+                  type="text"
                   name="longitude"
                   placeholder="Longitude"
                 />
@@ -178,7 +182,7 @@ function Donor() {
                 <div className="w-32"> Latitude</div>
                 <input
                   className="p-1 border-2 rounded-md w-64"
-                  type="Number"
+                  type="text"
                   onChange={handleChange}
                   name="latitude"
                   placeholder="Latitude"

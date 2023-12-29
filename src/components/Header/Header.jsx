@@ -5,15 +5,15 @@ import Link from "next/link";
 function Header({ className }) {
   return (
     <div
-      className={`w-full flex h-16 justify-between p-4 bg-transparent merri ${className}`}
+      className={`w-full flex justify-between p-4 pr-0 bg-transparent merri ${className}`}
     >
-      <div>Logo</div>
-      <div className="flex gap-10">
+      <div className="">Logo</div>
+      <div className="flex gap-10 bg-white pr-4 pl-12 rounded-l-3xl h-14 border-[#6A0B32]">
         {navData.map((data) => (
           <Link
             key={data.id}
             href={data.href}
-            className="flex gap-10 text-xl items-center font-medium justify-center hover:border-b-2 border-red-800"
+            className="py-3 flex gap-10 items-center text-[#6A0B32] justify-center hover:border-b-2 border-[#6A0B32] hover:pb-[10px]"
           >
             {data.label}
           </Link>

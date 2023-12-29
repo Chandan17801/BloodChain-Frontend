@@ -4,8 +4,8 @@ import UnCheckedCheckBox from "@/components/SVGComponents/UnCheckedCheckBox";
 import HeaderStrip from "@/components/UIElements/HeaderStrip";
 import ResponsiveLayout from "@/components/layout/ResponsiveLayout";
 import axios from "axios";
-import getCurrentLocation from "@/utils/getCurrentLocation";
 import OtpBox from "./otp";
+import getCurrentLocation from "@/utils/getCurrentLocation";
 
 function BloodBank() {
   const initialState = {
@@ -30,6 +30,8 @@ function BloodBank() {
   };
   const [isOtpBoxVisible, setIsOtpBoxVisible] = useState(false);
   const [formData, setFormData] = useState(initialState);
+  const [isLocation, setIsLocation] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const component_facility_click_handler = () => {
     setFormData((prevData) => ({
@@ -50,8 +52,15 @@ function BloodBank() {
       [name]: value,
     }));
   };
-  const getLocation = () => {
-    const location = getCurrentLocation();
+  const getLocation = async () => {
+    const location = await getCurrentLocation();
+    setFormData((prevData) => ({
+      ...prevData,
+      longitude: location.lon,
+      latitude: location.lat,
+    }));
+    setIsLocation(true);
+    // console.log(formData);
   };
   const imageHandler = (e) => {
     setFormData((prevData) => ({
@@ -61,7 +70,7 @@ function BloodBank() {
   };
   const form_submit_handler = async (event) => {
     event.preventDefault();
-
+    setIsLoading(true);
     const data = new FormData();
 
     for (const key in formData) {
@@ -82,7 +91,9 @@ function BloodBank() {
   };
   return (
     <ResponsiveLayout>
-      {isOtpBoxVisible && <OtpBox email={formData.email} userType="bloodbank" />}
+      {isOtpBoxVisible && (
+        <OtpBox email={formData.email} userType="bloodbank" />
+      )}
       <div className="container mt-4 mx-auto w-[70%]">
         <HeaderStrip text="Register As Blood Bank" />
         <form
@@ -105,7 +116,7 @@ function BloodBank() {
               <input
                 onChange={handleChange}
                 className="p-1 border-2 rounded-md w-48"
-                type="number"
+                type="text"
                 name="phone"
                 placeholder="Number"
               />
@@ -250,10 +261,14 @@ function BloodBank() {
             <div className="flex items-center">
               <div className="w-32"> Latitude</div>
               <input
-                className="p-1 border-2 rounded-md w-48"
+                className={`bg-white p-1 border-2 rounded-md w-48 ${
+                  isLocation ? "cursor-not-allowed" : ""
+                }`}
                 name="latitude"
                 onChange={handleChange}
-                type="Number"
+                value={formData.latitude}
+                disabled={isLocation}
+                type="text"
                 placeholder="Latitude"
               />
             </div>
@@ -261,15 +276,26 @@ function BloodBank() {
               <div className="w-32"> Longitude</div>
               <input
                 onChange={handleChange}
-                className="p-1 border-2 rounded-md w-48"
-                type="number"
+                className={`bg-white p-1 border-2 rounded-md w-48 ${
+                  isLocation ? "cursor-not-allowed" : ""
+                }`}
+                type="text"
+                value={formData.longitude}
+                disabled={isLocation}
                 name="longitude"
                 placeholder="Longitude"
               />
             </div>
           </div>
           <div className="flex">
-            <input className="mr-2" type="checkbox" onClick={getLocation} />
+            <input
+              className={`mr-2 ${
+                !isLocation ? "cursor-pointer" : "cursor-not-allowed"
+              }`}
+              type="checkbox"
+              disabled={isLocation}
+              onClick={getLocation}
+            />
             <div style={{ fontStyle: "italic" }}>
               {" "}
               Get Your current location
@@ -304,7 +330,8 @@ function BloodBank() {
           </div>
           <button
             type="submit"
-            className="mx-auto justify-center w-48 bg-black flex text-white pl-6 pr-6 pt-2 pb-2 rounded-xl font-semibold shadow-md shadow-gray-600 active:shadow-none active:translate-y-1"
+            disabled={isLoading}
+            className="mx-auto disabled:bg-gray-400 justify-center w-48 bg-black flex text-white pl-6 pr-6 pt-2 pb-2 rounded-xl font-semibold shadow-md shadow-gray-600 active:shadow-none active:translate-y-1 disabled:translate-y-0 disabled:shadow-none disabled:cursor-not-allowed"
           >
             Submit
           </button>

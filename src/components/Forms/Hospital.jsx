@@ -1,8 +1,9 @@
 import HeaderStrip from "@/components/UIElements/HeaderStrip";
 import ResponsiveLayout from "@/components/layout/ResponsiveLayout";
-import { React, useState } from "react";
+import { React, use, useState } from "react";
 import axios from "axios";
 import OtpBox from "./otp";
+import getCurrentLocation from "@/utils/getCurrentLocation";
 
 function Hospital() {
   const initialState = {
@@ -20,10 +21,12 @@ function Hospital() {
     state: "",
     latitude: "",
     longitude: "",
-    type: "",
+    type: "Government",
   };
   const [formData, setFormData] = useState(initialState);
   const [isOtpBoxVisible, setIsOtpBoxVisible] = useState(false);
+  const [isLocation, setIsLocation] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,9 +41,20 @@ function Hospital() {
       licence_image: e.target.files[0],
     }));
   };
+  const getLocation = async () => {
+    const location = await getCurrentLocation();
+    setFormData((prevData) => ({
+      ...prevData,
+      longitude: location.lon,
+      latitude: location.lat,
+    }));
+    setIsLocation(true);
+    // console.log(formData);
+  };
   const form_submit_handler = async (event) => {
     event.preventDefault();
-
+    setIsLoading(true);
+    console.log(formData);
     const data = new FormData();
 
     for (const key in formData) {
@@ -54,6 +68,7 @@ function Hospital() {
         data
       );
       setIsOtpBoxVisible(true);
+      console.log(isOtpBoxVisible);
       console.log("Response:", response);
     } catch (error) {
       console.error("Error:", error);
@@ -84,7 +99,7 @@ function Hospital() {
               <input
                 onChange={handleChange}
                 className="p-1 border-2 rounded-md w-48"
-                type="number"
+                type="text"
                 name="phone"
                 placeholder="Number"
               />
@@ -106,7 +121,7 @@ function Hospital() {
               <input
                 onChange={handleChange}
                 className="p-1 border-2 rounded-md w-48"
-                type="number"
+                type="text"
                 name="fax_no"
                 placeholder="Fax No."
               />
@@ -118,7 +133,7 @@ function Hospital() {
               <input
                 onChange={handleChange}
                 className="p-1 border-2 rounded-md w-48"
-                type="number"
+                type="text"
                 name="licence_no"
                 placeholder="Licence No."
               />
@@ -185,8 +200,10 @@ function Hospital() {
                   onChange={handleChange}
                   className="p-1 border-2 rounded-md w-48"
                 >
-                  <option value="">Government</option>
-                  <option value="">Private</option>
+                  <option selected value="Government">
+                    Government
+                  </option>
+                  <option value="Private">Private</option>
                 </select>
               </div>
             </div>
@@ -195,10 +212,14 @@ function Hospital() {
             <div className="flex items-center">
               <div className="w-32"> Latitude</div>
               <input
-                className="p-1 border-2 rounded-md w-48"
+                className={`bg-white p-1 border-2 rounded-md w-48 ${
+                  isLocation ? "cursor-not-allowed" : ""
+                }`}
                 name="latitude"
                 onChange={handleChange}
-                type="Number"
+                value={formData.latitude}
+                disabled={isLocation}
+                type="text"
                 placeholder="Latitude"
               />
             </div>
@@ -206,8 +227,12 @@ function Hospital() {
               <div className="w-32"> Longitude</div>
               <input
                 onChange={handleChange}
-                className="p-1 border-2 rounded-md w-48"
-                type="number"
+                className={`bg-white p-1 border-2 rounded-md w-48 ${
+                  isLocation ? "cursor-not-allowed" : ""
+                }`}
+                type="text"
+                value={formData.longitude}
+                disabled={isLocation}
                 name="longitude"
                 placeholder="Longitude"
               />
@@ -215,7 +240,14 @@ function Hospital() {
           </div>
 
           <div className="flex">
-            <input className="mr-2" type="checkbox" />
+            <input
+              className={`mr-2 ${
+                !isLocation ? "cursor-pointer" : "cursor-not-allowed"
+              }`}
+              type="checkbox"
+              disabled={isLocation}
+              onClick={getLocation}
+            />
             <div style={{ fontStyle: "italic" }}>
               {" "}
               Get Your current location
@@ -227,7 +259,7 @@ function Hospital() {
               <input
                 onChange={handleChange}
                 className="p-1 border-2 rounded-md mr-16 w-48"
-                type="number"
+                type="text"
                 name="pincode"
                 placeholder="pincode"
               />
@@ -249,7 +281,8 @@ function Hospital() {
           </div>
           <button
             type="submit"
-            className="mx-auto justify-center w-48 bg-black flex text-white pl-6 pr-6 pt-2 pb-2 rounded-xl font-semibold shadow-md shadow-gray-600 active:shadow-none active:translate-y-1"
+            disabled={isLoading}
+            className="mx-auto disabled:bg-gray-400 justify-center w-48 bg-black flex text-white pl-6 pr-6 pt-2 pb-2 rounded-xl font-semibold shadow-md shadow-gray-600 active:shadow-none active:translate-y-1 disabled:translate-y-0 disabled:shadow-none disabled:cursor-not-allowed"
           >
             Submit
           </button>

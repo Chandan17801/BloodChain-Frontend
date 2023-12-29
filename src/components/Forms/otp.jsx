@@ -60,7 +60,7 @@ function OtpBox({ email, userType }) {
           email,
         })
       );
-      Router.replace({ pathname: "/" });
+      Router.replace({ pathname: `/${userType}/dashboard` });
     } catch (error) {
       console.log(error);
     }
@@ -99,7 +99,7 @@ function OtpBox({ email, userType }) {
               maxLength="1"
               ref={box}
               value={otpValues[index]}
-              className="w-[2rem] border-gray-400  border-2"
+              className="w-[2rem] border-gray-400  border-2 text-center mont text-gray-400"
               onChange={(event) => handleInput(index, event)}
               onKeyDown={(event) => handleKeyDown(index, event)}
             />
