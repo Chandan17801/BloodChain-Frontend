@@ -15,7 +15,7 @@ export default function Login() {
   const { userType, userId, token, email } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [isOtpVisible, setIsOtpVisible] = useState(false);
-  const [loginUser, setLoginUser] = useState("donor");
+  const [loginUser, setLoginUser] = useState("users");
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -59,7 +59,8 @@ export default function Login() {
           formData
         );
       }
-      if (response.data.success) {
+      console.log(response);
+      if (loginUser == 'users' && response.data.success) {
         handleLogin({
           userType: loginUser,
           userId: response.data.userId,

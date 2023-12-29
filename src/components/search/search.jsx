@@ -35,14 +35,14 @@ export default function Search() {
     // };
     // fetchData();
   }, [distance]);
-  console.log(bloodbanks);
+  // console.log(bloodbanks);
 
   const distanceHandler = (e) => {
     setDistance(e.target.value);
   };
 
   const districtHandler = async (e) => {4
-    console.log(district);
+    // console.log(district);
     // try {
     //   const response = await axios.get(
     //     process.env.NEXT_PUBLIC_SERVER_URL +
@@ -54,7 +54,7 @@ export default function Search() {
     //   console.log(error);
     // }
   };
-  console.log(district);
+  // console.log(district);
 
 
   return (
