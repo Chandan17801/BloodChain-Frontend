@@ -1,10 +1,17 @@
 import React from "react";
+import ConfirmPopUp from "../layout/ConfirmPopUp";
+import { useState } from "react";
 
 function BloodBank({ bloodbanks }) {
+  const [selectedBank, setSelectedBank] = useState(null);
   return (
     <div>
+      {selectedBank != null && <ConfirmPopUp bank= {selectedBank} />}
       {bloodbanks.map((bank, index) => (
         <div
+          onClick={() => {
+            setSelectedBank(bank);
+          }}
           key={index}
           className="flex shadow-md shadow-gray-400 p-4 w-[90%] mx-[5%] mb-8"
         >

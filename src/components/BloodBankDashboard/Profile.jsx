@@ -1,9 +1,9 @@
-import React, { useState,useEffect } from 'react'
-import { useSelector } from 'react-redux';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 function Profile() {
-  const [profile,setProfile] = useState({
+  const [profile, setProfile] = useState({
     email: "dummy@example.com",
     name: "xyzBlood Bank",
     address: "shivaji Nagar",
@@ -24,15 +24,20 @@ function Profile() {
     website: "",
   });
   const { userType, userId, token, email } = useSelector((state) => state.auth);
+  // console.log(`userType is ${userType}`);
+  // console.log(`userId is ${userId}`);
+  // console.log(`token is ${token}`);
+  // console.log(`email is ${email}`);
   useEffect(() => {
     // Function to fetch data from the API
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          process.env.NEXT_PUBLIC_SERVER_URL + `/bloodbank/bloodbank/${userType}`
+          process.env.NEXT_PUBLIC_SERVER_URL + `/bloodbank/bloodbank/${userId}`
         );
         // setProfile(response.data);
         console.log(response.data);
+        setProfile(response.data)
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -62,7 +67,7 @@ function Profile() {
               {profile.blood_group}
             </div> */}
             <div className="font-light bg-gray-100 px-4 py-1 rounded-md text-sm">
-              {profile.licence_no} 
+              {profile.licence_no}
             </div>
           </div>
         </div>
@@ -83,16 +88,16 @@ function Profile() {
                 Licence Time
               </div>
               <div className="border-b-[1px] border-gray-300 w-full text-right pb-1 text-gray-700">
-              component_facility
+                component_facility
               </div>
               <div className="border-b-[1px] border-gray-300 w-full text-right pb-1 text-gray-700">
-              apheresis_facility
+                apheresis_facility
               </div>
               <div className="border-b-[1px] border-gray-300 w-full text-right pb-1 text-gray-700">
                 Pincode
               </div>
               <div className="border-b-[1px] border-gray-300 w-full text-right pb-1 text-gray-700">
-              fax_no
+                fax_no
               </div>
               <div className="border-b-[1px] border-gray-300 w-full text-right pb-1 text-gray-700">
                 State
@@ -101,10 +106,10 @@ function Profile() {
                 Address
               </div>
               <div className="border-b-[1px] border-gray-300 w-full text-right pb-1 text-gray-700">
-              Licence No.
+                Licence No.
               </div>
               <div className="border-b-[1px] border-gray-300 w-full text-right pb-1 text-gray-700">
-              helpline_no
+                helpline_no
               </div>
             </div>
             <div className="flex flex-col flex-[4]">
@@ -118,7 +123,7 @@ function Profile() {
                 {profile.phone}
               </div>
               <div className="border-b-[1px] border-gray-300 w-full text-left pb-1 text-gray-700 font-thin">
-                {profile.from_date } - {profile.to_date}
+                {profile.from_date} - {profile.to_date}
               </div>
               <div className="border-b-[1px] border-gray-300 w-full text-left pb-1 text-gray-700 font-thin">
                 {profile.component_facility}
@@ -178,5 +183,5 @@ function Profile() {
     </div>
   );
 }
-   
-export default Profile
+
+export default Profile;

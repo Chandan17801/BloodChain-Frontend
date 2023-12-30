@@ -2,15 +2,17 @@ import React from "react";
 import BloodChart from "@/components/UIElements/BloodChart";
 import last_donations from "@/styles/donations";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
 
 export default function Dashboard() {
+  const { userType, userId, token, email } = useSelector((state) => state.auth);
   useEffect(() => {
     // Function to fetch data from the API
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          process.env.NEXT_PUBLIC_SERVER_URL + "/bloodbank/bloodbank/2"
+          process.env.NEXT_PUBLIC_SERVER_URL + `/bloodbank/bloodbank/${userId}`
         );
         // setProfile(response.data);
         console.log(response.data);

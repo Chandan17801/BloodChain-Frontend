@@ -7,32 +7,30 @@ import { useState, useEffect } from "react";
 
 export default function Search() {
   const initialBanks = [
-    { name: "Devanand", address: "gorakhpur", email: "meriemail@email.com" },
-    { name: "Sudarshan", address: "gorakhpur", email: "meriemail@email.com" },
-    { name: "Devanand", address: "gorakhpur", email: "meriemail@email.com" },
-    { name: "Devanand", address: "gorakhpur", email: "meriemail@email.com" },
-    { name: "Devanand", address: "bhokal", email: "meriemail@email.com" },
-    { name: "Devanand", address: "gorakhpur", email: "meriemail@email.com" },
-  ];
+    { name: "Devanand", address: "gorakhpur", email: "meriemail@email.com", id: "02" },
+    { name: "Devanand", address: "gorakhpur", email: "meriemail@email.com", id: "03" },
+    { name: "Devanand", address: "gorakhpur", email: "meriemail@email.com", id: "01" },
+    { name: "Devanand", address: "gorakhpur", email: "meriemail@email.com", id: "04" },
+    { name: "Devanand", address: "gorakhpur", email: "meriemail@email.com", id: "05" },]
   const [distance, setDistance] = useState(50);
   const [bloodbanks, setBloodbanks] = useState(initialBanks);
-  const [district, setDistrict] = useState();
-  const latitude = getLatitude();
-  const longitude = getLongitude();
+  const [district, setDistrict] = useState('');
 
   useEffect(() => {
-    // const fetchData = async () => {
-    //   try {
-    //     const response = await axios.get(
-    //       process.env.NEXT_PUBLIC_SERVER_URL +
-    //         `/bloodbank/search?latitude=${latitude}&longitude=${longitude}&radius=${distance}`
-    //     );
-    //     console.log(response.data);
-    //     setBloodbanks(response.data);
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // };
+    const fetchData = async () => {
+      try {
+        const latitude = await getLatitude();
+        const longitude = await getLongitude();
+        const response = await axios.get(
+          process.env.NEXT_PUBLIC_SERVER_URL +
+            `/bloodbank/search?latitude=${latitude}&longitude=${longitude}&radius=${distance}`
+        );
+        console.log(response.data);
+        setBloodbanks(response.data.banks);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     // fetchData();
   }, [distance]);
   // console.log(bloodbanks);
@@ -41,38 +39,35 @@ export default function Search() {
     setDistance(e.target.value);
   };
 
-  const districtHandler = async (e) => {4
-    // console.log(district);
-    // try {
-    //   const response = await axios.get(
-    //     process.env.NEXT_PUBLIC_SERVER_URL +
-    //       `/bloodbank/search?latitude=${latitude}&longitude=${longitude}&radius=${distance}`
-    //   );
-    //   console.log(response.data);
-    //   setBloodbanks(response.data);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+  const districtHandler = async (e) => {
+    console.log(district);
+    try {
+      const response = await axios.get(
+        process.env.NEXT_PUBLIC_SERVER_URL + `/bloodbank/district/${district}`
+      );
+      // console.log(response.data.bloodbank);
+      setBloodbanks(response.data.bloodbank);
+    } catch (error) {
+      console.log(error);
+    }
   };
-  // console.log(district);
-
+  // console.log(bloodbanks);
 
   return (
     <div>
-      <form>
+      <div>
         <div className="flex">
           <div className="w-1/2 flex p-4 gap-2">
             <select
               onClick={distanceHandler}
               id="myDropdown"
+              defaultValue="50"
               className="rounded-md border-gray-400 border-2 p-2 mx-4"
             >
-              <option value="Less than 10km" selected>
-                Less than 10km
-              </option>
-              <option value="Less than 20km">Less than 20km</option>
-              <option value="Less than 50km">Less than 50km</option>
-              <option value="Greater than 50km">Greater than 50km</option>
+              <option value="10">Less than 10km</option>
+              <option value="20">Less than 20km</option>
+              <option value="50">Less than 50km</option>
+              <option value="10000">Greater than 50km</option>
             </select>
           </div>
           <div className="w-1/2 flex p-4 gap-2 justify-end mr-5+">
@@ -94,7 +89,7 @@ export default function Search() {
             </button>
           </div>
         </div>
-      </form>
+      </div>
       <BloodBank bloodbanks={bloodbanks} />
     </div>
   );

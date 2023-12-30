@@ -28,7 +28,6 @@ export default function Login() {
 
   const loginUserHandler = (e) => {
     setLoginUser(e.target.id);
-    console.log(e.target.id);
   };
 
   const handleLogin = (payload) => {
@@ -48,7 +47,16 @@ export default function Login() {
           process.env.NEXT_PUBLIC_SERVER_URL + "/users/login",
           formData
         );
-      } else if (loginUser == "blood_bank") {
+        if (response.data.success) {
+          handleLogin({
+            userType: loginUser,
+            userId: response.data.userId,
+            token: response.data.token,
+            email: response.data.email,
+          });
+          Router.replace({ pathname: `/${loginUser}/dashboard` });
+        }
+      } else if (loginUser == "bloodbank") {
         response = await axios.post(
           process.env.NEXT_PUBLIC_SERVER_URL + "/bloodbank/login",
           formData
@@ -59,16 +67,8 @@ export default function Login() {
           formData
         );
       }
-      console.log(response);
-      if (loginUser == 'users' && response.data.success) {
-        handleLogin({
-          userType: loginUser,
-          userId: response.data.userId,
-          token: response.data.token,
-          email: response.data.email,
-        });
-        Router.replace({ pathname: `/${loginUser}/dashboard` });
-      } else setIsOtpVisible(true);
+      // console.log(response);
+      setIsOtpVisible(true);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -76,7 +76,7 @@ export default function Login() {
 
   return (
     <ResponsiveLayout>
-      {isOtpVisible ?? <OtpBox email={formData.email} userType={loginUser} />}
+      {isOtpVisible && <OtpBox email={formData.email} userType={loginUser} />}
       <div
         className="flex justify-center items-center h-[100vh]"
         style={{
@@ -112,9 +112,9 @@ export default function Login() {
                 As Donor
               </div>
               <div
-                id="blood_bank"
+                id="bloodbank"
                 className={`cursor-pointer ${
-                  loginUser == "blood_bank"
+                  loginUser == "bloodbank"
                     ? "text-[#b43232] border-b-2 border-b-red-700"
                     : ""
                 }`}

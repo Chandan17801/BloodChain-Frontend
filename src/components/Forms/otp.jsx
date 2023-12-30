@@ -51,16 +51,17 @@ function OtpBox({ email, userType }) {
           email: email,
           otp: otp,
         }
-      );
+        );
+        console.log(response.data);
       dispatch(
         login({
-          userType,
+          userType: userType,
           userId: response.data.id,
           token: response.data.token,
-          email,
+          email: email
         })
       );
-      Router.replace({ pathname: `/${userType}/dashboard` });
+      Router.replace({ pathname: `/${userType}/profile` });
     } catch (error) {
       console.log(error);
     }
