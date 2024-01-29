@@ -60,17 +60,23 @@ function Footer() {
           Copyright © 2023 by BU Community, Jhansi
         </p>
         <div className="text-center">
-          <Link href="#" className="text-sm hover:underline">
+          <Link
+            href="./policy/termsandconditions"
+            className="text-sm hover:underline"
+          >
             {" "}
             Terms & Conditions{" "}
           </Link>
           |
-          <Link href="#" className="text-sm hover:underline">
+          <Link
+            href="./policy/privacypolicy"
+            className="text-sm hover:underline"
+          >
             {" "}
             Privacy Policy{" "}
           </Link>
           |
-          <Link href="#" className="text-sm hover:underline">
+          <Link href="./policy/accessibilitystatement" className="text-sm hover:underline">
             {" "}
             Accessibility Statement{" "}
           </Link>
