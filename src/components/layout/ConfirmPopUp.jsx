@@ -15,7 +15,7 @@ function ConfirmPopUp({ bank }) {
       const response = await axios.post(
         process.env.NEXT_PUBLIC_SERVER_URL + `/request/create`,
         {
-          hospitalId: userType,
+          hospitalId: 2,
           name: null,
           bloodType: bloodType,
           quantity: amount,
@@ -49,19 +49,19 @@ function ConfirmPopUp({ bank }) {
             type="text"
             name="unit"
             placeholder="2"
-            onChange={(e) => setAmount(e.targt.value)}
-          ></input>
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+          />
         </div>
         <div className="flex items-center gap-3">
           <div className="merri text-gray-600">Enter Blood Type:</div>
           <select
             name="blood_group"
-            onChange={(e)=>setBloodType(e.target.value)}
+            value={bloodType}
+            onChange={(e) => setBloodType(e.target.value)}
             className="p-1 border-2 border-gray-400 rounded-md text-red-500"
           >
-            <option selected value="O+">
-              O+
-            </option>
+            <option value="O+">O+</option>
             <option value="O-">O-</option>
             <option value="B-">B-</option>
             <option value="B+">B+</option>

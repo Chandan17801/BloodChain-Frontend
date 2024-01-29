@@ -99,7 +99,7 @@ function Hospital() {
               <input
                 onChange={handleChange}
                 className="p-1 border-2 rounded-md w-48"
-                type="text"
+                type="number"
                 name="phone"
                 placeholder="Number"
               />
@@ -121,7 +121,7 @@ function Hospital() {
               <input
                 onChange={handleChange}
                 className="p-1 border-2 rounded-md w-48"
-                type="text"
+                type="number"
                 name="fax_no"
                 placeholder="Fax No."
               />
@@ -133,7 +133,7 @@ function Hospital() {
               <input
                 onChange={handleChange}
                 className="p-1 border-2 rounded-md w-48"
-                type="text"
+                type="number"
                 name="licence_no"
                 placeholder="Licence No."
               />
@@ -259,7 +259,7 @@ function Hospital() {
               <input
                 onChange={handleChange}
                 className="p-1 border-2 rounded-md mr-16 w-48"
-                type="text"
+                type="number"
                 name="pincode"
                 placeholder="pincode"
               />
