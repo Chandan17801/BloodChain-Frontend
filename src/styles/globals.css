@@ -6,12 +6,21 @@
   background: linear-gradient(to right, #b42349, #690b36);
 }
 
+.red-creative {
+  background-image: url("../assests/red-creative.jpg");
+  background-size: contain;
+}
+.red-creative-2 {
+  background-image: url("../assests/red-creative-2.jpg");
+  background-size: contain;
+}
+
 .header-gradient {
   background: linear-gradient(
     to right,
     #6a0c3a,
     #93183f,
-    #B42347,
+    #b42347,
     rgb(244, 157, 180)
   );
 }
