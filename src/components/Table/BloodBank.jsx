@@ -5,7 +5,7 @@ import { useState } from "react";
 function BloodBank({ bloodbanks }) {
   const [selectedBank, setSelectedBank] = useState(null);
   return (
-    <div>
+    <div className="mt-8 w-4/5 mx-auto">
       {selectedBank != null && <ConfirmPopUp bank= {selectedBank} />}
       {bloodbanks.map((bank, index) => (
         <div
@@ -18,7 +18,7 @@ function BloodBank({ bloodbanks }) {
           <div className="flex flex-col flex-[4]">
             <div className="flex gap-12">
               <div className="font-semibold text-2xl">{bank.name}</div>
-              <div className="italic py-2">10Km</div>
+              <div className="py-2">10Km</div>
             </div>
             <div className="text-gray-700 py-0 text-sm">{bank.address}</div>
           </div>

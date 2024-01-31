@@ -54,7 +54,7 @@ export default function Search() {
   // console.log(bloodbanks);
 
   return (
-    <div>
+    <div className="w-[95%] mx-auto">
       <div>
         <div className="flex">
           <div className="w-1/2 flex p-4 gap-2">
