@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import Image from "next/image";
 import ResponsiveLayout from "../layout/ResponsiveLayout";
 import CampaignForm from "./CampaignForm";
+import RequestVerify from "./RequestVerify";
 
 function Campaign() {
   const [isCampaignFormOpen, setIsCampaignFormOpen] = useState(false);
+  const [isVerification, setIsVerification] = useState(false);
+  const [verifyingRequest, setVerifyingRequest] = useState();
   const [requests, setRequests] = useState([
     {
       user_id: "01",
@@ -100,7 +103,21 @@ function Campaign() {
   const [selectedCamp, setSelectedBank] = useState(allCamps[0]);
   return (
     <ResponsiveLayout>
-      {isCampaignFormOpen && <CampaignForm />}
+      {isVerification && (
+        <RequestVerify
+          request={verifyingRequest}
+          close={() => {
+            setIsVerification(false);
+          }}
+        />
+      )}
+      {isCampaignFormOpen && (
+        <CampaignForm
+          close={() => {
+            setIsCampaignFormOpen(false);
+          }}
+        />
+      )}
 
       <div className="flex min-h-screen max-h-screen gap-4 p-8 bg-[#F7F8FA]">
         <div className="flex-1 flex flex-col gap-4">
@@ -128,19 +145,17 @@ function Campaign() {
             >
               {allCamps.map((camp, index) => (
                 <div
+                  onClick={() => {
+                    setSelectedBank(camp);
+                  }}
                   className={`${
                     index % 2 === 0 ? "bg-gray-100" : "bg-white" // Alternate colors
-                  } rounded-md p-2 flex items-center`}
+                  } rounded-md p-2 flex items-center cursor-pointer`}
                   key={index}
                 >
                   <div className="flex-[8] pl-2 font-semibold">{camp.name}</div>
                   <div className="flex-[4] font-light">{camp.date}</div>
-                  <div
-                    onClick={() => {
-                      setSelectedBank(camp);
-                    }}
-                    className="flex-1 text-red-900 flex text-3xl cursor-pointer justify-end pr-1"
-                  >
+                  <div className="flex-1 text-red-900 flex text-3xl justify-end pr-1">
                     {" "}
                     &raquo;{" "}
                   </div>
@@ -179,7 +194,10 @@ function Campaign() {
                     {request.blood_group}
                   </div>
                   <button
-                    type="submit"
+                    onClick={() => {
+                      setIsVerification(true);
+                      setVerifyingRequest(request);
+                    }}
                     className="ml-auto justify-center w-24 bg-black flex text-white py-1 rounded-lg font-semibold"
                   >
                     Verify

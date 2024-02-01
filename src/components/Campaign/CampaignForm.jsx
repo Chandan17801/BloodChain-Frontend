@@ -1,6 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
+import CrossButton from "../UIElements/CrossButton";
 
-function CampaignForm() {
+function CampaignForm({ close }) {
+  const [formDate, setFormData] = useState({
+    campaign_name: "",
+    campaign_date: "",
+    location: "",
+    goals: "",
+  });
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -23,11 +30,15 @@ function CampaignForm() {
     // } catch (error) {
     //   console.error("Error:", error);
     // }
+    close();
   };
   return (
     <div className="absolute h-full w-full bg-[#a7a4a480] z-50 top-0 right-0 flex justify-center items-center">
-      <div className="bg-white shadow-lg rounded-md p-[2rem] items-center flex flex-col gap-4">
-        <div className="text-4xl font-semibold mont">Add New <span className="text-red-900">Campaign</span></div>
+      <div className="bg-white shadow-lg rounded-md p-[2rem] items-center flex flex-col gap-4 relative">
+        <div className="text-4xl font-semibold mont">
+          Add New <span className="text-red-900">Campaign</span>
+        </div>
+        <CrossButton close={close} sign="x" />
         <form
           className="px-8  flex flex-col gap-7 mb-8 mont items-center"
           onSubmit={form_submit_handler}
@@ -64,11 +75,13 @@ function CampaignForm() {
           </div>
           <div className="flex ">
             <div className="w-32">Goals</div>
-            <input
+            <textarea
               onChange={handleChange}
               className="p-1 border-2 rounded-md w-64"
-              type="textaarea"
-              name="phone"
+              type="textarea"
+              rows="4"
+              cols="30"
+              name="goals"
               placeholder="Goals"
             />
           </div>
