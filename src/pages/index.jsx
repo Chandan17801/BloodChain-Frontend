@@ -12,6 +12,7 @@ import HomepageRealTimeData from "@/components/Homepage/HomepageRealTimeData";
 import HowDonationWorks from "@/components/Homepage/HowDonationWorks";
 import { Fragment } from "react";
 import Head from "next/head";
+import Sidebar from "@/components/Sidebar/sidebar";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
         <title>BloodChain: Empowering Lifesavers with BlockChain</title>
       </Head>
       <ResponsiveLayout>
+        <Sidebar />
         <Header className="absolute top-0 left-0" />
         <Hero />
         <HomepageRealTimeData />

@@ -1,29 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import ResponsiveLayout from "../layout/ResponsiveLayout";
 import CampaignForm from "./CampaignForm";
 import RequestVerify from "./RequestVerify";
+import { useSelector } from "react-redux";
 
 function Campaign() {
+  const { userType, userId, token, email } = useSelector((state) => state.auth);
+
   const [isCampaignFormOpen, setIsCampaignFormOpen] = useState(false);
   const [isVerification, setIsVerification] = useState(false);
   const [verifyingRequest, setVerifyingRequest] = useState();
   const [requests, setRequests] = useState([
     {
       user_id: "01",
-      name: "Devanand Maddhesiya",
-      blood_group: "B+",
-      age: "23",
+      name: "Digvijay Rajput",
+      blood_group: "B-",
+      age: "17",
     },
     {
-      user_id: "01",
+      user_id: "02",
       name: "Gaurav Singh",
       blood_group: "O+",
       age: "22",
     },
     {
-      user_id: "01",
+      user_id: "03",
       name: "Shadan Shan",
+      blood_group: "AB+",
+      age: "22",
+    },
+    {
+      user_id: "04",
+      name: "Chandan Rajput",
       blood_group: "AB+",
       age: "22",
     },
@@ -101,6 +110,24 @@ function Campaign() {
     },
   ]);
   const [selectedCamp, setSelectedBank] = useState(allCamps[0]);
+
+  useEffect(() => {
+    // Function to fetch data from the API
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          process.env.NEXT_PUBLIC_SERVER_URL + `/camps/bloodbank/${userId}`
+        );
+        setAllCamps(response.data);
+        console.log(allCamps);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <ResponsiveLayout>
       {isVerification && (
@@ -149,12 +176,12 @@ function Campaign() {
                     setSelectedBank(camp);
                   }}
                   className={`${
-                    index % 2 === 0 ? "bg-gray-100" : "bg-white" // Alternate colors
+                    index % 2 === 0 ? "bg-gray-100" : "bg-white"
                   } rounded-md p-2 flex items-center cursor-pointer`}
                   key={index}
                 >
-                  <div className="flex-[8] pl-2 font-semibold">{camp.name}</div>
-                  <div className="flex-[4] font-light">{camp.date}</div>
+                  <div className="flex-[8] pl-2 text-sm font-semibold">{camp.name}</div>
+                  <div className="flex-[4] font-light text-sm">{camp.date}</div>
                   <div className="flex-1 text-red-900 flex text-3xl justify-end pr-1">
                     {" "}
                     &raquo;{" "}
@@ -182,9 +209,12 @@ function Campaign() {
                 </div>
               </div>
             </div>
-            <div className="flex-[3] flex gap-2">
+            <div
+              className="flex-[3] grid grid-cols-3 gap-2"
+              style={{ overflowY: "auto", maxHeight: "190px" }}
+            >
               {requests.map((request, index) => (
-                <div className="flex-1 flex flex-col rounded-md shadow-md shadow-gray-300 p-4 mont">
+                <div className="flex flex-col rounded-md shadow-md shadow-gray-300 p-4 mont">
                   <div className="flex-1 text-gray-500 font-thin">
                     {request.user_id}
                   </div>
