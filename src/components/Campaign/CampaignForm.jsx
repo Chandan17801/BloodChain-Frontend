@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import CrossButton from "../UIElements/CrossButton";
+import { useSelector } from "react-redux";
 
 function CampaignForm({ close }) {
-  const [formDate, setFormData] = useState({
-    campaign_name: "",
-    campaign_date: "",
+  const { userType, userId, token, email } = useSelector((state) => state.auth);
+
+  const [formData, setFormData] = useState({
+    campaignName: "",
+    campaignDate: "",
     location: "",
     goals: "",
+    userId
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,19 +21,15 @@ function CampaignForm({ close }) {
   };
   const form_submit_handler = async (event) => {
     event.preventDefault();
-    // try {
-    //   // let data = JSON.stringify(formData)
-    //   let response = await axios.post(
-    //     process.env.NEXT_PUBLIC_SERVER_URL + "/users/signup",
-    //     formData
-    //   );
-    //   console.log("Response:", response);
-    //   setIsOtpBoxVisible(true);
-    //   // console.log(isOtpBoxVisible);
-    //   // setFormData(initialState);
-    // } catch (error) {
-    //   console.error("Error:", error);
-    // }
+    try {
+      let response = await axios.post(
+        process.env.NEXT_PUBLIC_SERVER_URL + "/camps/create",
+        formData
+      );
+      console.log("Response:", response);
+    } catch (error) {
+      console.error("Error:", error);
+    }
     close();
   };
   return (
@@ -49,7 +49,7 @@ function CampaignForm({ close }) {
               onChange={handleChange}
               className="p-1 border-2 rounded-md w-64"
               type="text"
-              name="campaign_name"
+              name="campaignName"
               placeholder="Campaign Name"
             />
           </div>
@@ -69,7 +69,7 @@ function CampaignForm({ close }) {
               onChange={handleChange}
               className="p-1 border-2 rounded-md w-64"
               type="date"
-              name="campaign_date"
+              name="campaignDate"
               placeholder="Date"
             />
           </div>
