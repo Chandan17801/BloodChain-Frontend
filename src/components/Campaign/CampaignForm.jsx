@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import CrossButton from "../UIElements/CrossButton";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
-function CampaignForm({ close }) {
+function CampaignForm({ close, addNewCamp }) {
   const { userType, userId, token, email } = useSelector((state) => state.auth);
 
   const [formData, setFormData] = useState({
@@ -10,7 +11,7 @@ function CampaignForm({ close }) {
     campaignDate: "",
     location: "",
     goals: "",
-    userId
+    bloodbankId: userId,
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,13 +21,14 @@ function CampaignForm({ close }) {
     }));
   };
   const form_submit_handler = async (event) => {
+    console.log(formData);
     event.preventDefault();
     try {
       let response = await axios.post(
         process.env.NEXT_PUBLIC_SERVER_URL + "/camps/create",
         formData
       );
-      console.log("Response:", response);
+      addNewCamp(response.data.data)
     } catch (error) {
       console.error("Error:", error);
     }

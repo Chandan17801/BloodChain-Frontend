@@ -3,37 +3,20 @@ import React, { useEffect, useState } from "react";
 import last_donations from "@/styles/donations";
 import calculateAge from "@/utils/calculateAge";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 function Dashboard() {
-  const [profile, setProfile] = useState({
-    email: "dummy@example.com",
-    password: "dummyPassword123",
-    phone: "1234567890",
-    name: "Dummy User",
-    address: "123 Dummy Street",
-    date_of_birth: "1990-01-01",
-    blood_group: "O+",
-    district: "Dummy District",
-    state: "Dummy State",
-    pincode: "123456",
-    aadhar_no: "1234567890123456",
-    email_verified: false,
-    otp: "123456",
-    otp_generated_at: "2023-01-01T12:00:00Z", // Use a valid timestamp
-    last_donation: null, // No donation history initially
-    latitude: 40.7128, // Dummy latitude (New York City)
-    longitude: -74.006, // Dummy longitude (New York City)
-    created_at: "2023-01-01T00:00:00Z", // Use a valid timestamp
-  });
+  const { userType, userId, token, email } = useSelector((state) => state.auth);
+  const [profile, setProfile] = useState(null);
+
   useEffect(() => {
-    // Function to fetch data from the API
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          process.env.NEXT_PUBLIC_SERVER_URL + "/users/users/1"
+          process.env.NEXT_PUBLIC_SERVER_URL + `/users/users/${userId}`
         );
         setProfile(response.data);
-        console.log(profile);
+        console.log(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -41,6 +24,8 @@ function Dashboard() {
 
     fetchData();
   }, []);
+
+  if (!profile) return <div>Loading...</div>;
 
   let age = calculateAge(profile.date_of_birth);
 
@@ -89,7 +74,7 @@ function Dashboard() {
                 Blood Group
               </div>
               <div className="border-b-[1px] border-gray-300 w-full text-right pb-1 text-gray-700">
-                Aadhar No.
+                Aadhaar No.
               </div>
               <div className="border-b-[1px] border-gray-300 w-full text-right pb-1 text-gray-700">
                 Pincode
@@ -121,7 +106,7 @@ function Dashboard() {
                 {profile.blood_group}
               </div>
               <div className="border-b-[1px] border-gray-300 w-full text-left pb-1 text-gray-700 font-thin">
-                {profile.aadhar_no}
+                {profile.aadhaar_no}
               </div>
               <div className="border-b-[1px] border-gray-300 w-full text-left pb-1 text-gray-700 font-thin">
                 {profile.pincode}

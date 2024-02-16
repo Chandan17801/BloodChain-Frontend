@@ -15,8 +15,8 @@ function ConfirmPopUp({ bank }) {
       const response = await axios.post(
         process.env.NEXT_PUBLIC_SERVER_URL + `/request/create`,
         {
-          hospitalId: 2,
-          name: null,
+          hospitalId: userId,
+          // name: ,
           bloodType: bloodType,
           quantity: amount,
           bloodBankId: bank.id,

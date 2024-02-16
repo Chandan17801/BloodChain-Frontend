@@ -61,14 +61,23 @@ export default function Login() {
           process.env.NEXT_PUBLIC_SERVER_URL + "/bloodbank/login",
           formData
         );
+        setIsOtpVisible(true);
       } else {
         response = await axios.post(
           process.env.NEXT_PUBLIC_SERVER_URL + "/hospital/login",
           formData
         );
+        if (response.data.success) {
+          handleLogin({
+            userType: loginUser,
+            userId: response.data.userId,
+            token: response.data.token,
+            email: response.data.email,
+          });
+          Router.replace({ pathname: `/${loginUser}/dashboard` });
+        }
       }
       // console.log(response);
-      setIsOtpVisible(true);
     } catch (error) {
       console.error("Error:", error);
     }

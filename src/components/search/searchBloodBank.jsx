@@ -5,7 +5,7 @@ import { getLongitude } from "@/utils/getCurrentLocation";
 import BloodBank from "@/components/Table/BloodBank";
 import { useState, useEffect } from "react";
 
-export default function Search() {
+export default function searchBloodBank() {
   const initialBanks = [
     { name: "Devanand", address: "gorakhpur", email: "meriemail@email.com", id: "02" },
     { name: "Devanand", address: "gorakhpur", email: "meriemail@email.com", id: "03" },
@@ -13,7 +13,7 @@ export default function Search() {
     { name: "Devanand", address: "gorakhpur", email: "meriemail@email.com", id: "04" },
     { name: "Devanand", address: "gorakhpur", email: "meriemail@email.com", id: "05" },]
   const [distance, setDistance] = useState(50);
-  const [bloodbanks, setBloodbanks] = useState(initialBanks);
+  const [bloodbanks, setBloodbanks] = useState([]);
   const [district, setDistrict] = useState('');
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export default function Search() {
         console.log(error);
       }
     };
-    // fetchData();
+    fetchData();
   }, [distance]);
   // console.log(bloodbanks);
 
