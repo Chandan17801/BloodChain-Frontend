@@ -4,29 +4,73 @@ import { getLatitude } from "@/utils/getCurrentLocation";
 import { getLongitude } from "@/utils/getCurrentLocation";
 import BloodBank from "@/components/Table/BloodBank";
 import { useState, useEffect } from "react";
+const geolib = require("geolib");
 
 export default function searchBloodBank() {
   const initialBanks = [
-    { name: "Devanand", address: "gorakhpur", email: "meriemail@email.com", id: "02" },
-    { name: "Devanand", address: "gorakhpur", email: "meriemail@email.com", id: "03" },
-    { name: "Devanand", address: "gorakhpur", email: "meriemail@email.com", id: "01" },
-    { name: "Devanand", address: "gorakhpur", email: "meriemail@email.com", id: "04" },
-    { name: "Devanand", address: "gorakhpur", email: "meriemail@email.com", id: "05" },]
+    {
+      name: "Devanand",
+      address: "gorakhpur",
+      email: "meriemail@email.com",
+      id: "02",
+    },
+    {
+      name: "Devanand",
+      address: "gorakhpur",
+      email: "meriemail@email.com",
+      id: "03",
+    },
+    {
+      name: "Devanand",
+      address: "gorakhpur",
+      email: "meriemail@email.com",
+      id: "01",
+    },
+    {
+      name: "Devanand",
+      address: "gorakhpur",
+      email: "meriemail@email.com",
+      id: "04",
+    },
+    {
+      name: "Devanand",
+      address: "gorakhpur",
+      email: "meriemail@email.com",
+      id: "05",
+    },
+  ];
   const [distance, setDistance] = useState(50);
-  const [bloodbanks, setBloodbanks] = useState([]);
-  const [district, setDistrict] = useState('');
+  const [bloodbanks, setBloodbanks] = useState(initialBanks);
+  const [district, setDistrict] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const latitude = await getLatitude();
         const longitude = await getLongitude();
+        if (!latitude || !longitude)
+          alert("bhai teri location hi nhi pata mujhe!");
         const response = await axios.get(
           process.env.NEXT_PUBLIC_SERVER_URL +
             `/bloodbank/search?latitude=${latitude}&longitude=${longitude}&radius=${distance}`
         );
         console.log(response.data);
-        setBloodbanks(response.data.banks);
+        let banks = [];
+        response.data.banks.forEach((bloodbank) => {
+          const bloodbankLat = parseFloat(bloodbank.latitude);
+          const bloodbankLon = parseFloat(bloodbank.longitude);
+
+          const distance = geolib.getDistance(
+            { latitude: latitude, longitude: longitude },
+            { latitude: bloodbankLat, longitude: bloodbankLon }
+          );
+          banks.push({
+            ...bloodbank,
+            distance,
+          });
+        });
+
+        setBloodbanks(banks);
       } catch (error) {
         console.log(error);
       }

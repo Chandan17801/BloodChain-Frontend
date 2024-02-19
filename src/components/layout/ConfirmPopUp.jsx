@@ -2,8 +2,9 @@ import React from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import CrossButton from "../UIElements/CrossButton";
 
-function ConfirmPopUp({ bank }) {
+function ConfirmPopUp({ bank, close }) {
   const { userType, userId, token, email } = useSelector((state) => state.auth);
   const [amount, setAmount] = useState(1);
   const [bloodType, setBloodType] = useState("O+");
@@ -32,7 +33,8 @@ function ConfirmPopUp({ bank }) {
   console.log(bank);
   return (
     <div className="absolute h-full w-[100%] bg-[#a7a4a480] z-50 top-0 right-0 flex justify-center items-center">
-      <div className="bg-white shadow-lg rounded-md p-[4rem] items-center flex flex-col gap-4">
+      <div className="relative bg-white shadow-lg rounded-md p-[4rem] items-center flex flex-col gap-4">
+        <CrossButton close={close} sign="x" />
         <div className="text-4xl font-semibold mont">Confirm your request</div>
         <div className="mont text-gray-600">
           for blood from{" "}
@@ -71,7 +73,10 @@ function ConfirmPopUp({ bank }) {
             <option value="A-">A-</option>
           </select>
         </div>
-        <button onClick={confirmHandler} className="p-4 text-white mont bg-black rounded-3xl py-2">
+        <button
+          onClick={confirmHandler}
+          className="p-4 text-white mont bg-black rounded-3xl py-2"
+        >
           Confirm
         </button>
       </div>

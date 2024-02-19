@@ -7,9 +7,10 @@ function CampaignForm({ close, addNewCamp }) {
   const { userType, userId, token, email } = useSelector((state) => state.auth);
 
   const [formData, setFormData] = useState({
-    campaignName: "",
+    campaigname: "",
     campaignDate: "",
     location: "",
+    district: "",
     goals: "",
     bloodbankId: userId,
   });
@@ -28,11 +29,11 @@ function CampaignForm({ close, addNewCamp }) {
         process.env.NEXT_PUBLIC_SERVER_URL + "/camps/create",
         formData
       );
-      addNewCamp(response.data.data)
+      addNewCamp(response.data.data);
     } catch (error) {
       console.error("Error:", error);
     }
-    close();
+    // close();
   };
   return (
     <div className="absolute h-full w-full bg-[#a7a4a480] z-50 top-0 right-0 flex justify-center items-center">
@@ -63,6 +64,16 @@ function CampaignForm({ close, addNewCamp }) {
               type="text"
               name="location"
               placeholder="location"
+            />
+          </div>
+          <div className="flex ">
+            <div className="w-32">district</div>
+            <input
+              onChange={handleChange}
+              className="p-1 border-2 rounded-md w-64"
+              type="text"
+              name="district"
+              placeholder="district"
             />
           </div>
           <div className="flex ">

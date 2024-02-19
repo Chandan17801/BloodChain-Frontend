@@ -48,7 +48,7 @@ function Donor() {
   };
   return (
     <ResponsiveLayout>
-      {isOtpBoxVisible && <OtpBox email={formData.email} userType='users' />}
+      {isOtpBoxVisible && <OtpBox email={formData.email} userType="users" />}
 
       <Header />
       <div className="container mt-4 mx-auto w-[70%]">
@@ -136,7 +136,9 @@ function Donor() {
                   onChange={handleChange}
                   className="p-1 border-2 rounded-md w-64"
                 >
-                  <option selected value="O+">O+</option>
+                  <option selected value="O+">
+                    O+
+                  </option>
                   <option value="O-">O-</option>
                   <option value="B-">B-</option>
                   <option value="B+">B+</option>

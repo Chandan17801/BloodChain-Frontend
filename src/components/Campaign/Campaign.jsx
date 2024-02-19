@@ -183,7 +183,9 @@ function Campaign() {
               </div>
             </div>
             <div className="flex-1 flex flex-col gap-2 justify-evenly px-4">
-              <div className="flex-1 italic">{selectedCamp?.campaign_date.substring(0, 10)}</div>
+              <div className="flex-1 italic">
+                {selectedCamp?.campaign_date.substring(0, 10)}
+              </div>
               <div className="flex-1 text-lg font-semibold">
                 {selectedCamp?.location}
               </div>

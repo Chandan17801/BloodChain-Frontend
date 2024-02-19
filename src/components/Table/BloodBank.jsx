@@ -6,7 +6,9 @@ function BloodBank({ bloodbanks }) {
   const [selectedBank, setSelectedBank] = useState(null);
   return (
     <div className="mt-8 w-4/5 mx-auto">
-      {selectedBank != null && <ConfirmPopUp bank= {selectedBank} />}
+      {selectedBank != null && (
+        <ConfirmPopUp bank={selectedBank} close={() => setSelectedBank(null)} />
+      )}
       {bloodbanks.map((bank, index) => (
         <div
           onClick={() => {
@@ -18,7 +20,7 @@ function BloodBank({ bloodbanks }) {
           <div className="flex flex-col flex-[4]">
             <div className="flex gap-12">
               <div className="font-semibold text-2xl">{bank.name}</div>
-              <div className="py-2">10Km</div>
+              <div className="py-2">{(bank.distance / 1000).toFixed(2)} km</div>
             </div>
             <div className="text-gray-700 py-0 text-sm">{bank.address}</div>
           </div>
