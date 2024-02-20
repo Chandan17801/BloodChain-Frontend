@@ -10,6 +10,7 @@ function ConfirmPopUp({ bank, close }) {
   const [bloodType, setBloodType] = useState("O+");
 
   const confirmHandler = async () => {
+    console.log(userId, bank);
     console.log(amount);
     console.log(bloodType);
     try {
@@ -20,7 +21,7 @@ function ConfirmPopUp({ bank, close }) {
           // name: ,
           bloodType: bloodType,
           quantity: amount,
-          bloodBankId: bank.id,
+          bloodbankId: bank.id,
         }
       );
       // setProfile(response.data);
@@ -30,7 +31,7 @@ function ConfirmPopUp({ bank, close }) {
     }
   };
 
-  console.log(bank);
+  // console.log(bank);
   return (
     <div className="absolute h-full w-[100%] bg-[#a7a4a480] z-50 top-0 right-0 flex justify-center items-center">
       <div className="relative bg-white shadow-lg rounded-md p-[4rem] items-center flex flex-col gap-4">

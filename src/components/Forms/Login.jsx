@@ -70,7 +70,7 @@ export default function Login() {
         if (response.data.success) {
           handleLogin({
             userType: loginUser,
-            userId: response.data.userId,
+            userId: response.data.id,
             token: response.data.token,
             email: response.data.email,
           });
