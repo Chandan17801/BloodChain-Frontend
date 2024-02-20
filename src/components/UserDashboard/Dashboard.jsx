@@ -23,7 +23,7 @@ function Dashboard() {
     };
 
     fetchData();
-  }, []);
+  }, [userId]);
 
   if (!profile) return <div>Loading...</div>;
 
