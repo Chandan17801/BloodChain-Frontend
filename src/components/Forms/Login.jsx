@@ -67,12 +67,13 @@ export default function Login() {
           process.env.NEXT_PUBLIC_SERVER_URL + "/hospital/login",
           formData
         );
+        console.log(response.data);
         if (response.data.success) {
           handleLogin({
-            userType: loginUser,
+            userType: response.data.userType,
             userId: response.data.id,
             token: response.data.token,
-            email: response.data.email,
+            email: formData.email,
           });
           Router.replace({ pathname: `/${loginUser}/dashboard` });
         }

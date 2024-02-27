@@ -8,9 +8,10 @@ function ConfirmPopUp({ bank, close }) {
   const { userType, userId, token, email } = useSelector((state) => state.auth);
   const [amount, setAmount] = useState(1);
   const [bloodType, setBloodType] = useState("O+");
+  console.log(bank);
 
   const confirmHandler = async () => {
-    console.log(userId, bank);
+    console.log(userType, bank);
     console.log(amount);
     console.log(bloodType);
     try {
@@ -21,7 +22,7 @@ function ConfirmPopUp({ bank, close }) {
           // name: ,
           bloodType: bloodType,
           quantity: amount,
-          bloodbankId: bank.id,
+          bloodbankId: bank.uid,
         }
       );
       // setProfile(response.data);

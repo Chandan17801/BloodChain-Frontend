@@ -72,6 +72,7 @@ function Hospital() {
       console.log("Response:", response);
     } catch (error) {
       console.error("Error:", error);
+      setIsLoading(false);
     }
   };
   return (

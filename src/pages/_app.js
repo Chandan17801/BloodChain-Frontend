@@ -6,6 +6,7 @@ import "@/styles/globals.css";
 import { Fragment } from "react";
 import { Provider } from "react-redux";
 import store from "@/store/store";
+import CustomNavBar from "@/components/Header/CustomNavbar";
 
 const merri = Merriweather_Sans({
   weight: "500",
@@ -31,6 +32,7 @@ export default function App({ Component, pageProps }) {
         `}
       </style>
       <Provider store={store}>
+        <CustomNavBar/>
         <Component {...pageProps} />
       </Provider>
     </Fragment>
