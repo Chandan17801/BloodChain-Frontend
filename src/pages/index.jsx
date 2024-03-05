@@ -21,7 +21,7 @@ export default function Home() {
         <title>BloodChain: Empowering Lifesavers with BlockChain</title>
       </Head>
       <ResponsiveLayout>
-        <Header className="absolute top-0 left-0" />
+        {/* <Header className="absolute top-0 left-0" /> */}
         <Hero />
         <HomepageRealTimeData />
         <Mission />
