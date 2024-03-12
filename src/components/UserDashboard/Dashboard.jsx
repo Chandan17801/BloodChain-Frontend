@@ -1,13 +1,27 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import last_donations from "@/styles/donations";
 import calculateAge from "@/utils/calculateAge";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import DonationHistory from "./DonationHistory";
 
 function Dashboard() {
+  let initialState = {
+    email: "",
+    password: "",
+    phone: "",
+    name: "",
+    address: "",
+    date_of_birth: "",
+    blood_group: "O+",
+    district: "",
+    state: "",
+    pincode: "",
+    aadhaar_no: "",
+  };
+
   const { userType, userId, token, email } = useSelector((state) => state.auth);
-  const [profile, setProfile] = useState(null);
+  const [profile, setProfile] = useState(initialState);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,13 +39,13 @@ function Dashboard() {
     fetchData();
   }, [userId]);
 
-  if (!profile) return <div>Loading...</div>;
+  // if (!profile) return <div>Loading...</div>;
 
   let age = calculateAge(profile.date_of_birth);
 
   return (
     <div className="flex gap-4 min-h-screen py-8 px-20 bg-gray-100">
-      <div className="flex flex-col flex-[3] gap-4">
+      <div className="flex flex-col flex-[1] gap-4">
         <div className="p-4 bg-white rounded-lg flex shadow-md shadow-gray-300 mont">
           <div className="flex-[4] flex items-center">
             <div className="w-20 h-24 rounded-xl">
@@ -125,31 +139,7 @@ function Dashboard() {
         </div>
       </div>
       <div className="flex-[2]">
-        <div className="bg-white rounded-lg p-4 shadow-gray-300 shadow-md mont">
-          <div className="flex justify-between mb-4">
-            <div className="pl-2 font-semibold self-center">
-              Donation History
-            </div>
-            <div className="text-sm text-red-500 bg-red-100 rounded-md px-4 py-1 cursor-pointer">
-              View All &raquo;
-            </div>
-          </div>
-          <div className="flex flex-col text-xs">
-            <div className="flex justify-between p-4 py-[12px] rounded-md bg-gray-100">
-              <div>{last_donations[0].date}</div>
-              <div>{last_donations[0].address}</div>
-            </div>
-            <div className="flex justify-between p-4 py-[12px] rounded-md">
-              <div>{last_donations[1].date}</div>
-              <div>{last_donations[1].address}</div>
-            </div>
-            <div className="flex justify-between p-4 py-[12px] rounded-md bg-gray-100">
-              <div>{last_donations[2].date}</div>
-              <div>{last_donations[2].address}</div>
-            </div>
-          </div>
-        </div>
-        <div></div>
+        <DonationHistory />
       </div>
     </div>
   );

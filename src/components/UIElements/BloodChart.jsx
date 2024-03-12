@@ -9,7 +9,12 @@ import {
   Legend,
 } from "recharts";
 
-const TwoAreaChartExample = () => {
+const TwoAreaChartExample = ({ backgroundColor, color1 }) => {
+  const defaultBackgroundColor = "linear-gradient(to right, #0C2443, #2A5687)";
+  const colorOne = color1 ? color1 : "ffd9d8";
+  const chartStyle = backgroundColor
+    ? { background: backgroundColor }
+    : { background: defaultBackgroundColor };
   const data = [
     { name: "Aug", value1: 7, value2: 1 },
     { name: "Sep", value1: 20, value2: 25 },
@@ -25,7 +30,7 @@ const TwoAreaChartExample = () => {
       height={300}
       data={data}
       margin={{ top: 30, right: 40, left: 0, bottom: 10 }}
-      style={{ background: "linear-gradient(to right, #0C2443, #2A5687)" }}
+      style={chartStyle}
       className="rounded-lg"
     >
       <CartesianGrid stroke="gray" horizontal={true} vertical={false} />
@@ -43,8 +48,8 @@ const TwoAreaChartExample = () => {
       <Area
         type="monotone"
         dataKey="value2"
-        fill="#F90600" // Set the fill color to white
-        stroke="#F90600"
+        fill={colorOne} // Set the fill color to white
+        stroke={colorOne}
         name="Requested"
       />
     </AreaChart>

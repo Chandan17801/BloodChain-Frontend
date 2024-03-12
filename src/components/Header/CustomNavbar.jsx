@@ -41,7 +41,7 @@ const CustomNavBar = () => {
         </Link>
         <div
           onClick={() => setIsNotificationBoxOpen((prev) => !prev)}
-          class="self-center ext-text-secondary dark:text-text-secondary hover:bg-fill-3 dark:hover:bg-dark-fill-3 rounded w-8 h-8 relative flex items-center justify-center group cursor-pointer focus:outline-none"
+          className="self-center ext-text-secondary dark:text-text-secondary hover:bg-fill-3 dark:hover:bg-dark-fill-3 rounded w-8 h-8 relative flex items-center justify-center group cursor-pointer focus:outline-none"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -49,7 +49,7 @@ const CustomNavBar = () => {
             width="20"
             height="20"
             fill="white"
-            class="hover:text-text-primary dark:hover:text-text-primary "
+            className="hover:text-text-primary dark:hover:text-text-primary "
           >
             <path
               fill-rule="evenodd"
