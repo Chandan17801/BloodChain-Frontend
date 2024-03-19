@@ -7,7 +7,7 @@ const BloodChainTermsAndConditions = () => {
   return (
     <ResponsiveLayout>
       <div className="max-w-2xl mx-auto p-4 text-justify">
-        <h2 className="text-3xl font-bold mb-4">Terms and Conditions</h2>
+        {/* <h2 className="text-3xl font-bold mb-4">Terms and Conditions</h2>
 
         <p className="mb-4">
           Welcome to BloodChain: Empowering Lifesavers with Blockchain! These
@@ -96,7 +96,7 @@ const BloodChainTermsAndConditions = () => {
           understood, and agreed to these terms and conditions. Thank you for
           being a part of our mission to create a resilient and interconnected
           blood donation community.
-        </p>
+        </p> */}
       </div>
       <Footer />
     </ResponsiveLayout>
