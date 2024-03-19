@@ -29,14 +29,14 @@ function UserRequestConfirmPopUp({ campaign, close }) {
 
   console.log(campaign);
   return (
-    <div className="absolute h-[350%] w-[100%] bg-[#a7a4a480] z-50 top-0 right-0 flex justify-center items-center">
+    <div className="absolute h-[100vh] w-[100%] bg-[#a7a4a480] z-50 top-0 right-0 flex justify-center items-center">
       <div className="relative bg-white shadow-lg rounded-md p-[4rem] items-center flex flex-col gap-4">
         <CrossButton close={close} sign="x" />
         <div className="text-4xl font-semibold mont">Confirm your request</div>
         <div className="mont text-gray-600">
           to donate blood to
           <span className="text-xl font-semibold text-red-600">
-            {campaign.name}.
+            {campaign.name}
           </span>
         </div>
         <div className="flex items-center gap-3">

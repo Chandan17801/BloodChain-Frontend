@@ -8,9 +8,19 @@ import { useState, useEffect } from "react";
 export default function SearchCampaign() {
   const initialCampaigns = [
     {
-      name: "Campaign 1",
-      location: "City A",
+      campaign_name: "Campaign Blood",
+      location: "Labour Chowk, Jhansi",
       organizerEmail: "organizer@email.com",
+      campaign_date: "25 - 03- 2024",
+      goal: "A step ta a healthy future",
+      id: "01",
+    },
+    {
+      campaign_name: "Campaign Blood",
+      location: "Labour Chowk, Jhansi",
+      organizerEmail: "organizer@email.com",
+      campaign_date: "25 - 03- 2024",
+      goal: "A step ta a healthy future",
       id: "01",
     },
     // ... (other initial campaigns)
