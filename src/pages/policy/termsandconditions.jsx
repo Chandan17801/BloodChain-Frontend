@@ -31,7 +31,7 @@ const BloodChainTermsAndConditions = () => {
           Blood banks and hospitals are invited to register on our platform,
           forming a collaborative network for swift and effective communication.
           By registering, you confirm that you have the authority to represent
-          the registered entity and agree to adhere to the platform's guidelines
+          the registered entity and agree to adhere to the platform&apos;s guidelines
           and policies.
         </p>
 
