@@ -1,13 +1,13 @@
 import Header from "@/components/Header/Header";
 import ResponsiveLayout from "@/components/layout/ResponsiveLayout";
 import React from "react";
-import SearchCamps from "@/components/search/searchCamps";
+import SearchCampaign from "@/components/search/SearchCamps";
 
 function index() {
   return (
     <ResponsiveLayout>
       <Header />
-      <SearchCamps />
+      <SearchCampaign />
     </ResponsiveLayout>
   );
 }
