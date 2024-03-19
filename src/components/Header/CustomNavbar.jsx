@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import Link from "next/link";
 import ResponsiveLayout from "../layout/ResponsiveLayout";
 import NotificationBox from "../layout/NotificationBox";
+import { useSelector } from "react-redux";
 
 const CustomNavBar = () => {
+  const { userType, userId } = useSelector((state) => state.auth);
   const [isNotificationBoxOpen, setIsNotificationBoxOpen] = useState(false);
+
   return (
     <ResponsiveLayout>
       {isNotificationBoxOpen && <NotificationBox />}
@@ -13,38 +16,50 @@ const CustomNavBar = () => {
           href="/searchBloodBank"
           className="text-white hover:bg-gray-600 px-3 py-2 cursor-pointer rounded"
         >
-          searchBB
+          Search Bloodbank
         </Link>
         <Link
           href="/searchCamps"
           className="text-white hover:bg-gray-600 px-3 py-2 rounded"
         >
-          searchC
+          Search Camps
         </Link>
-        <Link
-          href="/profile"
-          className="text-white hover:bg-gray-600 px-3 py-2 rounded"
-        >
-          Profile
-        </Link>
-        <Link
-          href="/dashboard"
-          className="text-white hover:bg-gray-600 px-3 py-2 rounded"
-        >
-          DashBoard
-        </Link>
-        <Link
-          href="/login"
-          className="text-white hover:bg-gray-600 px-3 py-2 rounded"
-        >
-          Login
-        </Link>
-        <Link
-          href="/bloodbank/campaign"
-          className="text-white hover:bg-gray-600 px-3 py-2 rounded"
-        >
-          Campaign
-        </Link>
+        {(userType === "bloodbank" || userType === "hospital") && (
+          <Link
+            href={`/${userType}/profile`}
+            className="text-white hover:bg-gray-600 px-3 py-2 rounded"
+          >
+            Profile
+          </Link>
+        )}
+        {userId && (
+          <Link
+            href={`/${userType}/dashboard`}
+            className="text-white hover:bg-gray-600 px-3 py-2 rounded"
+          >
+            Dashboard
+          </Link>
+        )}
+        {userType === "bloodbank" && (
+          <Link
+            href="/bloodbank/campaign"
+            className="text-white hover:bg-gray-600 px-3 py-2 rounded"
+          >
+            Campaign
+          </Link>
+        )}
+        {userId ? (
+          <Link
+            href="/login"
+            className="text-white hover:bg-gray-600 px-3 py-2 rounded"
+          >
+            Login
+          </Link>
+        ) : (
+          <button className="text-white hover:bg-gray-600 px-3 py-2 rounded">
+            Logout
+          </button>
+        )}
         <div
           onClick={() => setIsNotificationBoxOpen((prev) => !prev)}
           className="self-center ext-text-secondary dark:text-text-secondary hover:bg-fill-3 dark:hover:bg-dark-fill-3 rounded w-8 h-8 relative flex items-center justify-center group cursor-pointer focus:outline-none"
