@@ -2,11 +2,15 @@ import React, { useState } from "react";
 import Link from "next/link";
 import ResponsiveLayout from "../layout/ResponsiveLayout";
 import NotificationBox from "../layout/NotificationBox";
+import { logout } from "@/store/auth";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import Router from "next/router";
 
 const CustomNavBar = () => {
   const { userType, userId } = useSelector((state) => state.auth);
   const [isNotificationBoxOpen, setIsNotificationBoxOpen] = useState(false);
+  const dispatch = useDispatch();
 
   return (
     <ResponsiveLayout>
@@ -48,7 +52,7 @@ const CustomNavBar = () => {
             Campaign
           </Link>
         )}
-        {userId ? (
+        {!userId ? (
           <Link
             href="/login"
             className="text-white hover:bg-gray-600 px-3 py-2 rounded"
@@ -56,7 +60,13 @@ const CustomNavBar = () => {
             Login
           </Link>
         ) : (
-          <button className="text-white hover:bg-gray-600 px-3 py-2 rounded">
+          <button
+            className="text-white hover:bg-gray-600 px-3 py-2 rounded"
+            onClick={() => {
+              Router.replace({ pathname: "/" });
+              dispatch(logout());
+            }}
+          >
             Logout
           </button>
         )}

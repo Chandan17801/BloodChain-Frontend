@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-const CampaignDetail = ({ selectedCamp }) => {
+const CampaignDetail = ({ selectedCamp, bloodSample }) => {
+  console.log(selectedCamp);
+  console.log(bloodSample);
+
   return (
     <div className="flex-[2] flex flex-row rounded-lg shadow-gray-300 shadow-md p-4 bg-white red-creative-2 mont gap-2">
       <div className="flex-1">
@@ -72,9 +75,31 @@ const CampaignDetail = ({ selectedCamp }) => {
       <div className="flex-1">
         <div className="font-semibold text-xl pl-2">Collected Samples</div>
         <div
-          className=""
-          style={{ overflowY: "auto", maxHeight: "190px" }}
-        ></div>
+          className="flex flex-col gap-2 p-2"
+          style={{ overflowY: "auto", maxHeight: "344px" }}
+        >
+          {bloodSample.map((sample, index) => (
+            <div
+              className="flex gap-3 rounded-md shadow-md shadow-gray-300 px-4 py-2 mont bg-white-100 bg-white"
+              key={sample.donation_id}
+            >
+              {(!sample.status || sample.status === "NotTested") && (
+                <div class="self-center w-3 h-3 rounded-full bg-yellow-400"></div>
+              )}
+              {sample.status === "Failed" && (
+                <div class="self-center w-3 h-3 rounded-full bg-red-400"></div>
+              )}
+              {sample.status === "Passed" && (
+                <div class="self-center w-3 h-3 rounded-full bg-green-400"></div>
+              )}
+              <div className="flex justify-between w-full items-center">
+                <div className="flex-1 font-semibold">{sample.donor_name}</div>
+                <div className="flex-1 text-lg font-semibold text-red-900"></div>
+                {sample.blood_type}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

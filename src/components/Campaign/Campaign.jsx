@@ -16,6 +16,7 @@ function Campaign() {
   const [requests, setRequests] = useState([]);
   const [allCamps, setAllCamps] = useState([]);
   const [selectedCamp, setSelectedCamp] = useState();
+  const [bloodSample, setBloodSample] = useState([]);
 
   const addNewCamp = (newCamp) => {
     setAllCamps((prevAllCamps) => [...prevAllCamps, newCamp]);
@@ -53,36 +54,57 @@ function Campaign() {
         (req) => req.donation_id != verifyingRequest.donation_id
       );
       setRequests(updated_request);
+      setBloodSample((prev) => [
+        ...prev,
+        {
+          donation_id: verifyingRequest.donation_id,
+          donor_name: verifyingRequest.name,
+          blood_type: verifyingRequest.blood_group,
+          status: "NotTested",
+        },
+      ]);
     } catch (error) {
       console.error("Error:", error);
     }
     setIsVerification(false);
   };
-
-  const fetchRequest = async () => {
-    if (!selectedCamp) return;
-    try {
-      const response = await axios.get(
-        process.env.NEXT_PUBLIC_SERVER_URL +
-          `/donation/request/${selectedCamp.campaign_id}`
-      );
-
-      let data = response.data.request.map((item) => ({
-        donation_id: item.donation_id,
-        user_id: item.donor_id,
-        name: item.donor_name,
-        blood_group: item.blood_type,
-        age: calculateAge(item.donor_dob),
-        last_donation: item.donor_last_dontation,
-      }));
-      setRequests(data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
   useEffect(() => {
+    const fetchRequest = async () => {
+      if (!selectedCamp) return;
+      try {
+        const response = await axios.get(
+          process.env.NEXT_PUBLIC_SERVER_URL +
+            `/donation/request/${selectedCamp.campaign_id}`
+        );
+
+        let data = response.data.request.map((item) => ({
+          donation_id: item.donation_id,
+          user_id: item.donor_id,
+          name: item.donor_name,
+          blood_group: item.blood_type,
+          age: calculateAge(item.donor_dob),
+          last_donation: item.donor_last_dontation,
+        }));
+        setRequests(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    const fetchBloodSample = async () => {
+      try {
+        const response = await axios.get(
+          process.env.NEXT_PUBLIC_SERVER_URL +
+            `/donation/all/${selectedCamp.campaign_id}/`
+        );
+        setBloodSample(response.data.bloodDonations);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
     fetchRequest();
+    fetchBloodSample();
   }, [selectedCamp]);
 
   useEffect(() => {
@@ -102,7 +124,7 @@ function Campaign() {
     };
 
     fetchData();
-  }, []);
+  }, [userId]);
 
   return (
     <ResponsiveLayout>
@@ -220,7 +242,10 @@ function Campaign() {
               ))}
             </div>
           </div>
-          <CampaignDetail selectedCamp={selectedCamp} />
+          <CampaignDetail
+            selectedCamp={selectedCamp}
+            bloodSample={bloodSample}
+          />
         </div>
       </div>
     </ResponsiveLayout>

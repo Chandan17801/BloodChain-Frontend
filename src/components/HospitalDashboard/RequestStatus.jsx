@@ -87,8 +87,8 @@ const RequestStatus = () => {
         className="p-4 flex flex-col gap-3"
         style={{ overflowY: "auto", maxHeight: "750px" }}
       >
-        {requests.map((request) => (
-          <div className="bg-[#f5dce2] p-4 rounded-md shadow-md shadow-[#b42347] w-full flex gap-2 flex-col">
+        {requests.map((request, index) => (
+          <div key={index} className="bg-[#f5dce2] p-4 rounded-md shadow-md shadow-[#b42347] w-full flex gap-2 flex-col">
             <div className="flex justify-between items-center">
               <div className="merri text-[#6a0c3a] text-lg">
                 {request.bloodbank_name}

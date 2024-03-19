@@ -44,7 +44,7 @@ function Profile() {
     };
 
     fetchData();
-  }, []);
+  }, [userId]);
 
   return (
     <div className="flex gap-4 min-h-screen py-8 px-20 bg-gray-100">

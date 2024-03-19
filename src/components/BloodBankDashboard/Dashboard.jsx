@@ -23,7 +23,7 @@ export default function Dashboard() {
     };
 
     fetchData();
-  }, []);
+  }, [userId]);
 
   return (
     <div className="flex gap-4 min-h-screen py-8 px-8 bg-[#F7F8FA]">

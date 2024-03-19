@@ -6,7 +6,7 @@ import BloodBank from "@/components/Table/BloodBank";
 import { useState, useEffect } from "react";
 const geolib = require("geolib");
 
-export default function searchBloodBank() {
+export default function SearchBloodBank() {
   const initialBanks = [
     {
       name: "Devanand",
