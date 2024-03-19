@@ -6,8 +6,13 @@ import ResponsiveLayout from "@/components/layout/ResponsiveLayout";
 import axios from "axios";
 import OtpBox from "./otp";
 import getCurrentLocation from "@/utils/getCurrentLocation";
+import { useDispatch } from "react-redux";
+import Router from "next/router";
+import { login } from "@/store/auth";
 
 function BloodBank() {
+  const dispatch = useDispatch();
+
   const initialState = {
     email: "",
     name: "",
@@ -84,7 +89,16 @@ function BloodBank() {
         process.env.NEXT_PUBLIC_SERVER_URL + "/bloodbank/signup",
         data
       );
-      setIsOtpBoxVisible(true);
+      dispatch(
+        login({
+          userType: "bloodbank",
+          userId: response.data.id,
+          token: response.data.token,
+          email: response.data.email,
+        })
+      );
+      Router.replace({ pathname: `/bloodbank/dashboard` });
+
       console.log("Response:", response);
     } catch (error) {
       console.error("Error:", error);

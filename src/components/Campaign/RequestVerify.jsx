@@ -2,44 +2,11 @@ import { useState } from "react";
 import CrossButton from "../UIElements/CrossButton";
 import Image from "next/image";
 import React from "react";
+import axios from "axios";
 
-function RequestVerify({ request, close }) {
-  const [formData, setFormData] = useState({
-    status: true,
-    reason: "",
-  });
-  const reasonChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      reason: value,
-      status: prevData.status,
-    }));
-  };
-  const rejectHandler = (e) => {
-    if (formData.reason.length === 0) return;
-    setFormData((prevData) => ({
-      reason: prevData.reason,
-      status: false,
-    }));
-    form_submit_handler(e);
-  };
-  const form_submit_handler = async (event) => {
-    event.preventDefault();
-    // try {
-    //   // let data = JSON.stringify(formData)
-    //   let response = await axios.post(
-    //     process.env.NEXT_PUBLIC_SERVER_URL + "/users/signup",
-    //     formData
-    //   );
-    //   console.log("Response:", response);
-    //   setIsOtpBoxVisible(true);
-    //   // console.log(isOtpBoxVisible);
-    //   // setFormData(initialState);
-    // } catch (error) {
-    //   console.error("Error:", error);
-    // }
-    close();
-  };
+function RequestVerify({ request, close, acceptHandler, rejectHandler}) {
+  console.log(request.donation_id);
+ 
   return (
     <div className="absolute h-full w-full bg-[#a7a4a480] z-50 top-0 right-0 flex justify-center items-center">
       <div className="bg-white shadow-lg rounded-md p-[2rem] items-center flex flex-col gap-4 relative">
@@ -49,7 +16,7 @@ function RequestVerify({ request, close }) {
         <CrossButton close={close} sign="x" />
         <form
           className="flex flex-col gap-7 mont pt-2"
-          onSubmit={form_submit_handler}
+          onSubmit={acceptHandler}
         >
           <div className="flex justify-between">
             <div className="flex flex-col gap-2 pl-2">
@@ -65,6 +32,7 @@ function RequestVerify({ request, close }) {
               <div className="text-red-900 text-3xl font-semibold">
                 {request.blood_group}
               </div>
+              <div className="text-black">{request.last_donation}</div>
             </div>
             <Image
               onClick={() => setIsCampaignFormOpen(true)}
@@ -75,7 +43,7 @@ function RequestVerify({ request, close }) {
               alt="plus-sign"
             ></Image>
           </div>
-          <div className="flex flex-col">
+          {/* <div className="flex flex-col">
             <div>Reason If Decline :</div>
             <textarea
               onChange={reasonChange}
@@ -86,7 +54,7 @@ function RequestVerify({ request, close }) {
               name="reason"
               placeholder="Reason"
             />
-          </div>
+          </div> */}
           <div className="flex">
             <div
               onClick={rejectHandler}

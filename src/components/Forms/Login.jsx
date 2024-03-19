@@ -47,38 +47,36 @@ export default function Login() {
           process.env.NEXT_PUBLIC_SERVER_URL + "/users/login",
           formData
         );
-        if (response.data.success) {
-          handleLogin({
-            userType: loginUser,
-            userId: response.data.id,
-            token: response.data.token,
-            email: response.data.email,
-          });
-          Router.replace({ pathname: `/${loginUser}/dashboard` });
-        }
       } else if (loginUser == "bloodbank") {
         response = await axios.post(
           process.env.NEXT_PUBLIC_SERVER_URL + "/bloodbank/login",
           formData
         );
-        setIsOtpVisible(true);
+        // setIsOtpVisible(true);
       } else {
         response = await axios.post(
           process.env.NEXT_PUBLIC_SERVER_URL + "/hospital/login",
           formData
         );
-        console.log(response.data);
-        if (response.data.success) {
-          handleLogin({
-            userType: response.data.userType,
-            userId: response.data.id,
-            token: response.data.token,
-            email: formData.email,
-          });
-          Router.replace({ pathname: `/${loginUser}/dashboard` });
-        }
+        // console.log(response.data);
+        // if (response.data.success) {
+        //   handleLogin({
+        //     userType: response.data.userType,
+        //     userId: response.data.id,
+        //     token: response.data.token,
+        //     email: formData.email,
+        //   });
+        //   Router.replace({ pathname: `/${loginUser}/dashboard` });
+        // }
       }
       // console.log(response);
+      handleLogin({
+        userType: loginUser,
+        userId: response.data.id,
+        token: response.data.token,
+        email: response.data.email,
+      });
+      Router.replace({ pathname: `/${loginUser}/dashboard` });
     } catch (error) {
       console.error("Error:", error);
     }

@@ -30,6 +30,7 @@ function CampaignForm({ close, addNewCamp }) {
         formData
       );
       addNewCamp(response.data.data);
+      close();
     } catch (error) {
       console.error("Error:", error);
     }

@@ -5,55 +5,96 @@ import CampaignForm from "./CampaignForm";
 import RequestVerify from "./RequestVerify";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import calculateAge from "@/utils/calculateAge";
 
 function Campaign() {
-  const { userType, userId, token, email } = useSelector((state) => state.auth);
-
+  const { userId } = useSelector((state) => state.auth);
   const [isCampaignFormOpen, setIsCampaignFormOpen] = useState(false);
   const [isVerification, setIsVerification] = useState(false);
   const [verifyingRequest, setVerifyingRequest] = useState();
-  const [requests, setRequests] = useState([
-    {
-      user_id: "01",
-      name: "Digvijay Rajput",
-      blood_group: "B-",
-      age: "17",
-    },
-    {
-      user_id: "02",
-      name: "Gaurav Singh",
-      blood_group: "O+",
-      age: "22",
-    },
-    {
-      user_id: "03",
-      name: "Shadan Shan",
-      blood_group: "AB+",
-      age: "22",
-    },
-    {
-      user_id: "04",
-      name: "Chandan Rajput",
-      blood_group: "AB+",
-      age: "22",
-    },
-  ]);
+  const [requests, setRequests] = useState([]);
   const [allCamps, setAllCamps] = useState([]);
-  const [selectedCamp, setSelectedBank] = useState(allCamps[0]);
+  const [selectedCamp, setSelectedCamp] = useState();
 
   const addNewCamp = (newCamp) => {
     setAllCamps((prevAllCamps) => [...prevAllCamps, newCamp]);
   };
 
+  const rejectHandler = async (e) => {
+    console.log("false");
+    // try {
+    //   // let data = JSON.stringify(formData)
+    //   let response = await axios.patch(
+    //     process.env.NEXT_PUBLIC_SERVER_URL +
+    //       `/donation/approve/${verifyingRequest.donation_id}`
+    //   );
+    //   console.log("Response:", response);
+    //   const updated_request = requests.filter(
+    //     (req) => req.donation_id != verifyingRequest.donation_id
+    //   );
+    //   setRequests(updated_request);
+    // } catch (error) {
+    //   console.error("Error:", error);
+    // }
+    // setIsVerification(false);
+  };
+  // console.log(status);
+  const acceptHandler = async (event) => {
+    event.preventDefault();
+    console.log("true");
+    try {
+      let response = await axios.patch(
+        process.env.NEXT_PUBLIC_SERVER_URL +
+          `/donation/approve/${verifyingRequest.donation_id}`
+      );
+      console.log("Response:", response);
+      const updated_request = requests.filter(
+        (req) => req.donation_id != verifyingRequest.donation_id
+      );
+      setRequests(updated_request);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+    setIsVerification(false);
+  };
+
+  const fetchRequest = async () => {
+    if (!selectedCamp) return;
+    try {
+      const response = await axios.get(
+        process.env.NEXT_PUBLIC_SERVER_URL +
+          `/donation/request/${selectedCamp.campaign_id}`
+      );
+
+      let data = response.data.request.map((item) => ({
+        donation_id: item.donation_id,
+        user_id: item.donor_id,
+        name: item.donor_name,
+        blood_group: item.blood_type,
+        age: calculateAge(item.donor_dob),
+        last_donation: item.donor_last_dontation,
+      }));
+      setRequests(data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   useEffect(() => {
-    // Function to fetch data from the API
+    fetchRequest();
+  }, [selectedCamp]);
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
           process.env.NEXT_PUBLIC_SERVER_URL + `/camps/bloodbank/${userId}`
         );
-        setAllCamps(response.data.data);
-        console.log(allCamps);
+        const camps = response.data.data;
+        setAllCamps(camps);
+        if (!selectedCamp) {
+          setSelectedCamp(camps[0] ? camps[0] : null);
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -70,6 +111,8 @@ function Campaign() {
           close={() => {
             setIsVerification(false);
           }}
+          acceptHandler={acceptHandler}
+          rejectHandler={rejectHandler}
         />
       )}
       {isCampaignFormOpen && (
@@ -107,9 +150,7 @@ function Campaign() {
             >
               {allCamps.map((camp, index) => (
                 <div
-                  onClick={() => {
-                    setSelectedBank(camp);
-                  }}
+                  onClick={() => setSelectedCamp(camp)}
                   className={`${
                     index % 2 === 0 ? "bg-gray-100" : "bg-white"
                   } rounded-md p-2 flex items-center cursor-pointer`}
@@ -153,7 +194,10 @@ function Campaign() {
               style={{ overflowY: "auto", maxHeight: "190px" }}
             >
               {requests.map((request, index) => (
-                <div className="flex flex-col rounded-md shadow-md shadow-gray-300 p-4 mont">
+                <div
+                  className="flex flex-col rounded-md shadow-md shadow-gray-300 p-4 mont"
+                  key={index}
+                >
                   <div className="flex-1 text-gray-500 font-thin">
                     {request.user_id}
                   </div>

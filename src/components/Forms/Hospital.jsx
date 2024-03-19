@@ -4,8 +4,13 @@ import { React, use, useState } from "react";
 import axios from "axios";
 import OtpBox from "./otp";
 import getCurrentLocation from "@/utils/getCurrentLocation";
+import { useDispatch } from "react-redux";
+import Router from "next/router";
+import { login } from "@/store/auth";
 
 function Hospital() {
+  const dispatch = useDispatch();
+
   const initialState = {
     email: "",
     name: "",
@@ -67,9 +72,19 @@ function Hospital() {
         process.env.NEXT_PUBLIC_SERVER_URL + "/hospital/signup",
         data
       );
-      setIsOtpBoxVisible(true);
-      console.log(isOtpBoxVisible);
-      console.log("Response:", response);
+      dispatch(
+        login({
+          userType: "hospital",
+          userId: response.data.id,
+          token: response.data.token,
+          email: response.data.email,
+        })
+      );
+      Router.replace({ pathname: `/hospital/dashboard` });
+
+      // setIsOtpBoxVisible(true);
+      // console.log(isOtpBoxVisible);
+      // console.log("Response:", response);
     } catch (error) {
       console.error("Error:", error);
       setIsLoading(false);

@@ -25,6 +25,7 @@ export default function SearchCampaign() {
         process.env.NEXT_PUBLIC_SERVER_URL + `/camps/district/${district}`
       );
       setCampaigns(response.data.campaigns);
+      console.log(response.data);
     } catch (error) {
       console.log(error);
     }

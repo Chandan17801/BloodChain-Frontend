@@ -39,6 +39,12 @@ const CustomNavBar = () => {
         >
           Login
         </Link>
+        <Link
+          href="/bloodbank/campaign"
+          className="text-white hover:bg-gray-600 px-3 py-2 rounded"
+        >
+          Campaign
+        </Link>
         <div
           onClick={() => setIsNotificationBoxOpen((prev) => !prev)}
           className="self-center ext-text-secondary dark:text-text-secondary hover:bg-fill-3 dark:hover:bg-dark-fill-3 rounded w-8 h-8 relative flex items-center justify-center group cursor-pointer focus:outline-none"

@@ -5,8 +5,13 @@ import ResponsiveLayout from "@/components/layout/ResponsiveLayout";
 import { React, useState } from "react";
 import axios from "axios";
 import OtpBox from "./otp";
+import { useDispatch } from "react-redux";
+import Router from "next/router";
+import { login } from "@/store/auth";
 
 function Donor() {
+  const dispatch = useDispatch();
+
   const initialState = {
     email: "",
     password: "",
@@ -38,8 +43,18 @@ function Donor() {
         process.env.NEXT_PUBLIC_SERVER_URL + "/users/signup",
         formData
       );
-      console.log("Response:", response);
-      setIsOtpBoxVisible(true);
+      // console.log("Response:", response);
+      dispatch(
+        login({
+          userType: "users",
+          userId: response.data.id,
+          token: response.data.token,
+          email: response.email,
+        })
+      );
+      Router.replace({ pathname: `/users/dashboard` });
+
+      // setIsOtpBoxVisible(true);
       // console.log(isOtpBoxVisible);
       // setFormData(initialState);
     } catch (error) {
