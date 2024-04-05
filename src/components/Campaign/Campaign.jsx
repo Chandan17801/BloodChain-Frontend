@@ -243,6 +243,7 @@ function Campaign() {
             </div>
           </div>
           <CampaignDetail
+            setBloodSample={setBloodSample}
             selectedCamp={selectedCamp}
             bloodSample={bloodSample}
           />
