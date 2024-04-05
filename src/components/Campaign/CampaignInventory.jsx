@@ -7,9 +7,9 @@ const CampaignInventory = ({ campId }) => {
     const fetchData = async () => {
       try {
         let response = await axios.get(
-          process.env.NEXT_PUBLIC_SERVER_URL + `donation/all/${campId}`
+          process.env.NEXT_PUBLIC_SERVER_URL + `/donation/all/${campId}`
         );
-        console.log(response);
+        console.log(response.data.bloodDonations);
       } catch (error) {
         console.error("Error:", error);
       }
