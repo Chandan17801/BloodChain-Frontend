@@ -64,6 +64,7 @@ function Campaign() {
         },
       ]);
     } catch (error) {
+      console.log("in accept handler catch");
       console.error("Error:", error);
     }
     setIsVerification(false);

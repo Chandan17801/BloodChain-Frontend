@@ -10,12 +10,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout, login } from "@/store/auth";
 import Router from "next/router";
 import OtpBox from "./otp";
+import Loading from "../UIElements/Loading";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Login() {
   const { userType, userId, token, email } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [isOtpVisible, setIsOtpVisible] = useState(false);
   const [loginUser, setLoginUser] = useState("users");
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -42,6 +46,7 @@ export default function Login() {
     event.preventDefault();
     let response = null;
     try {
+      setLoading(true);
       if (loginUser == "users") {
         response = await axios.post(
           process.env.NEXT_PUBLIC_SERVER_URL + "/users/login",
@@ -69,7 +74,7 @@ export default function Login() {
         //   Router.replace({ pathname: `/${loginUser}/dashboard` });
         // }
       }
-      // console.log(response);
+      // console.log(response.status);
       handleLogin({
         userType: loginUser,
         userId: response.data.id,
@@ -78,13 +83,19 @@ export default function Login() {
       });
       Router.replace({ pathname: `/${loginUser}/dashboard` });
     } catch (error) {
+      toast("Wrong username or password");
       console.error("Error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <ResponsiveLayout>
+      <ToastContainer />
+
       {isOtpVisible && <OtpBox email={formData.email} userType={loginUser} />}
+      {loading && <Loading />}
       <div
         className="flex justify-center items-center h-[100vh]"
         style={{
