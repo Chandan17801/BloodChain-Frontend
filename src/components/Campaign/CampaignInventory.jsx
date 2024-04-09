@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect } from "react";
 
 const CampaignInventory = ({ campId }) => {
-  const initialState = {
+  let initialState = {
     "O+": 0,
     "O-": 0,
     "A+": 0,
@@ -21,6 +21,16 @@ const CampaignInventory = ({ campId }) => {
           process.env.NEXT_PUBLIC_SERVER_URL + `/donation/all/${campId}`
         );
         console.log(response.data.bloodDonations);
+        initialState = {
+          "O+": 0,
+          "O-": 0,
+          "A+": 0,
+          "A-": 0,
+          "B+": 0,
+          "B-": 0,
+          "AB+": 0,
+          "AB-": 0,
+        };
         response.data.bloodDonations.forEach((donation) => {
           if (donation.teststatus === 1) initialState[donation.blood_type]++;
         });

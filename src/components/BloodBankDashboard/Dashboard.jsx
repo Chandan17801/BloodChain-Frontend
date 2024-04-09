@@ -8,6 +8,7 @@ import TestingRequest from "./TestingRequest";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ResponsiveLayout from "../layout/ResponsiveLayout";
+import Inventrory from "./Inventrory";
 
 export default function Dashboard() {
   const { userType, userId, token, email } = useSelector((state) => state.auth);
