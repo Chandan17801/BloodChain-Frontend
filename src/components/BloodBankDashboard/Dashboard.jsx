@@ -14,7 +14,7 @@ export default function Dashboard() {
   const { userType, userId, token, email } = useSelector((state) => state.auth);
   useEffect(() => {
     // Function to fetch data from the API
-    toast("Logged In");
+    // toast("Logged In");
 
     const fetchData = async () => {
       try {

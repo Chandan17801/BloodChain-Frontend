@@ -21,6 +21,7 @@ const CampaignInventory = ({ campId }) => {
           process.env.NEXT_PUBLIC_SERVER_URL + `/donation/all/${campId}`
         );
         console.log(response.data.bloodDonations);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         initialState = {
           "O+": 0,
           "O-": 0,
