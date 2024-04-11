@@ -7,6 +7,8 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import calculateAge from "@/utils/calculateAge";
 import CampaignDetail from "./CampaignDetail";
+import Loadingg from "../UIElements/Loadingg";
+import Loading from "../UIElements/Loading";
 
 function Campaign() {
   const { userId } = useSelector((state) => state.auth);
@@ -17,6 +19,7 @@ function Campaign() {
   const [allCamps, setAllCamps] = useState([]);
   const [selectedCamp, setSelectedCamp] = useState();
   const [bloodSample, setBloodSample] = useState([]);
+  const [loading,setLoading] = useState(true);
 
   const addNewCamp = (newCamp) => {
     setAllCamps((prevAllCamps) => [...prevAllCamps, newCamp]);
@@ -121,6 +124,8 @@ function Campaign() {
         }
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally{
+        setLoading(false);
       }
     };
 
@@ -129,6 +134,7 @@ function Campaign() {
 
   return (
     <ResponsiveLayout>
+    {loading && <Loadingg/> && <Loading/> }
       {isVerification && (
         <RequestVerify
           request={verifyingRequest}

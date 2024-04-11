@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import BloodChart from "@/components/UIElements/BloodChart";
 import last_donations from "@/styles/donations";
 import { useEffect } from "react";
@@ -8,9 +8,11 @@ import TestingRequest from "./TestingRequest";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ResponsiveLayout from "../layout/ResponsiveLayout";
+import Loading from "../UIElements/Loading";
 import Inventrory from "./Inventrory";
 
 export default function Dashboard() {
+  const [loading,setLoading] = useState(true);
   const { userType, userId, token, email } = useSelector((state) => state.auth);
   useEffect(() => {
     // Function to fetch data from the API
@@ -23,17 +25,22 @@ export default function Dashboard() {
         );
         // setProfile(response.data);
         console.log(response.data);
+        
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally{
+        setLoading(false)
       }
     };
-
+    
     fetchData();
+    
   }, [userId]);
 
   return (
     <ResponsiveLayout>
       <ToastContainer />
+      {loading && <Loading/>}
       <div className="flex gap-4 min-h-screen py-8 px-8 bg-[#F7F8FA]">
         <div className="flex flex-col flex-[5] gap-4">
           <div className="flex gap-2 mont">

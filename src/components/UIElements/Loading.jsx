@@ -11,7 +11,7 @@ const Loading = () => {
   return (
     <div className='w-screen h-screen absolute z-10 flex justify-center items-center bg-[#9d939573]'>
 
-    <BeatLoader css={override} size={15} color={"#123abc"} loading={true} />
+    <BeatLoader css={override} size={15} color={"red"} loading={true} />
     </div>
   )
 }
