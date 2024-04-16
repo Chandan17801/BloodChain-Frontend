@@ -34,7 +34,7 @@ function ConfirmPopUp({ bank, close }) {
 
   // console.log(bank);
   return (
-    <div className="absolute h-full w-[100%] bg-[#a7a4a480] z-50 top-0 right-0 flex justify-center items-center">
+    <div className="absolute h-[100vh] w-[100%] bg-[#a7a4a480] z-50 top-0 right-0 flex justify-center items-center">
       <div className="relative bg-white shadow-lg rounded-md p-[4rem] items-center flex flex-col gap-4">
         <CrossButton close={close} sign="x" />
         <div className="text-4xl font-semibold mont">Confirm your request</div>
