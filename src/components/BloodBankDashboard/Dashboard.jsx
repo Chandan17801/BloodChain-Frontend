@@ -10,6 +10,7 @@ import Loading from "../UIElements/Loading";
 import Inventrory from "./Inventrory";
 import About from "./About";
 import HospitalRequest from "./HospitalRequest";
+import { useSelector } from "react-redux";
 
 export default function Dashboard() {
   const [loading,setLoading] = useState(true);
