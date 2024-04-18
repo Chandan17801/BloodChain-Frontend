@@ -25,7 +25,8 @@ function ConfirmPopUp({ bank, close }) {
           bloodbankId: bank.uid,
         }
       );
-      // setProfile(response.data);
+      // setProfile(response.data);;
+      close()
       console.log(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);

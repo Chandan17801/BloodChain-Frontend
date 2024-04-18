@@ -1,34 +1,29 @@
 import React from "react";
 import last_donations from "@/styles/donations";
 
-
-const TestingRequest = () => {
+const TestingRequest = ({ requests }) => {
   return (
-    <div className="flex-1 bg-white rounded-lg p-4 shadow-md shadow-gray-300">
-      <div className="flex justify-between mb-4">
-        <div className="pl-2 font-semibold self-start">Donation History</div>
+    <div className="flex flex-col flex-[2] gap-4 bg-transparent  p-4">
+      <div className="pl-2 font-semibold self-start text-lg mont text-gray-500">
+        Approved Requests
       </div>
-      <div className="flex flex-col text-xs">
-        <div className="flex justify-between p-4 py-[12px] rounded-md bg-gray-100">
-          <div>{last_donations[0].date}</div>
-          <div>{last_donations[0].address}</div>
+      {requests.map((request) => (
+        <div className="p-4 flex flex-row rounded-xl bg-white shadow-md shadow-gray-300">
+          <div className="flex flex-col flex-1">
+            <div className="merri text-lg text-gray-700">
+              {request.hospital_name}
+            </div>
+            <div className="italic mont text-sm text-gray-400">
+              {new Date(request.request_date).toDateString()}
+            </div>
+          </div>
+          <div className="flex flex-col flex-1 gap-2">
+            <div className="self-end mont font-semibold text-lg text-red-700">
+              {request.blood_type}
+            </div>
+          </div>
         </div>
-        <div className="flex justify-between p-4 py-[12px] rounded-md">
-          <div>{last_donations[1].date}</div>
-          <div>{last_donations[1].address}</div>
-        </div>
-        <div className="flex justify-between p-4 py-[12px] rounded-md bg-gray-100">
-          <div>{last_donations[2].date}</div>
-          <div>{last_donations[2].address}</div>
-        </div>
-        <div className="flex justify-between p-4 py-[12px] rounded-md">
-          <div>{last_donations[1].date}</div>
-          <div>{last_donations[1].address}</div>
-        </div>
-      </div>
-      <div className="text-md text-red-500 bg-red-100 rounded-md px-4 py-2 cursor-pointer w-[48] text-center mt-3">
-        View All &raquo;
-      </div>
+      ))}
     </div>
   );
 };

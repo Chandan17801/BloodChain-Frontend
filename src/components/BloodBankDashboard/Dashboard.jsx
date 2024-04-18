@@ -11,40 +11,45 @@ import Inventrory from "./Inventrory";
 import About from "./About";
 import HospitalRequest from "./HospitalRequest";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 export default function Dashboard() {
-  const [loading,setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [approvedRequest, setApprovedRequest] = useState([]);
+  const [pendingRequest, setPendingRequest] = useState([]);
   const { userType, userId, token, email } = useSelector((state) => state.auth);
-  useEffect(() => {
-    // Function to fetch data from the API
-    // toast("Logged In");
 
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          process.env.NEXT_PUBLIC_SERVER_URL + `/bloodbank/bloodbank/${userId}`
-        );
-        // setProfile(response.data);
-        console.log(response.data);
-        
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally{
-        setLoading(false)
-      }
-    };
-    
-    fetchData();
-    
-  }, [userId]);
   useEffect(() => {
     toast("Welcome Your are logged in");
+    const fetchRequest = async () => {
+      try {
+        const response = await axios.get(
+          process.env.NEXT_PUBLIC_SERVER_URL + `/request/${userId}`
+        );
+        let data = response.data.data.filter(
+          (request) => request.request_status == "Approved"
+        );
+        setApprovedRequest(data);
+        data = [];
+        data = response.data.data.filter(
+          (request) => request.request_status == "Requested"
+        );
+        setPendingRequest(data);
+        console.log(response.data);
+        console.log(approvedRequest);
+        console.log(pendingRequest);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+      setLoading(false);
+    };
+    fetchRequest();
   }, []);
 
   return (
     <ResponsiveLayout>
       <ToastContainer />
-      {loading && <Loading/>}
+      {loading && <Loading />}
       <div className="flex gap-4 min-h-screen py-8 px-8 bg-[#F7F8FA]">
         <div className="flex flex-col flex-[5] gap-4">
           <Inventrory />
@@ -56,11 +61,11 @@ export default function Dashboard() {
               <div className="flex-1">
                 <BloodChart />
               </div>
-              <TestingRequest />
+              <TestingRequest requests={approvedRequest} />
             </div>
           </div>
         </div>
-        <HospitalRequest />
+        <HospitalRequest requests={pendingRequest} />
       </div>
     </ResponsiveLayout>
   );
