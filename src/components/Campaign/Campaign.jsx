@@ -162,9 +162,10 @@ function Campaign() {
               <div>CAMPAIGN</div>
             </div>
             <div className="flex-1 flex flex-col items-end p-4">
+            {/* "rounded-3xl border-red-900 border-[1px] p-2 cursor-pointer bg-white transition duration-300 transform hover:scale-105" */}
               <Image
                 onClick={() => setIsCampaignFormOpen(true)}
-                className="w-[60%] rounded-3xl border-red-900 border-[1px] p-2 cursor-pointer bg-white"
+                className="w-[60%] rounded-3xl border-red-900 border-[1px] p-2 cursor-pointer bg-white hover:scale-110"
                 src={require("../../assests/plus_sign.png")}
                 height={300}
                 width={300}

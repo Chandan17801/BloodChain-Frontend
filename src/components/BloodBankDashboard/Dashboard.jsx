@@ -22,7 +22,7 @@ export default function Dashboard() {
   return (
     <ResponsiveLayout>
       <ToastContainer />
-      {loading && <Loading />}
+      {loading && <Loading /> }
       <div className="flex gap-4 min-h-screen py-8 px-8 bg-[#F7F8FA]">
         <div className="flex flex-col flex-[5] gap-4">
           <Inventrory amount={amount} />
