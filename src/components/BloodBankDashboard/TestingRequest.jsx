@@ -1,13 +1,14 @@
 import React from "react";
-import last_donations from "@/styles/donations";
 
-const TestingRequest = ({ requests }) => {
+const TestingRequest = ({ approvedRequests }) => {
+  // console.log(approvedRequests);
+
   return (
     <div className="flex flex-col flex-[2] gap-4 bg-transparent  p-4">
       <div className="pl-2 font-semibold self-start text-lg mont text-gray-500">
         Approved Requests
       </div>
-      {requests.map((request) => (
+      {approvedRequests.map((request) => (
         <div className="p-4 flex flex-row rounded-xl bg-white shadow-md shadow-gray-300">
           <div className="flex flex-col flex-1">
             <div className="merri text-lg text-gray-700">
