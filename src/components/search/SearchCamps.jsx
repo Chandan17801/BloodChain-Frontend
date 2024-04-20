@@ -4,6 +4,8 @@ import { getLatitude } from "@/utils/getCurrentLocation";
 import { getLongitude } from "@/utils/getCurrentLocation";
 import Campaign from "@/components/Table/Campaign";
 import { useState, useEffect } from "react";
+import SearchCampLoader from "../UIElements/SearchCampLoader";
+import Loading from "../UIElements/Loading";
 
 export default function SearchCampaign() {
   const initialCampaigns = [
@@ -28,6 +30,7 @@ export default function SearchCampaign() {
 
   const [campaigns, setCampaigns] = useState(initialCampaigns);
   const [district, setDistrict] = useState("");
+  const[loading, setLoading] = useState(true);
 
   const districtHandler = async () => {
     try {
@@ -38,10 +41,14 @@ export default function SearchCampaign() {
       console.log(response.data);
     } catch (error) {
       console.log(error);
+    } finally{
+      setLoading(false);
     }
   };
 
   return (
+    <>
+    {loading && <Loading/> && <SearchCampLoader/>}
     <div className="w-[95%] mx-auto">
       <div>
         <div className="flex">
@@ -67,5 +74,6 @@ export default function SearchCampaign() {
       </div>
       <Campaign campaigns={campaigns} />
     </div>
+    </>
   );
 }

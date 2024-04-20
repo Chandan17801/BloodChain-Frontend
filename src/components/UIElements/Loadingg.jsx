@@ -15,11 +15,11 @@ const Loadingg = () => {
           ></div>
         </div>
       </div>
-      <div className="flex-[2] flex flex-col gap-4">
+      {/* <div className="flex-[2] flex flex-col gap-4">
         <div className="flex-1 flex flex-col rounded-lg shadow-gray-700 shadow-md p-4 bg-gray-300 gap-4">
           <div className="flex-1 merri flex justify-between"></div>
         </div>
-      </div>
+      </div> */}
       
     </div>
   );

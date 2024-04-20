@@ -134,7 +134,7 @@ function Campaign() {
 
   return (
     <ResponsiveLayout>
-    {loading && <Loadingg/> && <Loading/> }
+    {loading && <Loadingg/> && <Loading/>}
       {isVerification && (
         <RequestVerify
           request={verifyingRequest}

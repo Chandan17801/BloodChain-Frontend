@@ -13,6 +13,7 @@ import OtpBox from "./otp";
 import Loading from "../UIElements/Loading";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LoginLoading from "../UIElements/LoginLoading";
 
 export default function Login() {
   const { userType, userId, token, email } = useSelector((state) => state.auth);
@@ -95,7 +96,7 @@ export default function Login() {
       <ToastContainer />
 
       {isOtpVisible && <OtpBox email={formData.email} userType={loginUser} />}
-      {loading && <Loading />}
+      {loading && <Loading/>}
       <div
         className="flex justify-center items-center h-[100vh]"
         style={{
