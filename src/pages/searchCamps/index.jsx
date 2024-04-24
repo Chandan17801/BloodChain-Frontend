@@ -6,7 +6,6 @@ import SearchCampaign from "@/components/search/SearchCamps";
 function index() {
   return (
     <ResponsiveLayout>
-      <Header />
       <SearchCampaign />
     </ResponsiveLayout>
   );

@@ -6,7 +6,6 @@ import SearchBloodBank from "@/components/search/SearchBloodBank";
 function index() {
   return (
     <ResponsiveLayout>
-      <Header />
       <SearchBloodBank />
     </ResponsiveLayout>
   );
