@@ -8,27 +8,27 @@ import SearchCampLoader from "../UIElements/SearchCampLoader";
 import Loading from "../UIElements/Loading";
 
 export default function SearchCampaign() {
-  const initialCampaigns = [
-    {
-      campaign_name: "Campaign Blood",
-      location: "Labour Chowk, Jhansi",
-      organizerEmail: "organizer@email.com",
-      campaign_date: "25 - 03- 2024",
-      goal: "A step ta a healthy future",
-      id: "01",
-    },
-    {
-      campaign_name: "Campaign Blood",
-      location: "Labour Chowk, Jhansi",
-      organizerEmail: "organizer@email.com",
-      campaign_date: "25 - 03- 2024",
-      goal: "A step ta a healthy future",
-      id: "01",
-    },
-    // ... (other initial campaigns)
-  ];
+  // const initialCampaigns = [
+  //   {
+  //     campaign_name: "Campaign Blood",
+  //     location: "Labour Chowk, Jhansi",
+  //     organizerEmail: "organizer@email.com",
+  //     campaign_date: "25 - 03- 2024",
+  //     goal: "A step ta a healthy future",
+  //     id: "01",
+  //   },
+  //   {
+  //     campaign_name: "Campaign Blood",
+  //     location: "Labour Chowk, Jhansi",
+  //     organizerEmail: "organizer@email.com",
+  //     campaign_date: "25 - 03- 2024",
+  //     goal: "A step ta a healthy future",
+  //     id: "01",
+  //   },
+  //   // ... (other initial campaigns)
+  // ];
 
-  const [campaigns, setCampaigns] = useState(initialCampaigns);
+  const [campaigns, setCampaigns] = useState([]);
   const [district, setDistrict] = useState("");
   const[loading, setLoading] = useState(true);
 
@@ -72,6 +72,11 @@ export default function SearchCampaign() {
           </div>
         </div>
       </div>
+      {campaigns.length == 0 && (
+        <div className="flex justify-center items-center h-[20rem]">
+          <h2 className="mont font-semibold text-gray-500 text-xl">No Blood Bank found. </h2>
+        </div>
+      )}
       <Campaign campaigns={campaigns} />
     </div>
     </>

@@ -7,40 +7,40 @@ import { useState, useEffect } from "react";
 const geolib = require("geolib");
 
 export default function SearchBloodBank() {
-  const initialBanks = [
-    {
-      name: "Devanand",
-      address: "gorakhpur",
-      email: "meriemail@email.com",
-      id: "02",
-    },
-    {
-      name: "Devanand",
-      address: "gorakhpur",
-      email: "meriemail@email.com",
-      id: "03",
-    },
-    {
-      name: "Devanand",
-      address: "gorakhpur",
-      email: "meriemail@email.com",
-      id: "01",
-    },
-    {
-      name: "Devanand",
-      address: "gorakhpur",
-      email: "meriemail@email.com",
-      id: "04",
-    },
-    {
-      name: "Devanand",
-      address: "gorakhpur",
-      email: "meriemail@email.com",
-      id: "05",
-    },
-  ];
+  // const initialBanks = [
+  //   {
+  //     name: "Devanand",
+  //     address: "gorakhpur",
+  //     email: "meriemail@email.com",
+  //     id: "02",
+  //   },
+  //   {
+  //     name: "Devanand",
+  //     address: "gorakhpur",
+  //     email: "meriemail@email.com",
+  //     id: "03",
+  //   },
+  //   {
+  //     name: "Devanand",
+  //     address: "gorakhpur",
+  //     email: "meriemail@email.com",
+  //     id: "01",
+  //   },
+  //   {
+  //     name: "Devanand",
+  //     address: "gorakhpur",
+  //     email: "meriemail@email.com",
+  //     id: "04",
+  //   },
+  //   {
+  //     name: "Devanand",
+  //     address: "gorakhpur",
+  //     email: "meriemail@email.com",
+  //     id: "05",
+  //   },
+  // ];
   const [distance, setDistance] = useState(50);
-  const [bloodbanks, setBloodbanks] = useState(initialBanks);
+  const [bloodbanks, setBloodbanks] = useState([]);
   const [district, setDistrict] = useState("");
 
   useEffect(() => {
@@ -134,6 +134,11 @@ export default function SearchBloodBank() {
           </div>
         </div>
       </div>
+      {bloodbanks.length == 0 && (
+        <div className="flex justify-center items-center h-[20rem]">
+          <h2 className="mont font-semibold text-gray-500 text-xl">No Blood Bank found. </h2>
+        </div>
+      )}
       <BloodBank bloodbanks={bloodbanks} />
     </div>
   );
