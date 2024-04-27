@@ -19,9 +19,10 @@ function Campaign() {
   const [allCamps, setAllCamps] = useState([]);
   const [selectedCamp, setSelectedCamp] = useState();
   const [bloodSample, setBloodSample] = useState([]);
-  const [loading,setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   const addNewCamp = (newCamp) => {
+    setSelectedCamp(newCamp);
     setAllCamps((prevAllCamps) => [...prevAllCamps, newCamp]);
   };
 
@@ -63,7 +64,7 @@ function Campaign() {
           donation_id: verifyingRequest.donation_id,
           donor_name: verifyingRequest.name,
           blood_type: verifyingRequest.blood_group,
-          status: "NotTested",
+          teststatus: 0,
         },
       ]);
     } catch (error) {
@@ -124,7 +125,7 @@ function Campaign() {
         }
       } catch (error) {
         console.error("Error fetching data:", error);
-      } finally{
+      } finally {
         setLoading(false);
       }
     };
@@ -134,7 +135,7 @@ function Campaign() {
 
   return (
     <ResponsiveLayout>
-    {loading && <Loadingg/> && <Loading/>}
+      {loading && <Loadingg /> && <Loading />}
       {isVerification && (
         <RequestVerify
           request={verifyingRequest}
@@ -162,7 +163,7 @@ function Campaign() {
               <div>CAMPAIGN</div>
             </div>
             <div className="flex-1 flex flex-col items-end p-4">
-            {/* "rounded-3xl border-red-900 border-[1px] p-2 cursor-pointer bg-white transition duration-300 transform hover:scale-105" */}
+              {/* "rounded-3xl border-red-900 border-[1px] p-2 cursor-pointer bg-white transition duration-300 transform hover:scale-105" */}
               <Image
                 onClick={() => setIsCampaignFormOpen(true)}
                 className="w-[60%] rounded-3xl border-red-900 border-[1px] p-2 cursor-pointer bg-white hover:scale-110"

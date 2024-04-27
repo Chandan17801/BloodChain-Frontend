@@ -12,7 +12,7 @@ const TestingPopUp = ({ donationId, close, bloodSample, setBloodSample }) => {
           Sample <span className="text-red-900">Test</span>
         </div>
         <CrossButton close={close} sign="x" />
-        <form
+        <div
           className="flex flex-col gap-7 mont pt-2"
           // onSubmit={acceptHandler}
         >
@@ -102,7 +102,7 @@ const TestingPopUp = ({ donationId, close, bloodSample, setBloodSample }) => {
               Accept
             </button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );

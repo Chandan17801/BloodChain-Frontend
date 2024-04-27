@@ -77,17 +77,18 @@ function BloodBank() {
   const form_submit_handler = async (event) => {
     event.preventDefault();
     setIsLoading(true);
-    const data = new FormData();
-
-    for (const key in formData) {
-      // Append all form fields to FormData
-      data.append(key, formData[key]);
-    }
+    // const data = new FormData();
+    
+    // for (const key in formData) {
+    //   // Append all form fields to FormData
+    //   data.append(key, formData[key]);
+    // }
+    console.log(formData);
 
     try {
       const response = await axios.post(
         process.env.NEXT_PUBLIC_SERVER_URL + "/bloodbank/signup",
-        data
+        formData
       );
       dispatch(
         login({
@@ -357,7 +358,6 @@ function BloodBank() {
           </div>
           <button
             type="submit"
-            disabled={isLoading}
             className="mx-auto disabled:bg-gray-400 justify-center w-48 bg-black flex text-white pl-6 pr-6 pt-2 pb-2 rounded-xl font-semibold shadow-md shadow-gray-600 active:shadow-none active:translate-y-1 disabled:translate-y-0 disabled:shadow-none disabled:cursor-not-allowed"
           >
             Submit

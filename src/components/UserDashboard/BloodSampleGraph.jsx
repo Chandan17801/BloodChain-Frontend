@@ -1,23 +1,56 @@
 import campaign from "@/pages/bloodbank/campaign";
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
-const BloodSampleGraph = () => {
+const BloodSampleGraph = ({ donationId }) => {
+  console.log(donationId);
   const sample = {
     expiryDate: null,
     testStatus: "Success",
     campaign: "jhansi Campaign",
     campaignDate: "18-02-2024",
     campaignAddress: null,
-    campaignDistrict: null,
     bloodbank: "jhansi Bloodbank",
     bloodbankDate: "19-02-2024",
     bloodbankAddress: null,
-    bloodbankDistrict: null,
     hospital: "Jhansihospital",
     hospitalDate: "25-02-2024",
     hospitalAddress: null,
-    hospitalDistrict: null,
   };
+  const [trackingData, setTrackingData] = useState(sample);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          process.env.NEXT_PUBLIC_SERVER_URL + `/donation/track/${donationId}`
+        );
+        setTrackingData({
+          expiryDate: null,
+          testStatus:
+            response.data.teststatus == 1
+              ? "Success"
+              : response.data.teststatus == 0
+              ? "Not Tested"
+              : "Failed",
+          campaign: response.data.campaign_name,
+          campaignDate: response.data.donation_date,
+          campaignAddress: response.data.campaign_address,
+          bloodbank: response.data.bloodbank_name,
+          bloodbankDate: response.data.test_date,
+          bloodbankAddress: response.data.bloodbank_address,
+          hospital: response.data.hospital_name,
+          hospitalDate: response.data.hospital_date,
+          hospitalAddress: response.data.hospital_address,
+        });
+
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [donationId]);
   return (
     <div className=" bg-[#E9F0F5] rounded-lg p-4 pb-8 shadow-gray-300 shadow-md mont ">
       <div className="mb-4 flex flex-row items-center justify-end gap-4 text-sm">
@@ -25,12 +58,12 @@ const BloodSampleGraph = () => {
           <div className="text-gray-500">Test Status :</div>
           <div
             className={`p-2 rounded-sm ${
-              sample.testStatus == "Success"
+              trackingData.testStatus == "Success"
                 ? "shadow-green-300 text-green-600 bg-green-100"
                 : "text-red-600 shadow-red-300 bg-red-100"
             } shadow-md font-semibold`}
           >
-            {sample.testStatus}
+            {trackingData.testStatus}
           </div>
         </div>
         <div className="flex flex-row gap-2 items-center">
@@ -52,28 +85,27 @@ const BloodSampleGraph = () => {
             <div class="h-2 w-[8rem] bg-[#E9F0F5] self-center"></div>
             <div
               className={`w-12 h-12 ${
-                sample.campaign
+                trackingData.campaign
                   ? "bg-red-500 shadow-md shadow-red-300"
                   : "bg-white"
               }  border-4 border-white rounded-full `}
             ></div>
             <div
               class={`h-2 w-[8rem] ${
-                sample.bloodbank
+                trackingData.bloodbank
                   ? "bg-red-500 shadow-md shadow-red-300"
                   : "bg-white"
               } self-center`}
             ></div>
           </div>
-          {sample.campaign != null && (
+          {trackingData.campaign != null && (
             <div className="">
               <div class="relative mt-8 rounded-md shadow-md bg-white p-4 flex flex-col gap-2 text-xs">
                 <div className="bg-black py-1 px-2 font-semibold rounded-[4px] text-white">
-                  {sample.campaign}
+                  {trackingData.campaign}
                 </div>
-                <div>{sample.campaignDate}</div>
-                <div>{sample.campaignAddress}</div>
-                <div>{sample.campaignDistrict}</div>
+                <div>{trackingData.campaignDate}</div>
+                <div>{trackingData.campaignAddress}</div>
                 <div class="absolute top-[-4px] left-1/2 transform -translate-x-1/2 bg-white w-4 h-4 rotate-45 -mt-1"></div>
               </div>
             </div>
@@ -89,35 +121,34 @@ const BloodSampleGraph = () => {
           <div className="flex flex-row">
             <div
               class={`h-2 w-[8rem] self-center ${
-                sample.bloodbank
+                trackingData.bloodbank
                   ? "bg-red-500 shadow-md shadow-red-300"
                   : "bg-white"
               }`}
             ></div>
             <div
               className={`w-12 h-12 ${
-                sample.bloodbank
+                trackingData.bloodbank
                   ? "bg-red-500 shadow-md shadow-red-300"
                   : "bg-white"
               } rounded-full border-4 border-white`}
             ></div>
             <div
               class={`h-2 w-[8rem] ${
-                sample.hospital
+                trackingData.hospital
                   ? "bg-red-500 shadow-md shadow-red-300"
                   : "bg-white"
               } self-center`}
             ></div>
           </div>
-          {sample.bloodbank != null && (
+          {trackingData.bloodbank != null && (
             <div className="">
               <div class="relative mt-8 rounded-md shadow-md bg-white p-4 flex flex-col gap-2 text-xs">
                 <div className="bg-black py-1 px-2 font-semibold rounded-[4px] text-white">
-                  {sample.bloodbank}
+                  {trackingData.bloodbank}
                 </div>
-                <div>{sample.bloodbankDate}</div>
-                <div>{sample.bloodbankAddress}</div>
-                <div>{sample.bloodbankDistrict}</div>
+                <div>{trackingData.bloodbankDate}</div>
+                <div>{trackingData.bloodbankAddress}</div>
                 <div class="absolute top-[-4px] left-1/2 transform -translate-x-1/2 bg-white w-4 h-4 rotate-45 -mt-1"></div>
               </div>
             </div>
@@ -133,29 +164,28 @@ const BloodSampleGraph = () => {
           <div className="flex flex-row">
             <div
               class={`h-2 w-[8rem] ${
-                sample.hospital
+                trackingData.hospital
                   ? "bg-red-500 shadow-md shadow-red-300"
                   : "bg-white"
               } self-center`}
             ></div>
             <div
               className={`w-12 h-12 ${
-                sample.hospital
+                trackingData.hospital
                   ? "bg-red-500 shadow-md shadow-red-300"
                   : "bg-white"
               } rounded-full border-4 border-white`}
             ></div>
             <div class="h-2 w-[8rem] bg-[#E9F0F5] self-center"></div>
           </div>
-          {sample.hospital != null && (
+          {trackingData.hospital != null && (
             <div className="">
               <div class="relative mt-8 rounded-md shadow-md bg-white p-4 flex flex-col gap-2 text-xs">
                 <div className="bg-black py-1 px-2 font-semibold rounded-[4px] text-white">
-                  {sample.hospital}
+                  {trackingData.hospital}
                 </div>
-                <div>{sample.hospitalDate}</div>
-                <div>{sample.hospitalAddress}</div>
-                <div>{sample.hospitalDistrict}</div>
+                <div>{trackingData.hospitalDate}</div>
+                <div>{trackingData.hospitalAddress}</div>
                 <div class="absolute top-[-4px] left-1/2 transform -translate-x-1/2 bg-white w-4 h-4 rotate-45 -mt-1"></div>
               </div>
             </div>
