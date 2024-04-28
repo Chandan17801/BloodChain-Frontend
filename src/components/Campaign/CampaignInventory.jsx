@@ -20,7 +20,7 @@ const CampaignInventory = ({ campId }) => {
         let response = await axios.get(
           process.env.NEXT_PUBLIC_SERVER_URL + `/donation/all/${campId}`
         );
-        console.log(response.data.bloodDonations);
+        // console.log(response.data.bloodDonations);
         // eslint-disable-next-line react-hooks/exhaustive-deps
         initialState = {
           "O+": 0,
@@ -35,7 +35,7 @@ const CampaignInventory = ({ campId }) => {
         response.data.bloodDonations.forEach((donation) => {
           if (donation.teststatus === 1) initialState[donation.blood_type]++;
         });
-        console.log(initialState);
+        // console.log(initialState);
         setAmount(initialState);
       } catch (error) {
         console.error("Error:", error);
@@ -44,7 +44,7 @@ const CampaignInventory = ({ campId }) => {
     fetchData();
   }, [campId]);
 
-  console.log(campId);
+  // console.log(campId);
   return (
     <div className="flex flex-col flex-1 gap-2 mont">
       <div className="flex gap-2 lex-1">

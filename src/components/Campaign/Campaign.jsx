@@ -9,6 +9,8 @@ import calculateAge from "@/utils/calculateAge";
 import CampaignDetail from "./CampaignDetail";
 import Loadingg from "../UIElements/Loadingg";
 import Loading from "../UIElements/Loading";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Campaign() {
   const { userId } = useSelector((state) => state.auth);
@@ -24,30 +26,32 @@ function Campaign() {
   const addNewCamp = (newCamp) => {
     setSelectedCamp(newCamp);
     setAllCamps((prevAllCamps) => [...prevAllCamps, newCamp]);
+    console.log("Camp added");
+    toast("Campaign created successfully");
   };
 
   const rejectHandler = async (e) => {
-    console.log("false");
-    // try {
-    //   // let data = JSON.stringify(formData)
-    //   let response = await axios.patch(
-    //     process.env.NEXT_PUBLIC_SERVER_URL +
-    //       `/donation/approve/${verifyingRequest.donation_id}`
-    //   );
-    //   console.log("Response:", response);
-    //   const updated_request = requests.filter(
-    //     (req) => req.donation_id != verifyingRequest.donation_id
-    //   );
-    //   setRequests(updated_request);
-    // } catch (error) {
-    //   console.error("Error:", error);
-    // }
-    // setIsVerification(false);
+    // console.log("false");
+    try {
+      let data = JSON.stringify(formData);
+      let response = await axios.patch(
+        process.env.NEXT_PUBLIC_SERVER_URL +
+          `/donation/approve/${verifyingRequest.donation_id}`
+      );
+      console.log("Response:", response);
+      const updated_request = requests.filter(
+        (req) => req.donation_id != verifyingRequest.donation_id
+      );
+      setRequests(updated_request);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+    setIsVerification(false);
   };
   // console.log(status);
   const acceptHandler = async (event) => {
     event.preventDefault();
-    console.log("true");
+    // console.log("true");
     try {
       let response = await axios.patch(
         process.env.NEXT_PUBLIC_SERVER_URL +
@@ -68,7 +72,7 @@ function Campaign() {
         },
       ]);
     } catch (error) {
-      console.log("in accept handler catch");
+      // console.log("in accept handler catch");
       console.error("Error:", error);
     }
     setIsVerification(false);
@@ -135,6 +139,7 @@ function Campaign() {
 
   return (
     <ResponsiveLayout>
+      <ToastContainer />
       {loading && <Loadingg /> && <Loading />}
       {isVerification && (
         <RequestVerify
@@ -178,7 +183,7 @@ function Campaign() {
             <div className="text-xl text-red-900 pb-2">Campaign List</div>
             <div
               className="flex flex-col py-2 mont"
-              style={{ overflowY: "auto", maxHeight: "400px" }}
+              style={{ overflowY: "auto", maxHeight: "370px" }}
             >
               {allCamps.map((camp, index) => (
                 <div

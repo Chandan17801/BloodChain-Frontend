@@ -3,16 +3,16 @@ import TestingPopUp from "./TestingPopUp";
 import CampaignInventory from "./CampaignInventory";
 
 const CampaignDetail = ({ selectedCamp, bloodSample, setBloodSample }) => {
-  console.log(bloodSample);
+  // console.log(bloodSample);
   const [isTestingPopUpOpen, setIsTestingPopUpOpen] = useState(false);
   const [selectedDonationId, setSelectedDonationId] = useState(null);
 
-  useEffect(() => {
-    console.log(selectedCamp);
-    console.log(bloodSample);
-  }, [selectedCamp, bloodSample]);
+  // useEffect(() => {
+  //   console.log(selectedCamp);
+  //   console.log(bloodSample);
+  // }, [selectedCamp, bloodSample]);
 
-  if (!selectedCamp) return <div>no</div>;
+  if (!selectedCamp) return <div></div>;
 
   return (
     <div className="flex-[2] flex flex-row rounded-lg shadow-gray-300 shadow-md p-4 bg-white red-creative-2 mont gap-2">
