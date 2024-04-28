@@ -8,8 +8,11 @@ const TestingRequest = ({ approvedRequests }) => {
       <div className="pl-2 font-semibold self-start text-lg mont text-gray-500">
         Approved Requests
       </div>
-      {approvedRequests.map((request) => (
-        <div className="p-4 flex flex-row rounded-xl bg-white shadow-md shadow-gray-300">
+      {approvedRequests.map((request, index) => (
+        <div
+          className="p-4 flex flex-row rounded-xl bg-white shadow-md shadow-gray-300"
+          key={index}
+        >
           <div className="flex flex-col flex-1">
             <div className="merri text-lg text-gray-700">
               {request.hospital_name}

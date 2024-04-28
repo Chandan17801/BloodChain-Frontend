@@ -8,6 +8,7 @@ function DonationHistory() {
   const [selectedDonationId, setSelectedDonationId] = useState();
   const { userType, userId, token, email } = useSelector((state) => state.auth);
   const [lastDonations, setLastDonations] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -25,7 +26,8 @@ function DonationHistory() {
     };
 
     fetchData();
-  }, [userId]);
+  }, [userId, lastDonations]);
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-row gap-4">
@@ -45,7 +47,10 @@ function DonationHistory() {
             {lastDonations.map((donation, index) => (
               <div
                 onClick={() => setSelectedDonationId(donation.donation_id)}
-                className={`flex justify-between p-4 py-[12px] rounded-md ${index % 2 == 0 ? 'bg-gray-100': 'white'} cursor-pointer`}
+                className={`flex justify-between p-4 py-[12px] rounded-md ${
+                  index % 2 == 0 ? "bg-gray-100" : "white"
+                } cursor-pointer`}
+                key={index}
               >
                 <div>{donation.donation_date.substring(0, 10)}</div>
                 <div>{donation.campaign_location}</div>
