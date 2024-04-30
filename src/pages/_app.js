@@ -1,12 +1,11 @@
-import {
-  Montserrat,
-  Merriweather_Sans,
-} from "next/font/google";
+import { Montserrat, Merriweather_Sans } from "next/font/google";
 import "@/styles/globals.css";
 import { Fragment } from "react";
 import { Provider } from "react-redux";
 import store from "@/store/store";
 import CustomNavBar from "@/components/Header/CustomNavbar";
+import Head from "next/head";
+import Script from "next/script";
 
 const merri = Merriweather_Sans({
   weight: "500",
@@ -21,6 +20,11 @@ const mont = Montserrat({
 export default function App({ Component, pageProps }) {
   return (
     <Fragment>
+      <Script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossOrigin=""
+      ></Script>
       <style jsx global>
         {`
           .merri {
@@ -32,7 +36,7 @@ export default function App({ Component, pageProps }) {
         `}
       </style>
       <Provider store={store}>
-        <CustomNavBar/>
+        <CustomNavBar />
         <Component {...pageProps} />
       </Provider>
     </Fragment>
