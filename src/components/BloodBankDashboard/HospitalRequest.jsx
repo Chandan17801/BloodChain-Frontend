@@ -9,7 +9,10 @@ const HospitalRequest = ({
   console.log(pendingRequests);
 
   return (
-    <div className="flex flex-col flex-[2] gap-4 bg-transparent  p-4">
+    <div
+      style={{ overflowY: "auto", maxHeight: "500px" }}
+      className="flex flex-col flex-[2] gap-4 bg-transparent  p-4"
+    >
       <div className="pl-2 font-semibold self-start text-lg mont text-gray-500">
         Hospital Requests
       </div>

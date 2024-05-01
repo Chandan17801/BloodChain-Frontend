@@ -81,6 +81,8 @@ function Campaign() {
     const fetchRequest = async () => {
       if (!selectedCamp) return;
       try {
+        setLoading(true);
+
         const response = await axios.get(
           process.env.NEXT_PUBLIC_SERVER_URL +
             `/donation/request/${selectedCamp.campaign_id}`
@@ -95,6 +97,7 @@ function Campaign() {
           last_donation: item.donor_last_dontation,
         }));
         setRequests(data);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -102,6 +105,7 @@ function Campaign() {
 
     const fetchBloodSample = async () => {
       try {
+        setLoading(true);
         const response = await axios.get(
           process.env.NEXT_PUBLIC_SERVER_URL +
             `/donation/all/${selectedCamp.campaign_id}/`
@@ -110,8 +114,8 @@ function Campaign() {
       } catch (error) {
         console.error("Error fetching data:", error);
       }
+      setLoading(false);
     };
-
     fetchRequest();
     fetchBloodSample();
   }, [selectedCamp]);

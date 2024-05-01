@@ -17,6 +17,12 @@ const CustomNavBar = () => {
       {isNotificationBoxOpen && <NotificationBox />}
       <nav className="flex bg-gray-800 p-4 z-50 gap-4">
         <Link
+          href="/"
+          className="text-white hover:bg-gray-600 px-3 py-2 cursor-pointer rounded"
+        >
+          Home
+        </Link>
+        <Link
           href="/searchBloodBank"
           className="text-white hover:bg-gray-600 px-3 py-2 cursor-pointer rounded"
         >

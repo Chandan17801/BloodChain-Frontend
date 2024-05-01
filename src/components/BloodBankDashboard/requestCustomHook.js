@@ -77,11 +77,18 @@ export const useRequestManagement = () => {
     fetchData();
   }, [userId]);
 
-  const acceptRequest = (id) => {
+  const acceptRequest = async (id) => {
     console.log(id);
     // console.log(pendingRequests);
     // console.log(approvedRequests);
     try {
+      const response = await axios.patch(
+        process.env.NEXT_PUBLIC_SERVER_URL + `/request/approved`,
+        {
+          requestId: id,
+        }
+      );
+      console.log(response);
       const approvedRequest = pendingRequests.find(
         (request) => request.request_id === id
       );
@@ -96,7 +103,9 @@ export const useRequestManagement = () => {
         approvedRequest,
       ]);
 
-      initialState = [amount[approvedRequest.blood_type]--, ...amount];
+      initialState = amount;
+      initialState[approvedRequest.blood_type]--;
+      // initialState = [amount[approvedRequest.blood_type]--, ...amount];
       setAmount(initialState);
       //   console.log(pendingRequests);
       //   console.log(approvedRequests);
@@ -105,9 +114,16 @@ export const useRequestManagement = () => {
     }
   };
 
-  const rejectRequest = (id) => {
+  const rejectRequest = async (id) => {
     console.log(id);
     try {
+      const response = await axios.patch(
+        process.env.NEXT_PUBLIC_SERVER_URL + `/request/rejected`,
+        {
+          requestId: id,
+        }
+      );
+      console.log(response);
       const updatedPendingRequests = pendingRequests.filter(
         (request) => request.request_id !== id
       );

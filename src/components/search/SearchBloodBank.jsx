@@ -4,6 +4,8 @@ import { getLatitude } from "@/utils/getCurrentLocation";
 import { getLongitude } from "@/utils/getCurrentLocation";
 import BloodBank from "@/components/Table/BloodBank";
 import { useState, useEffect } from "react";
+import Loading from "../UIElements/Loading";
+import Loadingg from "../UIElements/Loadingg";
 const geolib = require("geolib");
 
 export default function SearchBloodBank() {
@@ -42,10 +44,12 @@ export default function SearchBloodBank() {
   const [distance, setDistance] = useState(50);
   const [bloodbanks, setBloodbanks] = useState([]);
   const [district, setDistrict] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const latitude = await getLatitude();
         const longitude = await getLongitude();
         if (!latitude || !longitude)
@@ -71,6 +75,7 @@ export default function SearchBloodBank() {
         });
 
         setBloodbanks(banks);
+        setLoading(false);
       } catch (error) {
         console.log(error);
       }
@@ -86,11 +91,13 @@ export default function SearchBloodBank() {
   const districtHandler = async (e) => {
     console.log(district);
     try {
+      setLoading(true);
       const response = await axios.get(
         process.env.NEXT_PUBLIC_SERVER_URL + `/bloodbank/district/${district}`
       );
       // console.log(response.data.bloodbank);
       setBloodbanks(response.data.bloodbank);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -99,6 +106,7 @@ export default function SearchBloodBank() {
 
   return (
     <div className="w-[95%] mx-auto">
+      {loading && <Loading />}
       <div>
         <div className="flex">
           <div className="w-1/2 flex p-4 gap-2">
@@ -136,7 +144,9 @@ export default function SearchBloodBank() {
       </div>
       {bloodbanks.length == 0 && (
         <div className="flex justify-center items-center h-[20rem]">
-          <h2 className="mont font-semibold text-gray-500 text-xl">No Blood Bank found. </h2>
+          <h2 className="mont font-semibold text-gray-500 text-xl">
+            No Blood Bank found.{" "}
+          </h2>
         </div>
       )}
       <BloodBank bloodbanks={bloodbanks} />
