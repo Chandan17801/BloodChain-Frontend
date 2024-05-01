@@ -6,6 +6,7 @@ import { logout } from "@/store/auth";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import Router from "next/router";
+import Image from "next/image";
 
 const CustomNavBar = () => {
   const { userType, userId } = useSelector((state) => state.auth);
@@ -95,6 +96,13 @@ const CustomNavBar = () => {
             ></path>
           </svg>
         </div>
+        <Link
+          href="/map"
+          className="text-white bg-[#6a0c3a] hover:bg-gray-600 px-3 py-2 rounded ml-auto flex gap-2"
+        >
+          <Image src={require("../../assests/map.png")}></Image>
+          Map Find
+        </Link>
       </nav>
     </ResponsiveLayout>
   );

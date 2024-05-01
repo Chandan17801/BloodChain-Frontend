@@ -16,13 +16,11 @@
 }
 
 .header-gradient {
-  background: linear-gradient(
-    to right,
-    #6a0c3a,
-    #93183f,
-    #b42347,
-    #f49db4
-  );
+  background: linear-gradient(to right, #6a0c3a, #93183f, #b42347, #f49db4);
+}
+
+.map-gradient {
+  background: linear-gradient(to top, #6a0c3a, rgb(31 41 55));
 }
 
 *::-webkit-scrollbar {
