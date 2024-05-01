@@ -10,7 +10,7 @@ import Creative from "@/components/Homepage/Creative";
 import WhyDonation from "@/components/Homepage/WhyDonation";
 import HomepageRealTimeData from "@/components/Homepage/HomepageRealTimeData";
 import HowDonationWorks from "@/components/Homepage/HowDonationWorks";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import Head from "next/head";
 import CustomNavBar from "@/components/Header/CustomNavbar";
 
