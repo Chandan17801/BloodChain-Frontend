@@ -1,13 +1,11 @@
 import { Montserrat, Merriweather_Sans } from "next/font/google";
 import "@/styles/globals.css";
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Provider } from "react-redux";
 import store from "@/store/store";
 import CustomNavBar from "@/components/Header/CustomNavbar";
-import Head from "next/head";
 import Script from "next/script";
 const { io } = require("socket.io-client");
-const socket = io("http://localhost:5100");
 
 const merri = Merriweather_Sans({
   weight: "500",
@@ -20,22 +18,24 @@ const mont = Montserrat({
 });
 
 export default function App({ Component, pageProps }) {
-  useEffect(() => {
-    console.log(
-      socket.on("test", (msg) => {
-        console.log("Hello", msg);
-      })
-    );
+  const [socket, setSocket] = useState(io("http://localhost:5100"));
 
+  socket.emit("user", "email@hmail.com");
+
+  useEffect(() => {
     socket.on("disconnect", () => {
       console.log(socket.id);
+    });
+
+    socket.on("notification", (msg) => {
+      console.log(msg);
     });
 
     return () => {
       socket.off("connect");
       socket.off("disconnect");
     };
-  }, []);
+  }, [socket]);
 
   return (
     <Fragment>
