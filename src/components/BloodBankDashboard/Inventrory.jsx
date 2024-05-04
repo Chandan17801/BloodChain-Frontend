@@ -1,4 +1,5 @@
 import React from "react";
+
 const Inventrory = ({ amount }) => {
   return (
     <div className="flex gap-2 mont">

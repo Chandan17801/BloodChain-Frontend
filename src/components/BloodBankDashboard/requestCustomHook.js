@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useSocketContext } from "@/store/SocketContext";
-import { hospital } from "fontawesome";
 
 let initialState = {
   "O+": 0,

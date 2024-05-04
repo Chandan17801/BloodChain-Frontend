@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
-import BloodChart from "@/components/UIElements/BloodChart";
 
 const About = () => {
   const { userType, userId, token, email } = useSelector((state) => state.auth);

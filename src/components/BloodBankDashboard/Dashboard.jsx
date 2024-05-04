@@ -1,6 +1,6 @@
 import BloodChart from "@/components/UIElements/BloodChart";
 import TestingRequest from "./TestingRequest";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ResponsiveLayout from "../layout/ResponsiveLayout";
 import Loading from "../UIElements/Loading";
