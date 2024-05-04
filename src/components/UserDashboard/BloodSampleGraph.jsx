@@ -3,8 +3,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const BloodSampleGraph = ({ donationId }) => {
-  if (donationId == null) return <div>No Sample Selected.</div>;
-  console.log(donationId);
   const sample = {
     expiryDate: null,
     testStatus: "Success",
@@ -19,6 +17,7 @@ const BloodSampleGraph = ({ donationId }) => {
     hospitalAddress: null,
   };
   const [trackingData, setTrackingData] = useState(sample);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -52,6 +51,9 @@ const BloodSampleGraph = ({ donationId }) => {
 
     fetchData();
   }, [donationId]);
+
+  if (donationId == null) return <div>No Sample Selected.</div>;
+
   return (
     <div className=" bg-[#E9F0F5] rounded-lg p-4 pb-8 shadow-gray-300 shadow-md mont ">
       <div className="mb-4 flex flex-row items-center justify-end gap-4 text-sm">
