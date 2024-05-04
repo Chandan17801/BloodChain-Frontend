@@ -3,11 +3,14 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import CrossButton from "../UIElements/CrossButton";
+import { useSocketContext } from "@/store/SocketContext";
 
 function ConfirmPopUp({ bank, close }) {
   const { userType, userId, token, email } = useSelector((state) => state.auth);
   const [amount, setAmount] = useState(1);
   const [bloodType, setBloodType] = useState("O+");
+  const { socket } = useSocketContext();
+
   console.log(bank);
 
   const confirmHandler = async () => {
@@ -26,7 +29,18 @@ function ConfirmPopUp({ bank, close }) {
         }
       );
       // setProfile(response.data);;
-      close()
+      close();
+      if (socket && typeof socket.emit === "function") {
+        socket.emit("receivingRequest", {
+          message: "Hospital Request Created",
+          hospitalId: userId,
+          bloodbankId: bank.uid,
+        });
+      } else {
+        console.error(
+          "Socket is not properly initialized or emit method is not available."
+        );
+      }
       console.log(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);

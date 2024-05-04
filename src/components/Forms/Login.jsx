@@ -13,10 +13,13 @@ import OtpBox from "./otp";
 import Loading from "../UIElements/Loading";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useSocketContext } from "@/store/SocketContext";
 import LoginLoading from "../UIElements/LoginLoading";
 
 export default function Login() {
   const { userType, userId, token, email } = useSelector((state) => state.auth);
+  const { socket } = useSocketContext();
+  // console.log(socket);
   const dispatch = useDispatch();
   const [isOtpVisible, setIsOtpVisible] = useState(false);
   const [loginUser, setLoginUser] = useState("users");
@@ -75,6 +78,13 @@ export default function Login() {
         //   Router.replace({ pathname: `/${loginUser}/dashboard` });
         // }
       }
+      if (socket.connected) {
+        socket.emit("user", {
+          userType: loginUser,
+          userId: response.data.id,
+          email: response.data.email,
+        });
+      }
       // console.log(response.status);
       handleLogin({
         userType: loginUser,
@@ -84,7 +94,7 @@ export default function Login() {
       });
       Router.replace({ pathname: `/${loginUser}/dashboard` });
     } catch (error) {
-      toast("Wrong username or password");
+      toast(error.message);
       console.error("Error:", error);
     } finally {
       setLoading(false);
@@ -96,7 +106,7 @@ export default function Login() {
       <ToastContainer />
 
       {isOtpVisible && <OtpBox email={formData.email} userType={loginUser} />}
-      {loading && <Loading/>}
+      {loading && <Loading />}
       <div
         className="flex justify-center items-center h-[100vh]"
         style={{

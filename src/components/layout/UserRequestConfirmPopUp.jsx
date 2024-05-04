@@ -5,14 +5,16 @@ import { useState } from "react";
 import CrossButton from "../UIElements/CrossButton";
 import Loading from "../UIElements/Loading";
 import { ToastContainer, toast } from "react-toastify";
+import { useSocketContext } from "@/store/SocketContext";
 
 function UserRequestConfirmPopUp({ campaign, close }) {
   const { userType, userId, token, email } = useSelector((state) => state.auth);
   const [bloodType, setBloodType] = useState("O+");
   const [loading, setLoading] = useState(false);
+  const { socket } = useSocketContext();
 
   const confirmHandler = async () => {
-    console.log(campaign);
+    // console.log(campaign);
     try {
       setLoading(true);
       const response = await axios.post(
@@ -28,6 +30,18 @@ function UserRequestConfirmPopUp({ campaign, close }) {
       toast.success("Request sent successfully");
       console.log(response.data);
       close();
+      if (socket && typeof socket.emit === "function") {
+        socket.emit("donationRequest", {
+          message: "New donation request",
+          userId: userId,
+          campaignId: campaign.campaign_id,
+          bloodbankId: campaign.bloodbank_id,
+        });
+      } else {
+        console.error(
+          "Socket is not properly initialized or emit method is not available."
+        );
+      }
     } catch (error) {
       setLoading(false);
       toast.error(error);

@@ -77,6 +77,7 @@ const MapComponent = () => {
         { coordinates: [51.505, -0.09], popupText: "Marker 1" },
         { coordinates: [51.51, -0.1], popupText: "Marker 2" },
         { coordinates: [25.4484, 78.5685], popupText: "Marker 3" },
+        { coordinates: [26.8756, 80.9115], popupText: "Marker 4" },
       ];
 
       if (filteredData[selectedBloodGroup].length > 0) {

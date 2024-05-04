@@ -6,6 +6,7 @@ import { React, useState } from "react";
 import axios from "axios";
 import OtpBox from "./otp";
 import { useDispatch } from "react-redux";
+import getCurrentLocation from "@/utils/getCurrentLocation";
 import Router from "next/router";
 import { login } from "@/store/auth";
 
@@ -24,8 +25,11 @@ function Donor() {
     state: "",
     pincode: "",
     aadhaar_no: "",
+    latitude: "",
+    longitude: "",
   };
   const [isOtpBoxVisible, setIsOtpBoxVisible] = useState(false);
+  const [isLocation, setIsLocation] = useState(false);
   const [formData, setFormData] = useState(initialState);
 
   const handleChange = (e) => {
@@ -34,6 +38,16 @@ function Donor() {
       ...prevData,
       [name]: value,
     }));
+  };
+  const getLocation = async () => {
+    const location = await getCurrentLocation();
+    setFormData((prevData) => ({
+      ...prevData,
+      longitude: location.lon,
+      latitude: location.lat,
+    }));
+    setIsLocation(true);
+    // console.log(formData);
   };
   const form_submit_handler = async (event) => {
     event.preventDefault();
@@ -65,7 +79,6 @@ function Donor() {
     <ResponsiveLayout>
       {isOtpBoxVisible && <OtpBox email={formData.email} userType="users" />}
 
-      <Header />
       <div className="container mt-4 mx-auto w-[70%]">
         <HeaderStrip text="Register As Donor" />
         <form
@@ -114,7 +127,7 @@ function Donor() {
                 <div className="w-32"> Address</div>
                 <textarea
                   id=""
-                  cols="26"
+                  cols="23"
                   onChange={handleChange}
                   rows="06"
                   placeholder="Address"
@@ -176,6 +189,50 @@ function Donor() {
             </div>
           </div>
           <div className="flex">
+            <div className="flex items-center">
+              <div className="w-32"> Latitude</div>
+              <input
+                className={`bg-white p-1 border-2 rounded-md w-64 mr-16 ${
+                  isLocation ? "cursor-not-allowed" : ""
+                }`}
+                name="latitude"
+                onChange={handleChange}
+                value={formData.latitude}
+                disabled={isLocation}
+                type="text"
+                placeholder="Latitude"
+              />
+            </div>
+            <div className="flex items-center">
+              <div className="w-32"> Longitude</div>
+              <input
+                onChange={handleChange}
+                className={`bg-white p-1 border-2 rounded-md w-64 ${
+                  isLocation ? "cursor-not-allowed" : ""
+                }`}
+                type="text"
+                value={formData.longitude}
+                disabled={isLocation}
+                name="longitude"
+                placeholder="Longitude"
+              />
+            </div>
+          </div>
+          <div className="flex">
+            <input
+              className={`mr-2 ${
+                !isLocation ? "cursor-pointer" : "cursor-not-allowed"
+              }`}
+              type="checkbox"
+              disabled={isLocation}
+              onClick={getLocation}
+            />
+            <div style={{ fontStyle: "italic" }}>
+              {" "}
+              Get Your current location
+            </div>
+          </div>
+          <div className="flex">
             <div className="w-32"> PinCode</div>
             <input
               className="p-1 border-2 rounded-md w-64"
@@ -185,26 +242,6 @@ function Donor() {
               placeholder="pincode"
             />
           </div>
-          {/* <div className="flex">
-                <div className="w-32"> Longitude</div>
-                <input
-                  className="p-1 border-2 rounded-md w-64"
-                  onChange={handleChange}
-                  type="text"
-                  name="longitude"
-                  placeholder="Longitude"
-                />
-              </div>
-              <div className="flex">
-                <div className="w-32"> Latitude</div>
-                <input
-                  className="p-1 border-2 rounded-md w-64"
-                  type="text"
-                  onChange={handleChange}
-                  name="latitude"
-                  placeholder="Latitude"
-                />
-              </div> */}
           <div className="flex">
             <div className="w-32">State</div>
             <input

@@ -5,6 +5,9 @@ import { Provider } from "react-redux";
 import store from "@/store/store";
 import CustomNavBar from "@/components/Header/CustomNavbar";
 import Script from "next/script";
+import { SocketContextProvider } from "@/store/SocketContext";
+import { useSocketContext } from "@/store/SocketContext";
+
 const { io } = require("socket.io-client");
 
 const merri = Merriweather_Sans({
@@ -18,25 +21,6 @@ const mont = Montserrat({
 });
 
 export default function App({ Component, pageProps }) {
-  const [socket, setSocket] = useState(io("http://localhost:5100"));
-
-  socket.emit("user", "email@hmail.com");
-
-  useEffect(() => {
-    socket.on("disconnect", () => {
-      console.log(socket.id);
-    });
-
-    socket.on("notification", (msg) => {
-      console.log(msg);
-    });
-
-    return () => {
-      socket.off("connect");
-      socket.off("disconnect");
-    };
-  }, [socket]);
-
   return (
     <Fragment>
       <Script
@@ -54,10 +38,12 @@ export default function App({ Component, pageProps }) {
           }
         `}
       </style>
-      <Provider store={store}>
-        <CustomNavBar />
-        <Component {...pageProps} />
-      </Provider>
+      <SocketContextProvider>
+        <Provider store={store}>
+          <CustomNavBar />
+          <Component {...pageProps} />
+        </Provider>
+      </SocketContextProvider>
     </Fragment>
   );
 }

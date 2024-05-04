@@ -6,7 +6,6 @@ import ResponsiveLayout from "@/components/layout/ResponsiveLayout";
 function hospital() {
   return (
     <ResponsiveLayout>
-      <Header />
       <Hospital />
       <Footer />
     </ResponsiveLayout>

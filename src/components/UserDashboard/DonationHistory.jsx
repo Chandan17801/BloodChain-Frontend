@@ -26,7 +26,7 @@ function DonationHistory() {
     };
 
     fetchData();
-  }, [userId, lastDonations]);
+  }, [userId]);
 
   return (
     <div className="flex flex-col gap-4">
@@ -83,7 +83,9 @@ function DonationHistory() {
           </div>
         </div>
       </div>
-      <BloodSampleGraph donationId={selectedDonationId} />
+      {selectedDonationId && (
+        <BloodSampleGraph donationId={selectedDonationId} />
+      )}
     </div>
   );
 }

@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const BloodSampleGraph = ({ donationId }) => {
+  if (donationId == null) return <div>No Sample Selected.</div>;
   console.log(donationId);
   const sample = {
     expiryDate: null,
@@ -141,7 +142,7 @@ const BloodSampleGraph = ({ donationId }) => {
               } self-center`}
             ></div>
           </div>
-          {trackingData.bloodbank != null && (
+          {trackingData.bloodbank != null && trackingData.testStatus != 2 && (
             <div className="">
               <div class="relative mt-8 rounded-md shadow-md bg-white p-4 flex flex-col gap-2 text-xs">
                 <div className="bg-black py-1 px-2 font-semibold rounded-[4px] text-white">

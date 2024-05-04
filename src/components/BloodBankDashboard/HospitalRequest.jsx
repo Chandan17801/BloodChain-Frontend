@@ -36,7 +36,9 @@ const HospitalRequest = ({
             <div className="flex flex-row gap-4 justify-end">
               <button
                 disabled={amount[request.blood_type] < request.quantity}
-                onClick={() => acceptRequest(request.request_id)}
+                onClick={() =>
+                  acceptRequest(request.request_id, request.hospital_id)
+                }
                 className={`p-4 text-white mont rounded-3xl py-2 text-sm ${
                   amount[request.blood_type] < request.quantity
                     ? "bg-gray-400 cursor-not-allowed"
@@ -46,7 +48,9 @@ const HospitalRequest = ({
                 Accept
               </button>{" "}
               <div
-                onClick={() => rejectRequest(request.request_id)}
+                onClick={() =>
+                  rejectRequest(request.request_id, request.hospital_id)
+                }
                 className="p-4 text-[#0C2443] cursor-pointer mont border-2 border-gradient-to-r from-[#0C2443] to-[#2A5687] rounded-3xl py-2 text-sm"
               >
                 Reject

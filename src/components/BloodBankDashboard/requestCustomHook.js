@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { useSocketContext } from "@/store/SocketContext";
+import { hospital } from "fontawesome";
 
 let initialState = {
   "O+": 0,
@@ -19,6 +21,7 @@ export const useRequestManagement = () => {
   const [approvedRequests, setApprovedRequests] = useState([]);
   const [pendingRequests, setPendingRequests] = useState([]);
   const [amount, setAmount] = useState(initialState);
+  const { socket } = useSocketContext();
 
   const fetchRequests = async () => {
     try {
@@ -77,7 +80,7 @@ export const useRequestManagement = () => {
     fetchData();
   }, [userId]);
 
-  const acceptRequest = async (id) => {
+  const acceptRequest = async (id, hid) => {
     console.log(id);
     // console.log(pendingRequests);
     // console.log(approvedRequests);
@@ -89,6 +92,19 @@ export const useRequestManagement = () => {
         }
       );
       console.log(response);
+
+      if (socket && typeof socket.emit === "function") {
+        socket.emit("acceptReceivingRequest", {
+          message: "Hospital Request Accepted",
+          bloodbankId: userId,
+          hospitalId: hid,
+        });
+      } else {
+        console.error(
+          "Socket is not properly initialized or emit method is not available."
+        );
+      }
+
       const approvedRequest = pendingRequests.find(
         (request) => request.request_id === id
       );
@@ -114,7 +130,7 @@ export const useRequestManagement = () => {
     }
   };
 
-  const rejectRequest = async (id) => {
+  const rejectRequest = async (id, hid) => {
     console.log(id);
     try {
       const response = await axios.patch(
@@ -124,6 +140,17 @@ export const useRequestManagement = () => {
         }
       );
       console.log(response);
+      if (socket && typeof socket.emit === "function") {
+        socket.emit("rejectReceivingRequest", {
+          message: "Hospital Request Accepted",
+          bloodbankId: userId,
+          hospitalId: hid,
+        });
+      } else {
+        console.error(
+          "Socket is not properly initialized or emit method is not available."
+        );
+      }
       const updatedPendingRequests = pendingRequests.filter(
         (request) => request.request_id !== id
       );

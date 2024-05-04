@@ -6,7 +6,6 @@ import ResponsiveLayout from "@/components/layout/ResponsiveLayout";
 function bloodbank() {
   return (
     <ResponsiveLayout>
-      <Header />
       <BloodBank />
       <Footer />
     </ResponsiveLayout>

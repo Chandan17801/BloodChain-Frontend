@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import ResponsiveLayout from "../layout/ResponsiveLayout";
 import NotificationBox from "../layout/NotificationBox";
@@ -7,11 +7,53 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import Router from "next/router";
 import Image from "next/image";
+import { useSocketContext } from "@/store/SocketContext";
 
 const CustomNavBar = () => {
   const { userType, userId } = useSelector((state) => state.auth);
   const [isNotificationBoxOpen, setIsNotificationBoxOpen] = useState(false);
   const dispatch = useDispatch();
+
+  const { socket } = useSocketContext();
+  useEffect(() => {
+    if (socket) {
+      socket.on("donationRequest", (data) => {
+        console.log("notification received");
+        console.log(data);
+        // toast("New blood request received");
+      });
+      socket.on("acceptDonationRequest", (data) => {
+        console.log("Donation request accepted");
+        console.log(data);
+        // toast("New blood request received");
+      });
+      socket.on("rejectDonationRequest", (data) => {
+        console.log("Donation request rejected");
+        console.log(data);
+        // toast("New blood request received");
+      });
+      socket.on("receivingRequest", (data) => {
+        console.log("Recieved request ");
+        console.log(data);
+        // toast("New blood request received");
+      });
+      socket.on("acceptReceivingRequest", (data) => {
+        console.log("accept Recieved request ");
+        console.log(data);
+        // toast("New blood request received");
+      });
+      socket.on("rejectReceivingRequest", (data) => {
+        console.log("reject Recieved request ");
+        console.log(data);
+        // toast("New blood request received");
+      });
+    }
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      if (socket) socket.off("newRequest");
+    };
+  }, [socket]);
 
   return (
     <ResponsiveLayout>

@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import calculateAge from "@/utils/calculateAge";
 import CampaignDetail from "./CampaignDetail";
 import Loadingg from "../UIElements/Loadingg";
+import { useSocketContext } from "@/store/SocketContext";
 import Loading from "../UIElements/Loading";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -21,7 +22,21 @@ function Campaign() {
   const [allCamps, setAllCamps] = useState([]);
   const [selectedCamp, setSelectedCamp] = useState();
   const [bloodSample, setBloodSample] = useState([]);
+  const { socket } = useSocketContext();
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    socket.on("donationRequest", (data) => {
+      console.log(data + "notification received");
+      console.log(data);
+      toast("New blood request received");
+    });
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      socket.off("newRequest");
+    };
+  }, [socket]);
 
   const addNewCamp = (newCamp) => {
     setSelectedCamp(newCamp);
@@ -43,12 +58,25 @@ function Campaign() {
         (req) => req.donation_id != verifyingRequest.donation_id
       );
       setRequests(updated_request);
+      if (socket && typeof socket.emit === "function") {
+        socket.emit("rejectDonationRequest", {
+          message: "New donation request",
+          bloodbankId: userId,
+          donorId: verifyingRequest.user_id,
+        });
+      } else {
+        console.error(
+          "Socket is not properly initialized or emit method is not available."
+        );
+      }
     } catch (error) {
       console.error("Error:", error);
     }
     setIsVerification(false);
   };
   // console.log(status);
+
+  // console.log(verifyingRequest);
   const acceptHandler = async (event) => {
     event.preventDefault();
     // console.log("true");
@@ -71,6 +99,17 @@ function Campaign() {
           teststatus: 0,
         },
       ]);
+      if (socket && typeof socket.emit === "function") {
+        socket.emit("acceptDonationRequest", {
+          message: "New donation request",
+          bloodbankId: userId,
+          donorId: verifyingRequest.user_id,
+        });
+      } else {
+        console.error(
+          "Socket is not properly initialized or emit method is not available."
+        );
+      }
     } catch (error) {
       // console.log("in accept handler catch");
       console.error("Error:", error);
