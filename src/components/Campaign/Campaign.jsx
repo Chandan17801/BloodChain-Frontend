@@ -25,19 +25,6 @@ function Campaign() {
   const { socket } = useSocketContext();
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    socket.on("donationRequest", (data) => {
-      console.log(data + "notification received");
-      console.log(data);
-      toast("New blood request received");
-    });
-
-    // Clean up the event listener when the component unmounts
-    return () => {
-      socket.off("newRequest");
-    };
-  }, [socket]);
-
   const addNewCamp = (newCamp) => {
     setSelectedCamp(newCamp);
     setAllCamps((prevAllCamps) => [...prevAllCamps, newCamp]);
@@ -48,7 +35,6 @@ function Campaign() {
   const rejectHandler = async (e) => {
     // console.log("false");
     try {
-      let data = JSON.stringify(formData);
       let response = await axios.patch(
         process.env.NEXT_PUBLIC_SERVER_URL +
           `/donation/approve/${verifyingRequest.donation_id}`
@@ -60,7 +46,7 @@ function Campaign() {
       setRequests(updated_request);
       if (socket && typeof socket.emit === "function") {
         socket.emit("rejectDonationRequest", {
-          message: "New donation request",
+          message: "Reject donation request",
           bloodbankId: userId,
           donorId: verifyingRequest.user_id,
         });
@@ -100,8 +86,8 @@ function Campaign() {
         },
       ]);
       if (socket && typeof socket.emit === "function") {
-        socket.emit("acceptDonationRequest", {
-          message: "New donation request",
+        socket.emit("approveDonationRequest", {
+          message: "Approve donation request",
           bloodbankId: userId,
           donorId: verifyingRequest.user_id,
         });

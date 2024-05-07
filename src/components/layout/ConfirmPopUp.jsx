@@ -31,7 +31,7 @@ function ConfirmPopUp({ bank, close }) {
       // setProfile(response.data);;
       close();
       if (socket && typeof socket.emit === "function") {
-        socket.emit("receivingRequest", {
+        socket.emit("bloodRequest", {
           message: "Hospital Request Created",
           hospitalId: userId,
           bloodbankId: bank.uid,

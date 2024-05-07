@@ -93,7 +93,7 @@ export const useRequestManagement = () => {
       console.log(response);
 
       if (socket && typeof socket.emit === "function") {
-        socket.emit("acceptReceivingRequest", {
+        socket.emit("approveBloodRequest", {
           message: "Hospital Request Accepted",
           bloodbankId: userId,
           hospitalId: hid,
@@ -140,8 +140,8 @@ export const useRequestManagement = () => {
       );
       console.log(response);
       if (socket && typeof socket.emit === "function") {
-        socket.emit("rejectReceivingRequest", {
-          message: "Hospital Request Accepted",
+        socket.emit("rejectBloodRequest", {
+          message: "Hospital Request Rejected",
           bloodbankId: userId,
           hospitalId: hid,
         });

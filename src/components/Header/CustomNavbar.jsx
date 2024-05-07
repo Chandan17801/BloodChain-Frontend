@@ -19,31 +19,25 @@ const CustomNavBar = () => {
     if (socket) {
       socket.on("donationRequest", (data) => {
         console.log("notification received");
+        alert(data);
         console.log(data);
         // toast("New blood request received");
       });
-      socket.on("acceptDonationRequest", (data) => {
-        console.log("Donation request accepted");
+      socket.on("donationResponse", (data) => {
+        console.log("Donation request accepted/reject");
+        alert(data);
         console.log(data);
         // toast("New blood request received");
       });
-      socket.on("rejectDonationRequest", (data) => {
-        console.log("Donation request rejected");
+      socket.on("bloodRequest", (data) => {
+        console.log("Recieved hospital request ");
+        alert(data);
         console.log(data);
         // toast("New blood request received");
       });
-      socket.on("receivingRequest", (data) => {
-        console.log("Recieved request ");
-        console.log(data);
-        // toast("New blood request received");
-      });
-      socket.on("acceptReceivingRequest", (data) => {
-        console.log("accept Recieved request ");
-        console.log(data);
-        // toast("New blood request received");
-      });
-      socket.on("rejectReceivingRequest", (data) => {
-        console.log("reject Recieved request ");
+      socket.on("bloodResponse", (data) => {
+        console.log("accept/reject hospital request ");
+        alert(data);
         console.log(data);
         // toast("New blood request received");
       });
