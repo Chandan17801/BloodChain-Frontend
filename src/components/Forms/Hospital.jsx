@@ -60,17 +60,17 @@ function Hospital() {
     event.preventDefault();
     setIsLoading(true);
     console.log(formData);
-    const data = new FormData();
+    // const data = new FormData();
 
-    for (const key in formData) {
-      // Append all form fields to FormData
-      data.append(key, formData[key]);
-    }
+    // for (const key in formData) {
+    //   // Append all form fields to FormData
+    //   data.append(key, formData[key]);
+    // }
 
     try {
       const response = await axios.post(
         process.env.NEXT_PUBLIC_SERVER_URL + "/hospital/signup",
-        data
+        formData
       );
       dispatch(
         login({

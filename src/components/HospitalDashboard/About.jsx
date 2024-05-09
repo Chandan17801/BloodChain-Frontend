@@ -48,7 +48,7 @@ const About = () => {
       <div className="flex flex-col gap-4 flex-[2]">
         <div className="rounded-md shadow-md shadow-gray-400 bg-white flex flex-col items-center">
           <div className="bg-[#6a0c3a] merri text-4xl p-6 rounded-t-md text-gray-200 font-semibold w-full">
-            Hospital Name
+            {profile.name}
           </div>
           <div className="flex gap-8 py-4 w-[80%]">
             <div className="flex flex-col flex-[3]">
