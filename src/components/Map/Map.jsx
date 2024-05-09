@@ -119,7 +119,7 @@ const MapComponent = () => {
               Select Blood Group:
             </label>
             <select
-              className="ml-2 rounded sm bg-[#6a0c399c] p-1 text-gray-200"
+              className="ml-2 rounded sm bg-[#6a0c399c] p-1 text-gray-200 cursor-pointer"
               id="bloodGroup"
               value={selectedBloodGroup}
               onChange={handleBloodGroupChange}

@@ -2,9 +2,12 @@ import Image from "next/image";
 import React from "react";
 import hero from "@/assests/Hero-Gradient Design.png";
 import BlackButton from "../UIElements/BlackButton";
+import Router from "next/router";
 
 function Hero() {
-  const openDonatePage = () => {};
+  const openDonatePage = () => {
+    Router.push({ pathname: `/searchCamps` });
+  };
 
   return (
     <div className="w-full bg-white flex">

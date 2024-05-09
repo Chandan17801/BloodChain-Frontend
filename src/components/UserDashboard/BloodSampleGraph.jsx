@@ -20,6 +20,7 @@ const BloodSampleGraph = ({ donationId }) => {
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log(donationId);
       try {
         const response = await axios.get(
           process.env.NEXT_PUBLIC_SERVER_URL + `/donation/track/${donationId}`

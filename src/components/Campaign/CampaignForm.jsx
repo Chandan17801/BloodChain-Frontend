@@ -6,15 +6,15 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
 function CampaignForm({ close, addNewCamp }) {
-  toast.success("Campaign form open")
-  
+  // toast.success("Campaign form open")
+
   const { userId } = useSelector((state) => state.auth);
 
   const [formData, setFormData] = useState({
     campaignName: "",
     campaignDate: "",
     location: "",
-    district: "", 
+    district: "",
     goals: "",
     bloodbankId: userId,
   });
@@ -158,6 +158,7 @@ function CampaignForm({ close, addNewCamp }) {
                   type="date"
                   name="campaignDate"
                   placeholder="Date"
+                  min={new Date().toISOString().split("T")[0]}
                 />
               </div>
               {errors.campaignDate && (
