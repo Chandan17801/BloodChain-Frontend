@@ -28,7 +28,7 @@ const MapComponent = () => {
           process.env.NEXT_PUBLIC_SERVER_URL + `/users/map`
         );
         setLoading(false);
-        // console.log(response.data);
+        console.log(response.data);
         let initalData = {
           "A+": [],
           "A-": [],
@@ -73,18 +73,13 @@ const MapComponent = () => {
         shadowAnchor: [22, 94],
       });
 
-      let markers = [
-        { coordinates: [51.505, -0.09], popupText: "Marker 1" },
-        { coordinates: [51.51, -0.1], popupText: "Marker 2" },
-        { coordinates: [25.4484, 78.5685], popupText: "Marker 3" },
-        { coordinates: [26.8756, 80.9115], popupText: "Marker 4" },
-      ];
+      let markers = [];
 
       if (filteredData[selectedBloodGroup].length > 0) {
         filteredData[selectedBloodGroup].forEach((item) => {
           markers.push({
             coordinates: [item.latitude, item.longitude],
-            popupText: `${item.id} ${item.bloodGroup}`,
+            popupText: `${item.phone} - ${item.bloodGroup}`,
           });
         });
       }

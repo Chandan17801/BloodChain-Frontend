@@ -125,14 +125,14 @@ const BloodSampleGraph = ({ donationId }) => {
           <div className="flex flex-row">
             <div
               class={`h-2 w-[8rem] self-center ${
-                trackingData.bloodbank
+                trackingData.bloodbank && trackingData.testStatus == "Success"
                   ? "bg-red-500 shadow-md shadow-red-300"
                   : "bg-white"
               }`}
             ></div>
             <div
               className={`w-12 h-12 ${
-                trackingData.bloodbank
+                trackingData.bloodbank && trackingData.testStatus == "Success"
                   ? "bg-red-500 shadow-md shadow-red-300"
                   : "bg-white"
               } rounded-full border-4 border-white`}
@@ -145,7 +145,7 @@ const BloodSampleGraph = ({ donationId }) => {
               } self-center`}
             ></div>
           </div>
-          {trackingData.bloodbank != null && trackingData.testStatus != 2 && (
+          {trackingData.bloodbank != null && trackingData.testStatus == "Success" && (
             <div className="">
               <div class="relative mt-8 rounded-md shadow-md bg-white p-4 flex flex-col gap-2 text-xs">
                 <div className="bg-black py-1 px-2 font-semibold rounded-[4px] text-white">

@@ -59,26 +59,24 @@ const CustomNavBar = () => {
         >
           Home
         </Link>
-        <Link
-          href="/searchBloodBank"
-          className="text-white hover:bg-gray-600 px-3 py-2 cursor-pointer rounded"
-        >
-          Search Bloodbank
-        </Link>
-        <Link
-          href="/searchCamps"
-          className="text-white hover:bg-gray-600 px-3 py-2 rounded"
-        >
-          Search Camps
-        </Link>
-        {(userType === "bloodbank" || userType === "hospital") && (
+        {userType === "hospital" && (
           <Link
-            href={`/${userType}/profile`}
-            className="text-white hover:bg-gray-600 px-3 py-2 rounded"
+            href="/searchBloodBank"
+            className="text-white hover:bg-gray-600 px-3 py-2 cursor-pointer rounded"
           >
-            Profile
+            Search Bloodbank
           </Link>
         )}
+        {userType !== "bloodbank" &&
+          userType !== "hospital" &&
+          userType !== null && (
+            <Link
+              href="/searchCamps"
+              className="text-white hover:bg-gray-600 px-3 py-2 rounded"
+            >
+              Search Camps
+            </Link>
+          )}
         {userId && (
           <Link
             href={`/${userType}/dashboard`}
