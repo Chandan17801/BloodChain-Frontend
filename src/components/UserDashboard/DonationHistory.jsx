@@ -3,8 +3,9 @@ import last_donations from "@/styles/donations";
 import BloodSampleGraph from "./BloodSampleGraph";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import Image from "next/image";
 
-function DonationHistory() {
+function DonationHistory({ blocked }) {
   const [selectedDonationId, setSelectedDonationId] = useState();
   const { userType, userId, token, email } = useSelector((state) => state.auth);
   const [lastDonations, setLastDonations] = useState([]);
@@ -58,8 +59,17 @@ function DonationHistory() {
             ))}
           </div>
         </div>
-        <div className="flex-1">
-        </div>
+        {blocked && (
+          <div className="flex mont flex-1 justify-center items-center">
+            <Image
+              className="w-[60%]"
+              src={require("../../assests/blocked.png")}
+              height={200}
+              width={300}
+              alt="blocked"
+            ></Image>
+          </div>
+        )}
       </div>
       {selectedDonationId && (
         <BloodSampleGraph donationId={selectedDonationId} />

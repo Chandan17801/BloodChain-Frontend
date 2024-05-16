@@ -79,7 +79,7 @@ const MapComponent = () => {
         filteredData[selectedBloodGroup].forEach((item) => {
           markers.push({
             coordinates: [item.latitude, item.longitude],
-            popupText: `${item.phone} - ${item.bloodGroup}`,
+            popupText: `${item.phone} - ${item.name}`,
           });
         });
       }

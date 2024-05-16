@@ -113,10 +113,10 @@ const About = () => {
               {profile.fax_no}
             </div>
             <div className="border-b-[1px] border-gray-300 w-full text-left pb-1 text-gray-700 font-thin">
-              {profile.from_date}
+              {profile.from_date.substring(0, 10)}
             </div>
             <div className="border-b-[1px] border-gray-300 w-full text-left pb-1 text-gray-700 font-thin">
-              {profile.to_date}
+              {profile.to_date.substring(0, 10)}
             </div>
             <div className="border-b-[1px] border-gray-300 w-full text-left pb-1 text-gray-700 font-thin">
               {profile.licence_no}

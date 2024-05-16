@@ -34,10 +34,10 @@ const BloodSampleGraph = ({ donationId }) => {
               ? "Not Tested"
               : "Failed",
           campaign: response.data.campaign_name,
-          campaignDate: response.data.donation_date,
+          campaignDate: response.data.donation_date.substring(0, 10),
           campaignAddress: response.data.campaign_address,
           bloodbank: response.data.bloodbank_name,
-          bloodbankDate: response.data.test_date,
+          bloodbankDate: response.data.testing_date.substring(0, 10),
           bloodbankAddress: response.data.bloodbank_address,
           hospital: response.data.hospital_name,
           hospitalDate: response.data.hospital_date,
@@ -145,18 +145,19 @@ const BloodSampleGraph = ({ donationId }) => {
               } self-center`}
             ></div>
           </div>
-          {trackingData.bloodbank != null && trackingData.testStatus == "Success" && (
-            <div className="">
-              <div class="relative mt-8 rounded-md shadow-md bg-white p-4 flex flex-col gap-2 text-xs">
-                <div className="bg-black py-1 px-2 font-semibold rounded-[4px] text-white">
-                  {trackingData.bloodbank}
+          {trackingData.bloodbank != null &&
+            trackingData.testStatus == "Success" && (
+              <div className="">
+                <div class="relative mt-8 rounded-md shadow-md bg-white p-4 flex flex-col gap-2 text-xs">
+                  <div className="bg-black py-1 px-2 font-semibold rounded-[4px] text-white">
+                    {trackingData.bloodbank}
+                  </div>
+                  <div>{trackingData.bloodbankDate}</div>
+                  <div>{trackingData.bloodbankAddress}</div>
+                  <div class="absolute top-[-4px] left-1/2 transform -translate-x-1/2 bg-white w-4 h-4 rotate-45 -mt-1"></div>
                 </div>
-                <div>{trackingData.bloodbankDate}</div>
-                <div>{trackingData.bloodbankAddress}</div>
-                <div class="absolute top-[-4px] left-1/2 transform -translate-x-1/2 bg-white w-4 h-4 rotate-45 -mt-1"></div>
               </div>
-            </div>
-          )}
+            )}
         </div>
         <div className="flex flex-col flex-1 justify-center items-center">
           <div class="relative inline-block mb-8">

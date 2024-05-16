@@ -27,7 +27,9 @@ function UserRequestConfirmPopUp({ campaign, close }) {
         }
       );
       setLoading(false);
-      toast.success("Request sent successfully");
+      // alert(response.data.message);
+      console.log(response.data.message);
+      // toast.success("Request sent successfully");
       console.log(response.data);
       close();
       if (socket && typeof socket.emit === "function") {
@@ -44,7 +46,8 @@ function UserRequestConfirmPopUp({ campaign, close }) {
       }
     } catch (error) {
       setLoading(false);
-      toast.error(error);
+      // toast.error(error);
+      alert(error.response.data.message);
       console.error("Error fetching data:", error);
     }
   };

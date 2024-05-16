@@ -57,7 +57,7 @@ const TestingPopUp = ({ donationId, close, bloodSample, setBloodSample }) => {
                 placeholder="Reason"
               />
             </div>
-            <div className="flex">
+            <div className="flex gap-2">
               <div
                 onClick={async () => {
                   try {
@@ -105,6 +105,34 @@ const TestingPopUp = ({ donationId, close, bloodSample, setBloodSample }) => {
               >
                 Accept
               </button>
+              <div
+                onClick={async () => {
+                  try {
+                    let response = await axios.patch(
+                      process.env.NEXT_PUBLIC_SERVER_URL +
+                        `/users/block/${donationId}`
+                    );
+                    console.log(response);
+                    await axios.patch(
+                      process.env.NEXT_PUBLIC_SERVER_URL +
+                        `/donation/test/${donationId}`,
+                      { status: "2" }
+                    );
+                    let newBloodSample = bloodSample.map((sample) => {
+                      if (sample.donation_id === donationId)
+                        return { ...sample, teststatus: 2 };
+                      else return sample;
+                    });
+                    setBloodSample(newBloodSample);
+                    close();
+                  } catch (error) {
+                    console.error("Error:", error);
+                  }
+                }}
+                className="mx-auto text-sm justify-center w-40 bg-red-950 cursor-pointer flex text-white pl-6 pr-6 pt-2 pb-2 rounded-xl font-semibold shadow-md shadow-gray-600 active:shadow-none active:translate-y-1"
+              >
+                Rejcet & Block
+              </div>
             </div>
           </div>
         </div>

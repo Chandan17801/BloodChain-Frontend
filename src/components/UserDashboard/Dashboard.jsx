@@ -74,6 +74,7 @@ function Dashboard() {
               </div>
             </div>
           </div>
+
           <div className="p-4 mont bg-white rounded-lg flex flex-col shadow-md shadow-gray-300 items-center w-full text-xs">
             <div className="font-semibold text-xl">About</div>
             <div className="flex gap-8 py-4 w-[80%]">
@@ -81,6 +82,11 @@ function Dashboard() {
                 <div className="border-b-[1px] border-gray-300 w-full text-right pb-1 text-gray-700">
                   Name
                 </div>
+                {profile.blocked && (
+                  <div className="border-b-[1px] border-gray-300 w-full text-right pb-1 text-gray-700">
+                    Blocked Date
+                  </div>
+                )}
                 <div className="border-b-[1px] border-gray-300 w-full text-right pb-1 text-gray-700">
                   Email
                 </div>
@@ -113,6 +119,12 @@ function Dashboard() {
                 <div className="border-b-[1px] border-gray-300 w-full text-left pb-1 text-gray-700 font-thin">
                   {profile.name}
                 </div>
+                {profile.blocked && (
+                  <div className="border-b-[1px] border-gray-300 w-full text-left pb-1 text-gray-700 font-thin">
+                    {profile.blocked?.substring(0, 10)}
+                  </div>
+                )}
+
                 <div className="border-b-[1px] border-gray-300 w-full text-left pb-1 text-gray-700 font-thin">
                   {profile.email}
                 </div>
@@ -120,7 +132,7 @@ function Dashboard() {
                   {profile.phone}
                 </div>
                 <div className="border-b-[1px] border-gray-300 w-full text-left pb-1 text-gray-700 font-thin">
-                  {profile.date_of_birth}
+                  {profile.date_of_birth.substring(0, 10)}
                 </div>
                 <div className="border-b-[1px] border-gray-300 w-full text-left pb-1 text-gray-700 font-thin">
                   {profile.blood_group}
@@ -145,7 +157,7 @@ function Dashboard() {
           </div>
         </div>
         <div className="flex-[2]">
-          <DonationHistory />
+          <DonationHistory blocked={profile.blocked} />
         </div>
       </div>
     </>
