@@ -1,18 +1,66 @@
 import React, { useEffect, useState } from "react";
 import TestingPopUp from "./TestingPopUp";
 import CampaignInventory from "./CampaignInventory";
+import axios from "axios";
 
 const CampaignDetail = ({ selectedCamp, bloodSample, setBloodSample }) => {
   // console.log(bloodSample);
+  if (!selectedCamp) return <div></div>;
+  let initialState = {
+    "O+": 0,
+    "O-": 0,
+    "A+": 0,
+    "A-": 0,
+    "B+": 0,
+    "B-": 0,
+    "AB+": 0,
+    "AB-": 0,
+  };
   const [isTestingPopUpOpen, setIsTestingPopUpOpen] = useState(false);
   const [selectedDonationId, setSelectedDonationId] = useState(null);
+  const [amount, setAmount] = useState(initialState);
+  const increaseAmountHandler = (blood_type) => {
+    console.log(blood_type);
+    let newAmount = { ...amount };
+    newAmount[blood_type]++;
+    setAmount(newAmount);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let response = await axios.get(
+          process.env.NEXT_PUBLIC_SERVER_URL +
+            `/donation/all/${selectedCamp.campaign_id}`
+        );
+        // console.log(response.data.bloodDonations);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        initialState = {
+          "O+": 0,
+          "O-": 0,
+          "A+": 0,
+          "A-": 0,
+          "B+": 0,
+          "B-": 0,
+          "AB+": 0,
+          "AB-": 0,
+        };
+        response.data.bloodDonations.forEach((donation) => {
+          if (donation.teststatus === 1) initialState[donation.blood_type]++;
+        });
+        // console.log(initialState);
+        setAmount(initialState);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+    fetchData();
+  }, [selectedCamp.campaign_id]);
 
   // useEffect(() => {
   //   console.log(selectedCamp);
   //   console.log(bloodSample);
   // }, [selectedCamp, bloodSample]);
-
-  if (!selectedCamp) return <div></div>;
 
   return (
     <div className="flex-[2] flex flex-row rounded-lg shadow-gray-300 shadow-md p-4 bg-white red-creative-2 mont gap-2">
@@ -21,6 +69,7 @@ const CampaignDetail = ({ selectedCamp, bloodSample, setBloodSample }) => {
           donationId={selectedDonationId}
           setBloodSample={setBloodSample}
           bloodSample={bloodSample}
+          increaseAmountHandler={increaseAmountHandler}
           close={() => {
             setIsTestingPopUpOpen(false);
           }}
@@ -43,7 +92,11 @@ const CampaignDetail = ({ selectedCamp, bloodSample, setBloodSample }) => {
         <div className="flex-1 px-4">
           Goals: <span>{selectedCamp?.goals}</span>
         </div>
-        <CampaignInventory campId={selectedCamp.campaign_id} />
+        <CampaignInventory
+          campId={selectedCamp.campaign_id}
+          amount={amount}
+          setAmount={setAmount}
+        />
       </div>
       <div className="flex-1">
         <div className="font-semibold text-xl pl-2">Collected Samples</div>

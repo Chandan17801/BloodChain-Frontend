@@ -127,7 +127,7 @@ const BloodSampleGraph = ({ donationId }) => {
             ></div>
             <div
               class={`h-2 w-[8rem] ${
-                trackingData.hospital
+                trackingData.hospital && trackingData.testStatus == "Success"
                   ? "bg-red-500 shadow-md shadow-red-300"
                   : "bg-white"
               } self-center`}
@@ -157,21 +157,21 @@ const BloodSampleGraph = ({ donationId }) => {
           <div className="flex flex-row">
             <div
               class={`h-2 w-[8rem] ${
-                trackingData.hospital
+                trackingData.hospital && trackingData.testStatus == "Success"
                   ? "bg-red-500 shadow-md shadow-red-300"
                   : "bg-white"
               } self-center`}
             ></div>
             <div
               className={`w-12 h-12 ${
-                trackingData.hospital
+                trackingData.hospital && trackingData.testStatus == "Success"
                   ? "bg-red-500 shadow-md shadow-red-300"
                   : "bg-white"
               } rounded-full border-4 border-white`}
             ></div>
             <div class="h-2 w-[8rem] bg-[#E9F0F5] self-center"></div>
           </div>
-          {trackingData.hospital != null && (
+          {trackingData.hospital != null && trackingData.testStatus == "Success" && (
             <div className="">
               <div class="relative mt-8 rounded-md shadow-md bg-white p-4 flex flex-col gap-2 text-xs">
                 <div className="bg-black py-1 px-2 font-semibold rounded-[4px] text-white">

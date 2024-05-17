@@ -5,8 +5,17 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const TestingPopUp = ({ donationId, close, bloodSample, setBloodSample }) => {
-  console.log(donationId);
+const TestingPopUp = ({
+  donationId,
+  close,
+  bloodSample,
+  setBloodSample,
+  increaseAmountHandler,
+}) => {
+  // console.log(donationId);
+  // console.log(bloodSample);
+
+  // console.log(blood_type);
   return (
     <>
       <div className="absolute h-full w-full bg-[#a7a4a480] z-50 top-0 right-0 flex justify-center items-center">
@@ -85,7 +94,14 @@ const TestingPopUp = ({ donationId, close, bloodSample, setBloodSample }) => {
                       else return sample;
                     });
                     setBloodSample(newBloodSample);
-                    toast.success("request accepted");
+                    let blood_type = ""; // Initialize the variable to store the blood type
+
+                    const matchingSample = bloodSample.find(
+                      (sample) => sample.donation_id === donationId
+                    );
+                    if (matchingSample) blood_type = matchingSample.blood_type;
+                    increaseAmountHandler(blood_type);
+                    // toast.success("request accepted");
                     close();
                   } catch (error) {
                     console.error("Error:", error);

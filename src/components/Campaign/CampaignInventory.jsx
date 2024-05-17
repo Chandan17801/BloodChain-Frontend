@@ -2,47 +2,47 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 
-const CampaignInventory = ({ campId }) => {
-  let initialState = {
-    "O+": 0,
-    "O-": 0,
-    "A+": 0,
-    "A-": 0,
-    "B+": 0,
-    "B-": 0,
-    "AB+": 0,
-    "AB-": 0,
-  };
-  const [amount, setAmount] = useState(initialState);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        let response = await axios.get(
-          process.env.NEXT_PUBLIC_SERVER_URL + `/donation/all/${campId}`
-        );
-        // console.log(response.data.bloodDonations);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        initialState = {
-          "O+": 0,
-          "O-": 0,
-          "A+": 0,
-          "A-": 0,
-          "B+": 0,
-          "B-": 0,
-          "AB+": 0,
-          "AB-": 0,
-        };
-        response.data.bloodDonations.forEach((donation) => {
-          if (donation.teststatus === 1) initialState[donation.blood_type]++;
-        });
-        // console.log(initialState);
-        setAmount(initialState);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
-    fetchData();
-  }, [campId]);
+const CampaignInventory = ({ campId, amount }) => {
+  // let initialState = {
+  //   "O+": 0,
+  //   "O-": 0,
+  //   "A+": 0,
+  //   "A-": 0,
+  //   "B+": 0,
+  //   "B-": 0,
+  //   "AB+": 0,
+  //   "AB-": 0,
+  // };
+  // const [amount, setAmount] = useState(initialState);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       let response = await axios.get(
+  //         process.env.NEXT_PUBLIC_SERVER_URL + `/donation/all/${campId}`
+  //       );
+  //       // console.log(response.data.bloodDonations);
+  //       // eslint-disable-next-line react-hooks/exhaustive-deps
+  //       initialState = {
+  //         "O+": 0,
+  //         "O-": 0,
+  //         "A+": 0,
+  //         "A-": 0,
+  //         "B+": 0,
+  //         "B-": 0,
+  //         "AB+": 0,
+  //         "AB-": 0,
+  //       };
+  //       response.data.bloodDonations.forEach((donation) => {
+  //         if (donation.teststatus === 1) initialState[donation.blood_type]++;
+  //       });
+  //       // console.log(initialState);
+  //       setAmount(initialState);
+  //     } catch (error) {
+  //       console.error("Error:", error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, [campId]);
 
   // console.log(campId);
   return (
