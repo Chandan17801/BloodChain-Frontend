@@ -20,99 +20,19 @@ function Campaign() {
   const [verifyingRequest, setVerifyingRequest] = useState();
   const [requests, setRequests] = useState([]);
   const [allCamps, setAllCamps] = useState([]);
-  const [selectedCamp, setSelectedCamp] = useState();
+  const [selectedCamp, setSelectedCamp] = useState({});
   const [bloodSample, setBloodSample] = useState([]);
   const { socket } = useSocketContext();
   const [loading, setLoading] = useState(true);
 
-  const addNewCamp = (newCamp) => {
-    setSelectedCamp(newCamp);
-    setAllCamps((prevAllCamps) => [...prevAllCamps, newCamp]);
-    console.log("Camp added");
-    toast("Campaign created successfully");
-  };
-
-  const rejectHandler = async (e) => {
-    // console.log("false");
-    try {
-      let response = await axios.patch(
-        process.env.NEXT_PUBLIC_SERVER_URL +
-          `/donation/approve/${verifyingRequest.donation_id}`
-      );
-      console.log("Response:", response);
-      const updated_request = requests.filter(
-        (req) => req.donation_id != verifyingRequest.donation_id
-      );
-      setRequests(updated_request);
-      if (socket && typeof socket.emit === "function") {
-        socket.emit("rejectDonationRequest", {
-          message: "Reject donation request",
-          bloodbankId: userId,
-          donorId: verifyingRequest.user_id,
-        });
-      } else {
-        console.error(
-          "Socket is not properly initialized or emit method is not available."
-        );
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
-    setIsVerification(false);
-  };
-  // console.log(status);
-
-  // console.log(verifyingRequest);
-  const acceptHandler = async (event) => {
-    event.preventDefault();
-    // console.log("true");
-    try {
-      let response = await axios.patch(
-        process.env.NEXT_PUBLIC_SERVER_URL +
-          `/donation/approve/${verifyingRequest.donation_id}`
-      );
-      console.log("Response:", response);
-      const updated_request = requests.filter(
-        (req) => req.donation_id != verifyingRequest.donation_id
-      );
-      setRequests(updated_request);
-      setBloodSample((prev) => [
-        ...prev,
-        {
-          donation_id: verifyingRequest.donation_id,
-          donor_name: verifyingRequest.name,
-          blood_type: verifyingRequest.blood_group,
-          teststatus: 0,
-        },
-      ]);
-      if (socket && typeof socket.emit === "function") {
-        socket.emit("approveDonationRequest", {
-          message: "Approve donation request",
-          bloodbankId: userId,
-          donorId: verifyingRequest.user_id,
-        });
-      } else {
-        console.error(
-          "Socket is not properly initialized or emit method is not available."
-        );
-      }
-    } catch (error) {
-      // console.log("in accept handler catch");
-      console.error("Error:", error);
-    }
-    setIsVerification(false);
-  };
   useEffect(() => {
     const fetchRequest = async () => {
       if (!selectedCamp) return;
       try {
         setLoading(true);
-
         const response = await axios.get(
-          process.env.NEXT_PUBLIC_SERVER_URL +
-            `/donation/request/${selectedCamp.campaign_id}`
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/donation/request/${selectedCamp.campaign_id}`
         );
-
         let data = response.data.request.map((item) => ({
           donation_id: item.donation_id,
           user_id: item.donor_id,
@@ -132,8 +52,7 @@ function Campaign() {
       try {
         setLoading(true);
         const response = await axios.get(
-          process.env.NEXT_PUBLIC_SERVER_URL +
-            `/donation/all/${selectedCamp.campaign_id}/`
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/donation/all/${selectedCamp.campaign_id}`
         );
         setBloodSample(response.data.bloodDonations);
       } catch (error) {
@@ -166,6 +85,78 @@ function Campaign() {
     fetchData();
   }, [userId]);
 
+  const addNewCamp = (newCamp) => {
+    setSelectedCamp(newCamp);
+    setAllCamps((prevAllCamps) => [...prevAllCamps, newCamp]);
+    toast("Campaign created successfully");
+  };
+
+  const rejectHandler = async (e) => {
+    try {
+      let response = await axios.patch(
+        process.env.NEXT_PUBLIC_SERVER_URL +
+          `/donation/approve/${verifyingRequest.donation_id}`
+      );
+      console.log("Response:", response);
+      const updated_request = requests.filter(
+        (req) => req.donation_id != verifyingRequest.donation_id
+      );
+      setRequests(updated_request);
+      if (socket && typeof socket.emit === "function") {
+        socket.emit("rejectDonationRequest", {
+          message: "Reject donation request",
+          bloodbankId: userId,
+          donorId: verifyingRequest.user_id,
+        });
+      } else {
+        console.error(
+          "Socket is not properly initialized or emit method is not available."
+        );
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+    setIsVerification(false);
+  };
+
+  const acceptHandler = async (event) => {
+    event.preventDefault();
+    try {
+      let response = await axios.patch(
+        process.env.NEXT_PUBLIC_SERVER_URL +
+          `/donation/approve/${verifyingRequest.donation_id}`
+      );
+      console.log("Response:", response);
+      const updated_request = requests.filter(
+        (req) => req.donation_id != verifyingRequest.donation_id
+      );
+      setRequests(updated_request);
+      setBloodSample((prev) => [
+        ...prev,
+        {
+          donation_id: verifyingRequest.donation_id,
+          donor_name: verifyingRequest.name,
+          blood_type: verifyingRequest.blood_group,
+          teststatus: 0,
+        },
+      ]);
+      if (socket && typeof socket.emit === "function") {
+        socket.emit("approveDonationRequest", {
+          message: "Approve donation request",
+          bloodbankId: userId,
+          donorId: verifyingRequest.user_id,
+        });
+      } else {
+        console.error(
+          "Socket is not properly initialized or emit method is not available."
+        );
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+    setIsVerification(false);
+  };
+
   return (
     <ResponsiveLayout>
       {loading && <Loadingg /> && <Loading />}
@@ -196,7 +187,6 @@ function Campaign() {
               <div>CAMPAIGN</div>
             </div>
             <div className="flex-1 flex flex-col items-end p-4">
-              {/* "rounded-3xl border-red-900 border-[1px] p-2 cursor-pointer bg-white transition duration-300 transform hover:scale-105" */}
               <Image
                 onClick={() => setIsCampaignFormOpen(true)}
                 className="w-[60%] rounded-3xl border-red-900 border-[1px] p-2 cursor-pointer bg-white hover:scale-110"
