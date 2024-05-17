@@ -3,19 +3,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const BloodSampleGraph = ({ donationId }) => {
-  const sample = {
-    expiryDate: null,
-    testStatus: "Success",
-    campaign: "jhansi Campaign",
-    campaignDate: "18-02-2024",
-    campaignAddress: null,
-    bloodbank: "jhansi Bloodbank",
-    bloodbankDate: "19-02-2024",
-    bloodbankAddress: null,
-    hospital: "Jhansihospital",
-    hospitalDate: "25-02-2024",
-    hospitalAddress: null,
-  };
+  const sample = {};
   const [trackingData, setTrackingData] = useState(sample);
 
   useEffect(() => {
@@ -34,10 +22,10 @@ const BloodSampleGraph = ({ donationId }) => {
               ? "Not Tested"
               : "Failed",
           campaign: response.data.campaign_name,
-          campaignDate: response.data.donation_date.substring(0, 10),
+          campaignDate: response.data.donation_date?.substring(0, 10),
           campaignAddress: response.data.campaign_address,
           bloodbank: response.data.bloodbank_name,
-          bloodbankDate: response.data.testing_date.substring(0, 10),
+          bloodbankDate: response.data.testing_date?.substring(0, 10),
           bloodbankAddress: response.data.bloodbank_address,
           hospital: response.data.hospital_name,
           hospitalDate: response.data.hospital_date,

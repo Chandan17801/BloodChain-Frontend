@@ -59,7 +59,7 @@ function DonationHistory({ blocked }) {
             ))}
           </div>
         </div>
-        {blocked && (
+        {blocked != null && (
           <div className="flex mont flex-1 justify-center items-center">
             <Image
               className="w-[60%]"
