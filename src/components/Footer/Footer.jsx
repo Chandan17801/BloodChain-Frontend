@@ -16,41 +16,41 @@ function Footer() {
         <div className="flex flex-col">
           <h2 className="text-xl my-1">Looking for Blood</h2>
           <div className="flex flex-col">
-            <Link href="#" className="text-sm hover:underline">
+            <Link  href="/searchBloodBank" className="text-sm hover:underline">
               Blood Availability
             </Link>
-            <Link href="#" className="text-sm hover:underline">
+            <Link href="/searchBloodBank" className="text-sm hover:underline">
               Blood Bank Directory
             </Link>
           </div>
         </div>
         <div className="flex flex-col">
           <h2 className="text-xl my-1">Want to donate blood</h2>
-          <Link href="#" className="text-sm hover:underline">
+          <Link href="/searchCamps" className="text-sm hover:underline">
             Blood Donation Camps
           </Link>
-          <Link href="#" className="text-sm hover:underline">
+          <Link href="/login" className="text-sm hover:underline">
             Donor Login
           </Link>
-          <Link href="#" className="text-sm hover:underline">
+          <Link href="/" className="text-sm hover:underline">
             About Blood Donation
           </Link>
         </div>
         <div className="flex flex-col">
           <h2 className="text-xl my-1">Blood Bank Login</h2>
-          <Link href="#" className="text-sm hover:underline">
+          <Link href="/login" className="text-sm hover:underline">
             BloodBank Login
           </Link>
-          <Link href="#" className="text-sm hover:underline">
+          <Link href="/register/blood-bank" className="text-sm hover:underline">
             Add your Blood Bank
           </Link>
         </div>
         <div className="flex flex-col">
           <h2 className="text-xl">About us</h2>
-          <Link href="#" className="text-sm hover:underline">
+          <Link href="/" className="text-sm hover:underline">
             About BloodChain
           </Link>
-          <Link href="#" className="text-sm hover:underline">
+          <Link href="/" className="text-sm hover:underline">
             Contact us
           </Link>
         </div>
