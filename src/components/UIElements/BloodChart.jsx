@@ -12,7 +12,7 @@ import {
 } from "recharts";
 
 const TwoAreaChartExample = ({ backgroundColor, color1 }) => {
-  const { userType, userId, token, email } = useSelector((state) => state.auth);
+  const { userType } = useSelector((state) => state.auth);
 
   const defaultBackgroundColor = "linear-gradient(to right, #0C2443, #2A5687)";
   const colorOne = color1 ? color1 : "ffd9d8";
@@ -28,25 +28,24 @@ const TwoAreaChartExample = ({ backgroundColor, color1 }) => {
   //   { name: "Aug", value1: 7, value2: 1 },
   //   { name: "Sep", value1: 20, value2: 25 },
   // ];
-  if (userType == "bloodbank") {
-    useEffect(() => {
-      // Function to fetch data from the API
-
-      const fetchData = async () => {
-        try {
-          const response = await axios.get(
-            process.env.NEXT_PUBLIC_SERVER_URL + `/bloodbank/map`
-          );
-          console.log(response.data);
-          setData(response.data);
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        }
-      };
-
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          process.env.NEXT_PUBLIC_SERVER_URL + `/bloodbank/map`
+        );
+        console.log(response.data);
+        setData(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    if (userType == "bloodbank") {
       fetchData();
-    }, [userId]);
-  }
+    }
+  }, [userType]);
+
   return (
     <AreaChart
       width={489}
