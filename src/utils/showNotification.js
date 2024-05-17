@@ -1,22 +1,25 @@
-const showNotification = () => {
+const showNotification = (data) => {
   if (Notification.permission === "granted") {
-    notification();
+    notification(data);
   } else if (Notification.permission !== "denied") {
     Notification.requestPermission().then((permission) => {
       if (permission === "granted") {
-        notification();
+        notification(data);
       }
     });
   }
 };
 
-const notification = () => {
+const notification = (data) => {
   const options = {
-    body: "Here is the notification body!",
+    body: data,
     icon: "/path/to/icon.png",
   };
 
-  const notification = new Notification("Notification Title", options);
+  const notification = new Notification(
+    "BloodChain: Empowering Lifesavers With BlockChain",
+    options
+  );
 
   notification.onclick = () => {
     window.focus();
