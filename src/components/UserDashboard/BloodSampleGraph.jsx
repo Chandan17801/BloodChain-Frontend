@@ -1,10 +1,8 @@
-import campaign from "@/pages/bloodbank/campaign";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-const BloodSampleGraph = ({ donationId }) => {
-  const sample = {};
-  const [trackingData, setTrackingData] = useState(sample);
+const BloodSampleGraph = ({ donationId, setLoading }) => {
+  const [trackingData, setTrackingData] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,8 +29,7 @@ const BloodSampleGraph = ({ donationId }) => {
           hospitalDate: response.data.hospital_date,
           hospitalAddress: response.data.hospital_address,
         });
-
-        console.log(response.data);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -171,18 +168,19 @@ const BloodSampleGraph = ({ donationId }) => {
             ></div>
             <div class="h-2 w-[8rem] bg-[#E9F0F5] self-center"></div>
           </div>
-          {trackingData.hospital != null && trackingData.testStatus == "Success" && (
-            <div className="">
-              <div class="relative mt-8 rounded-md shadow-md bg-white p-4 flex flex-col gap-2 text-xs">
-                <div className="bg-black py-1 px-2 font-semibold rounded-[4px] text-white">
-                  {trackingData.hospital}
+          {trackingData.hospital != null &&
+            trackingData.testStatus == "Success" && (
+              <div className="">
+                <div class="relative mt-8 rounded-md shadow-md bg-white p-4 flex flex-col gap-2 text-xs">
+                  <div className="bg-black py-1 px-2 font-semibold rounded-[4px] text-white">
+                    {trackingData.hospital}
+                  </div>
+                  <div>{trackingData.hospitalDate}</div>
+                  <div>{trackingData.hospitalAddress}</div>
+                  <div class="absolute top-[-4px] left-1/2 transform -translate-x-1/2 bg-white w-4 h-4 rotate-45 -mt-1"></div>
                 </div>
-                <div>{trackingData.hospitalDate}</div>
-                <div>{trackingData.hospitalAddress}</div>
-                <div class="absolute top-[-4px] left-1/2 transform -translate-x-1/2 bg-white w-4 h-4 rotate-45 -mt-1"></div>
               </div>
-            </div>
-          )}
+            )}
         </div>
         {/* <div className="flex flex-col flex-1 justify-center items-center">
             <div class="relative inline-block mb-8">

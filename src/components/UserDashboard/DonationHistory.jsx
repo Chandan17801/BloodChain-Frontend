@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
-import last_donations from "@/styles/donations";
 import BloodSampleGraph from "./BloodSampleGraph";
 import axios from "axios";
-import { useSelector } from "react-redux";
 import Image from "next/image";
 
-function DonationHistory({ blocked }) {
+function DonationHistory({ userId, blocked, setLoading }) {
   const [selectedDonationId, setSelectedDonationId] = useState();
-  const { userType, userId, token, email } = useSelector((state) => state.auth);
   const [lastDonations, setLastDonations] = useState([]);
 
   useEffect(() => {
@@ -20,7 +17,7 @@ function DonationHistory({ blocked }) {
         if (lastDonations.length > 0) {
           setSelectedDonationId(lastDonations[0]._id);
         }
-        console.log(response.data);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -47,7 +44,10 @@ function DonationHistory({ blocked }) {
           >
             {lastDonations.map((donation, index) => (
               <div
-                onClick={() => setSelectedDonationId(donation.donation_id)}
+                onClick={() => {
+                  setSelectedDonationId(donation.donation_id);
+                  setLoading(true);
+                }}
                 className={`flex justify-between p-4 py-[12px] rounded-md ${
                   index % 2 == 0 ? "bg-gray-100" : "white"
                 } cursor-pointer`}
@@ -72,7 +72,10 @@ function DonationHistory({ blocked }) {
         )}
       </div>
       {selectedDonationId && (
-        <BloodSampleGraph donationId={selectedDonationId} />
+        <BloodSampleGraph
+          donationId={selectedDonationId}
+          setLoading={setLoading}
+        />
       )}
     </div>
   );
