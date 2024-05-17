@@ -1,8 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import BlackButton from "@/components/UIElements/BlackButton";
 import ResponsiveLayout from "@/components/layout/ResponsiveLayout";
-import Link from "next/link";
 import loginImg from "@/assests/login_image_creative.jpg";
 import Image from "next/image";
 import axios from "axios";
@@ -14,12 +12,10 @@ import Loading from "../UIElements/Loading";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSocketContext } from "@/store/SocketContext";
-import LoginLoading from "../UIElements/LoginLoading";
 
 export default function Login() {
   const { userType, userId, token, email } = useSelector((state) => state.auth);
   const { socket } = useSocketContext();
-  // console.log(socket);
   const dispatch = useDispatch();
   const [isOtpVisible, setIsOtpVisible] = useState(false);
   const [loginUser, setLoginUser] = useState("users");
@@ -94,7 +90,7 @@ export default function Login() {
       });
       Router.replace({ pathname: `/${loginUser}/dashboard` });
     } catch (error) {
-      toast(error.message);
+      toast.error(error.response?.data?.message);
       console.error("Error:", error);
     } finally {
       setLoading(false);
