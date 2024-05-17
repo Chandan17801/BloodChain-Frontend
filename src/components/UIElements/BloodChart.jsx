@@ -1,4 +1,6 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import {
   AreaChart,
   Area,
@@ -10,20 +12,41 @@ import {
 } from "recharts";
 
 const TwoAreaChartExample = ({ backgroundColor, color1 }) => {
+  const { userType, userId, token, email } = useSelector((state) => state.auth);
+
   const defaultBackgroundColor = "linear-gradient(to right, #0C2443, #2A5687)";
   const colorOne = color1 ? color1 : "ffd9d8";
   const chartStyle = backgroundColor
     ? { background: backgroundColor }
     : { background: defaultBackgroundColor };
-  const data = [
-    { name: "Aug", value1: 7, value2: 1 },
-    { name: "Sep", value1: 20, value2: 25 },
-    { name: "Oct", value1: 5, value2: 8 },
-    { name: "Nov", value1: 50, value2: 30 },
-    { name: "Aug", value1: 7, value2: 1 },
-    { name: "Sep", value1: 20, value2: 25 },
-  ];
+  const [data, setData] = useState([]);
+  // const data = [
+  //   { name: "Aug", value1: 7, value2: 1 },
+  //   { name: "Sep", value1: 20, value2: 25 },
+  //   { name: "Oct", value1: 5, value2: 8 },
+  //   { name: "Nov", value1: 50, value2: 30 },
+  //   { name: "Aug", value1: 7, value2: 1 },
+  //   { name: "Sep", value1: 20, value2: 25 },
+  // ];
+  if (userType == "bloodbank") {
+    useEffect(() => {
+      // Function to fetch data from the API
 
+      const fetchData = async () => {
+        try {
+          const response = await axios.get(
+            process.env.NEXT_PUBLIC_SERVER_URL + `/bloodbank/map`
+          );
+          console.log(response.data);
+          setData(response.data);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      };
+
+      fetchData();
+    }, [userId]);
+  }
   return (
     <AreaChart
       width={489}
