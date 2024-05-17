@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import Router from "next/router";
 import Image from "next/image";
 import { useSocketContext } from "@/store/SocketContext";
+import showNotification from "@/utils/showNotification";
 
 const CustomNavBar = () => {
   const { userType, userId } = useSelector((state) => state.auth);
@@ -21,29 +22,28 @@ const CustomNavBar = () => {
         console.log("notification received");
         alert(data);
         console.log(data);
-        // toast("New blood request received");
+        showNotification();
       });
       socket.on("donationResponse", (data) => {
         console.log("Donation request accepted/reject");
         alert(data);
         console.log(data);
-        // toast("New blood request received");
+        showNotification();
       });
       socket.on("bloodRequest", (data) => {
         console.log("Recieved hospital request ");
         alert(data);
         console.log(data);
-        // toast("New blood request received");
+        showNotification();
       });
       socket.on("bloodResponse", (data) => {
         console.log("accept/reject hospital request ");
         alert(data);
         console.log(data);
-        // toast("New blood request received");
+        showNotification();
       });
     }
 
-    // Clean up the event listener when the component unmounts
     return () => {
       if (socket) socket.off("newRequest");
     };
