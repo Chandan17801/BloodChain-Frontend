@@ -4,7 +4,7 @@ import ResponsiveLayout from "@/components/layout/ResponsiveLayout";
 import loginImg from "@/assests/login_image_creative.jpg";
 import Image from "next/image";
 import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { logout, login } from "@/store/auth";
 import Router from "next/router";
 import OtpBox from "./otp";
@@ -14,7 +14,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { useSocketContext } from "@/store/SocketContext";
 
 export default function Login() {
-  const { userType, userId, token, email } = useSelector((state) => state.auth);
   const { socket } = useSocketContext();
   const dispatch = useDispatch();
   const [isOtpVisible, setIsOtpVisible] = useState(false);
@@ -57,22 +56,11 @@ export default function Login() {
           process.env.NEXT_PUBLIC_SERVER_URL + "/bloodbank/login",
           formData
         );
-        // setIsOtpVisible(true);
       } else {
         response = await axios.post(
           process.env.NEXT_PUBLIC_SERVER_URL + "/hospital/login",
           formData
         );
-        // console.log(response.data);
-        // if (response.data.success) {
-        //   handleLogin({
-        //     userType: response.data.userType,
-        //     userId: response.data.id,
-        //     token: response.data.token,
-        //     email: formData.email,
-        //   });
-        //   Router.replace({ pathname: `/${loginUser}/dashboard` });
-        // }
       }
       if (socket.connected) {
         socket.emit("user", {
@@ -81,7 +69,6 @@ export default function Login() {
           email: response.data.email,
         });
       }
-      // console.log(response.status);
       handleLogin({
         userType: loginUser,
         userId: response.data.id,
