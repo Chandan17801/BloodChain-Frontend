@@ -14,8 +14,8 @@ function DonationHistory({ userId, blocked, setLoading }) {
           process.env.NEXT_PUBLIC_SERVER_URL + `/donation/users/${userId}`
         );
         setLastDonations(response.data);
-        if (lastDonations.length > 0) {
-          setSelectedDonationId(lastDonations[0]._id);
+        if (response.data.length > 0) {
+          setSelectedDonationId(response.data[0]._id);
         }
         setLoading(false);
       } catch (error) {
@@ -24,7 +24,7 @@ function DonationHistory({ userId, blocked, setLoading }) {
     };
 
     fetchData();
-  }, [userId]);
+  }, [userId, setLoading]);
 
   return (
     <div className="flex flex-col gap-4">

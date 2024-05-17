@@ -36,7 +36,7 @@ const BloodSampleGraph = ({ donationId, setLoading }) => {
     };
 
     fetchData();
-  }, [donationId]);
+  }, [donationId, setLoading]);
 
   if (donationId == null) return <div>No Sample Selected.</div>;
 
