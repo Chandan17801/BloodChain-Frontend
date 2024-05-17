@@ -4,17 +4,15 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import CrossButton from "../UIElements/CrossButton";
 import Loading from "../UIElements/Loading";
-import { ToastContainer, toast } from "react-toastify";
 import { useSocketContext } from "@/store/SocketContext";
 
 function UserRequestConfirmPopUp({ campaign, close }) {
-  const { userType, userId, token, email } = useSelector((state) => state.auth);
+  const { userId } = useSelector((state) => state.auth);
   const [bloodType, setBloodType] = useState("O+");
   const [loading, setLoading] = useState(false);
   const { socket } = useSocketContext();
 
   const confirmHandler = async () => {
-    // console.log(campaign);
     try {
       setLoading(true);
       const response = await axios.post(
@@ -27,9 +25,7 @@ function UserRequestConfirmPopUp({ campaign, close }) {
         }
       );
       setLoading(false);
-      // alert(response.data.message);
       console.log(response.data.message);
-      // toast.success("Request sent successfully");
       console.log(response.data);
       close();
       if (socket && typeof socket.emit === "function") {
@@ -56,7 +52,6 @@ function UserRequestConfirmPopUp({ campaign, close }) {
   return (
     <>
       {loading && <Loading />}
-      <ToastContainer />
       <div className="absolute h-[100vh] w-[100%] bg-[#a7a4a480] z-9 top-0 right-0 flex justify-center items-center">
         <div className="relative bg-white shadow-lg rounded-md p-[4rem] items-center flex flex-col gap-4">
           <CrossButton close={close} sign="x" />

@@ -10,7 +10,7 @@ import CampaignDetail from "./CampaignDetail";
 import Loadingg from "../UIElements/Loadingg";
 import { useSocketContext } from "@/store/SocketContext";
 import Loading from "../UIElements/Loading";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Campaign() {
@@ -168,7 +168,6 @@ function Campaign() {
 
   return (
     <ResponsiveLayout>
-      <ToastContainer />
       {loading && <Loadingg /> && <Loading />}
       {isVerification && (
         <RequestVerify

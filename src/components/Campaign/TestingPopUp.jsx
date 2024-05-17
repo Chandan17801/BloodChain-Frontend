@@ -2,14 +2,13 @@ import React from "react";
 import CrossButton from "../UIElements/CrossButton";
 import Image from "next/image";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const TestingPopUp = ({ donationId, close, bloodSample, setBloodSample }) => {
   console.log(donationId);
   return (
     <>
-      <ToastContainer />
       <div className="absolute h-full w-full bg-[#a7a4a480] z-50 top-0 right-0 flex justify-center items-center">
         <div className="bg-white shadow-lg rounded-md p-[2rem] items-center flex flex-col gap-4 relative">
           <div className="text-4xl font-semibold mont">
@@ -26,15 +25,6 @@ const TestingPopUp = ({ donationId, close, bloodSample, setBloodSample }) => {
                   <span className="text-lg text-black">User Id : </span>
                   {donationId}
                 </div>
-                {/* <div className="font-bold text-2xl w-64">{request.name}</div>
-            <div>
-              <span>Age : </span>
-              {request.age}
-            </div>
-            <div className="text-red-900 text-3xl font-semibold">
-              {request.blood_group}
-            </div> */}
-                {/* <div className="text-black">{request.last_donation}</div> */}
               </div>
               <Image
                 onClick={() => setIsCampaignFormOpen(true)}

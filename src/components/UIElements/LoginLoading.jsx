@@ -1,12 +1,10 @@
 import React from "react";
 import ResponsiveLayout from "../layout/ResponsiveLayout";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const LoginLoading = () => {
   return (
     <ResponsiveLayout>
-      <ToastContainer />
       <div className="flex justify-center items-center h-[100vh]">
         <div className="flex w-[45rem] h-[25rem]">
           <div className="w-[55%] bg-[#ffc3c360] rounded-l-md flex flex-col gap-4 justify-center items-center shadow-md shadow-red-100">

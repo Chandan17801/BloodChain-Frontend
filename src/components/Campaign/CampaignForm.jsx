@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import CrossButton from "../UIElements/CrossButton";
 import { useSelector } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
 function CampaignForm({ close, addNewCamp }) {
-  // toast.success("Campaign form open")
-
   const { userId } = useSelector((state) => state.auth);
 
   const [formData, setFormData] = useState({
@@ -80,7 +78,6 @@ function CampaignForm({ close, addNewCamp }) {
   return (
     <>
       <div className="absolute h-full w-full bg-[#a7a4a480] z-50 top-0 right-0 flex justify-center items-center">
-        <ToastContainer />
         <div className="bg-white shadow-lg rounded-md p-[2rem] items-center flex flex-col gap-4 relative">
           <div className="text-4xl font-semibold mont">
             Add New <span className="text-red-900">Campaign</span>

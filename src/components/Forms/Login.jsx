@@ -11,7 +11,7 @@ import { logout, login } from "@/store/auth";
 import Router from "next/router";
 import OtpBox from "./otp";
 import Loading from "../UIElements/Loading";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSocketContext } from "@/store/SocketContext";
 import LoginLoading from "../UIElements/LoginLoading";
@@ -103,8 +103,6 @@ export default function Login() {
 
   return (
     <ResponsiveLayout>
-      <ToastContainer />
-
       {isOtpVisible && <OtpBox email={formData.email} userType={loginUser} />}
       {loading && <Loading />}
       <div

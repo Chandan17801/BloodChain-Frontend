@@ -1,6 +1,5 @@
 import BloodChart from "@/components/UIElements/BloodChart";
 import TestingRequest from "./TestingRequest";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ResponsiveLayout from "../layout/ResponsiveLayout";
 import Loading from "../UIElements/Loading";
@@ -21,7 +20,6 @@ export default function Dashboard() {
 
   return (
     <ResponsiveLayout>
-      <ToastContainer />
       {loading && <Loading /> }
       <div className="flex gap-4 min-h-screen py-8 px-8 bg-[#F7F8FA]">
         <div className="flex flex-col flex-[5] gap-4">
